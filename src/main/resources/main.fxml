@@ -1,14 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.inventor.controllers.mainCtrl"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventor.controllers.mainCtrl">
+   <children>
+      <AnchorPane fx:id="topBar" layoutX="215.0" layoutY="15.0" prefHeight="30.0" prefWidth="665.0">
+         <children>
+            <HBox layoutX="585.0">
+               <children>
+                  <JFXButton contentDisplay="GRAPHIC_ONLY">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@expand_arrow_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" style="-fx-background-radius: 0 10 10 0; -fx-border-radius: 0 10 10 0;">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@multiply_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <VBox fx:id="leftToolBar" prefHeight="600.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@variant.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="40.0" prefWidth="200.0" text="To'lov">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@check.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="210.0" prefWidth="200.0" text="Tasdiqlangan hisoblar" wrapText="true">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@order_history_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="250.0" prefWidth="200.0" text="O'qituvchilar va fanlar ro'yxati" wrapText="true">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@data_recovery_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Separator prefWidth="200.0">
+               <padding>
+                  <Insets left="25.0" right="25.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="220.0" />
+               </VBox.margin>
+            </Separator>
+            <Label fx:id="context_tile" alignment="CENTER" prefWidth="200.0" text="promax education 2021" />
+         </children>
+         <padding>
+            <Insets top="50.0" />
+         </padding></VBox>
+      <AnchorPane fx:id="paymentPage" layoutX="215.0" layoutY="58.0" prefHeight="515.0" prefWidth="665.0">
+         <children>
+            <VBox fx:id="checkContent" layoutX="148.0" layoutY="22.0" prefHeight="116.0" prefWidth="370.0" spacing="25.0">
+               <children>
+                  <Label alignment="CENTER" prefWidth="300.0" text="Hisob - To'lovnoma" textAlignment="CENTER" />
+                  <HBox spacing="50.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="78.0" text="O'quv fani:" />
+                        <JFXComboBox prefHeight="30.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="30.0" layoutY="76.0" spacing="50.0">
+                     <children>
+                        <Label prefHeight="33.0" prefWidth="77.0" text="O'qituvchi:" />
+                        <JFXComboBox prefHeight="30.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="30.0" layoutY="131.0" spacing="20.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="108.0" text="O'quvchi F.I.O: " />
+                        <JFXTextField alignment="CENTER" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="30.0" layoutY="186.0" spacing="52.0">
+                     <children>
+                        <Label prefHeight="34.0" prefWidth="74.0" text="To'lov oyi:" />
+                        <JFXButton fx:id="selectMonthpayment" prefHeight="31.0" prefWidth="205.0" text="Oyni talang" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0">
+                     <children>
+                        <Label prefHeight="37.0" prefWidth="113.0" text="To'lov miqdori:" />
+                        <JFXTextField alignment="CENTER" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="confirmBtn" prefHeight="40.0" prefWidth="205.0" text="To'lov">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

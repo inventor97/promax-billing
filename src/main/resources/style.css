@@ -1,0 +1,91 @@
+/* {*/
+/*    --primary-color:#3e72ce;*/
+/*    --primary-bkg-color:#2a4e8b;*/
+/*    --secodary-color:#ea7a2f;*/
+/*    --bkg-color:#e5e5e5;*/
+/*    --primary-backgroud: linear-gradient(to left, #3e72ce, #ea7a2f);*/
+/*}*/
+
+#mainPage {
+    -fx-background-color: #e5e5e5;
+}
+
+#paymentPage {
+     -fx-background-image: url("main-page-bkg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-color: rgba(255,255,255,1);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+}
+#leftToolBar {
+    -fx-background-color: linear-gradient(to bottom right, #2a4e8b 60%, #ea7a2f 100%);
+    -fx-border-radius: 0 10 10 0;
+    -fx-background-radius: 0 10 10 0;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+}
+.button {
+    -fx-text-fill: #e5e5e5;
+    -fx-font-family: Poppins;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+#context_tile {
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #e5e5e5;
+}
+.label,
+.text-field {
+    -fx-text-fill: #2a4e8b;
+    -fx-font-family: Poppins;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+#checkContent {
+    -fx-background-color: rgba(255,255,255,0.55);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+#topBar {
+    -fx-background-image: url("top-bkg.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right;
+    -fx-background-size: cover;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+#confirmBtn,
+#selectMonthpayment {
+    -fx-text-fill: #e5e5e5;
+    -fx-background-color: #3e72ce;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.combo-box .list-view {
+    -fx-background-color: rgba(255,255,255,0.7);
+    -fx-padding: 5 5 20 5;
+    -fx-border-width: 0;
+    -fx-background-radius: 0 0 10 10;
+    -fx-border-radius: 0 0 10 10;
+    -fx-effect: dropshadow(gaussian, #e5e5e5, 25.0, 0.5 , 0.0, 0.0);
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+.combo-box .list-view .viewport {
+    -fx-background-color: rgba(255,255,255,0.7);;
+}
+.combo-box .list-cell:focused,
+.combo-box .list-cell:selected {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+.jfx-combo-box {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-font-family: "Poppins";
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
