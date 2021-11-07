@@ -61,16 +61,21 @@
 #selectMonthpayment {
     -fx-text-fill: #e5e5e5;
     -fx-background-color: #3e72ce;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#generateXLS {
+    -fx-text-fill: #2a4e8b;
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 15.0, 0, 0,0);
 }
 .combo-box .list-view {
     -fx-background-color: rgba(255,255,255,0.7);
     -fx-padding: 5 5 20 5;
     -fx-border-width: 0;
-    -fx-background-radius: 0 0 10 10;
-    -fx-border-radius: 0 0 10 10;
-    -fx-effect: dropshadow(gaussian, #e5e5e5, 25.0, 0.5 , 0.0, 0.0);
+    -fx-background-radius: 0 0 5 5;
+    -fx-border-radius: 0 0 5 5;
     -fx-text-alignment: center;
     -fx-alignment: center;
 }
@@ -88,4 +93,115 @@
     -fx-font-family: "Poppins";
     -fx-text-alignment: center;
     -fx-alignment: center;
+}
+#searchHis {
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-border-width: 0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 3.0, 0, 0.0, 0.0);
+}
+
+.list-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb,
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:horizontal,
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical,
+.list-view .scroll-bar:vertical {
+    -fx-font-size: 1px;
+    -fx-background-color: transparent;
+}
+.table-view, .column-header, .filler, #editingPanel {
+    -fx-background-color: #e5e5e5;
+
+}
+.table-view {
+    -fx-font-family: "Poppins";
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-text-alignment: center;
+    -fx-selection-bar: #e5e5e5;
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+.table-view .table-row-cell {
+    -fx-border-width: 1;
+}
+
+.table-view .table-cell,
+.table-view .column-header-background .label {
+    -fx-font-size: 12;
+    -fx-wrap-text: true;
+}
+#rightSideBar {
+    -fx-background-image: url("right-side-bkg.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+    -fx-background-color: #e5e5e5;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+}
+.table-row-cell {
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+.table-row-cell {
+    -fx-background-color: transparent;
+}
+.table-row-cell:selected {
+    -fx-background-color: rgba(62,114,206, 0.4);
+}
+.jfx-date-picker,
+.jfx-date-picker:focused,
+.jfx-date-picker:focused:editable {
+    -fx-background-color: rgba(229,229,229,0.8);
+}
+.jfx-date-picker .text-field {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+#filterPane {
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 15.0, 0.0, 0.0, 0.0);
+}
+#popupBkg {
+     -fx-background-color: rgba(0,0,0,0.45);
+}
+#node {
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 15.0, 0.5, 0.0, 0.0);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+#accountImg {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-background-color: #e5e5e5;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 10.0, 0.5, 0.0, 0.0);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane .scroll-bar:horizontal,
+.scroll-pane .scroll-bar:vertical{
+    -fx-font-size: 1px;
+    -fx-background-color: transparent;
+}
+#teachersHb .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb{
+    -fx-background-color: transparent;
 }
