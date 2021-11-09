@@ -2,7 +2,7 @@ package com.inventor.viewUtils;
 
 import java.util.Random;
 
-public class subjectNode {
+public class bkgStyles {
 
     private final String BACKGROUND_1 = "linear-gradient(to bottom right, #11998e, #38ef7d)";
     private final String BACKGROUND_2 = "linear-gradient(to bottom right, #2a4e8b 60%, #ea7a2f 100%)";

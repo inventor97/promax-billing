@@ -30,7 +30,7 @@
          <children>
             <HBox layoutX="585.0" layoutY="5.0">
                <children>
-                  <JFXButton fx:id="swipe" contentDisplay="GRAPHIC_ONLY" onAction="#clickWindowHandlet">
+                  <JFXButton fx:id="swipe" contentDisplay="GRAPHIC_ONLY" onAction="#clickWindowHandler">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -39,7 +39,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="close" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#clickWindowHandlet">
+                  <JFXButton fx:id="close" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#clickWindowHandler">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -50,12 +50,12 @@
                   </JFXButton>
                </children>
             </HBox>
-            <AnchorPane fx:id="topBarAccountImg" layoutX="21.0" layoutY="5.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: #e5e5e5;">
+            <AnchorPane fx:id="topBarAccountImg" layoutX="21.0" layoutY="5.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: #e5e5e5;" visible="false">
                <effect>
                   <DropShadow color="#b2b2b4" />
                </effect>
             </AnchorPane>
-            <Label fx:id="topBarUserName" layoutX="72.0" layoutY="7.0" prefHeight="25.0" text="Muhammad" />
+            <Label fx:id="topBarUserName" layoutX="72.0" layoutY="7.0" prefHeight="25.0" text="Muhammad" visible="false" />
          </children>
       </AnchorPane>
       <VBox fx:id="leftToolBar" prefHeight="600.0" prefWidth="200.0">
@@ -68,11 +68,11 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </ImageView>
-            <JFXButton fx:id="paymentBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="To'lov">
+            <JFXButton fx:id="teacherBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="250.0" onAction="#leftClickHandler" prefHeight="59.0" prefWidth="180.0" text="O'qituvchilar va fanlar" wrapText="true">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="teacherIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@check.png" />
+                        <Image url="@data_recovery_96px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -80,9 +80,21 @@
                   <Insets left="20.0" top="100.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton fx:id="paymentBtn1" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="30.0" layoutY="210.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="Kassirlar">
+            <JFXButton fx:id="paymentBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="To'lov">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="paymentIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@check.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="casherBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="30.0" layoutY="210.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="Kassirlar">
+               <graphic>
+                  <ImageView fx:id="casherIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@member_96px.png" />
                      </image>
@@ -94,21 +106,9 @@
             </JFXButton>
             <JFXButton fx:id="historyBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="210.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="Tasdiqlangan hisoblar" wrapText="true">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="hisIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@order_history_96px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <VBox.margin>
-                  <Insets left="20.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton fx:id="teacherBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="250.0" onAction="#leftClickHandler" prefHeight="59.0" prefWidth="180.0" text="O'qituvchilar va fanlar ro'yxati" wrapText="true">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@data_recovery_96px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -323,12 +323,15 @@
                                  </children>
                               </AnchorPane>
                            </children>
+                           <rowConstraints>
+                              <RowConstraints />
+                           </rowConstraints>
                         </GridPane>
                      </content>
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="casherPage" prefHeight="515.0" prefWidth="665.0">
+            <AnchorPane fx:id="casherPage" prefHeight="515.0" prefWidth="665.0" visible="false">
                <children>
                   <Label layoutX="46.0" layoutY="105.0" text="Kassirlar" />
                   <JFXButton fx:id="addCasher" contentDisplay="GRAPHIC_ONLY" layoutX="125.0" layoutY="96.0">
