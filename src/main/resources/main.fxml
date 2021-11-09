@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -20,9 +21,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1192.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventor.controllers.mainCtrl">
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="901.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventor.controllers.mainCtrl">
    <children>
       <AnchorPane fx:id="topBar" layoutX="215.0" layoutY="15.0" prefHeight="40.0" prefWidth="665.0">
          <children>
@@ -227,7 +229,7 @@
                   <Insets left="20.0" right="20.0" top="20.0" />
                </padding>
             </VBox>
-            <AnchorPane prefHeight="515.0" prefWidth="665.0">
+            <AnchorPane prefHeight="515.0" prefWidth="665.0" visible="false">
                <children>
                   <JFXTextField fx:id="searchHis" alignment="CENTER_RIGHT" focusColor="#2a4e8b" layoutX="253.0" layoutY="9.0" prefHeight="31.0" prefWidth="345.0" promptText="qidiruv...">
                      <padding>
@@ -269,9 +271,9 @@
                               <AnchorPane fx:id="node" prefHeight="150.0" prefWidth="150.0" stylesheets="@style.css">
                                  <children>
                                     <AnchorPane fx:id="accountImg" layoutX="41.0" layoutY="-28.0" prefHeight="75.0" prefWidth="75.0" />
-                                    <Label layoutX="9.0" layoutY="35.0" style="-fx-font-size: 10;" text="F.I.O" />
+                                    <Label layoutX="9.0" layoutY="35.0" style="-fx-font-size: 12;" text="F.I.O" />
                                     <Label fx:id="name" alignment="CENTER_RIGHT" layoutX="2.0" layoutY="49.0" prefHeight="54.0" prefWidth="142.0" textAlignment="RIGHT" wrapText="true" />
-                                    <Label layoutX="8.0" layoutY="104.0" style="-fx-font-size: 10;" text="Mutaxasis fan" />
+                                    <Label layoutX="8.0" layoutY="104.0" style="-fx-font-size: 12;" text="Mutaxasis fan" />
                                     <Label fx:id="speciality" alignment="CENTER_RIGHT" layoutX="5.0" layoutY="118.0" prefHeight="30.0" prefWidth="140.0" text="Label" textAlignment="RIGHT" wrapText="true" />
                                     <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="1.0" prefHeight="150.0" prefWidth="150.0" style="-fx-border-radius: 8; -fx-background-radius: 8;" />
                                  </children>
@@ -283,7 +285,7 @@
                         </HBox>
                      </content>
                   </ScrollPane>
-                  <Label layoutX="10.0" layoutY="25.0" text="O'qituchilar" />
+                  <Label layoutX="10.0" layoutY="25.0" text="O'qituvchilar" />
                   <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="107.0" layoutY="11.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -326,11 +328,67 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="casherPage" prefHeight="515.0" prefWidth="665.0">
+               <children>
+                  <Label layoutX="46.0" layoutY="105.0" text="Kassirlar" />
+                  <JFXButton fx:id="addCasher" contentDisplay="GRAPHIC_ONLY" layoutX="125.0" layoutY="96.0">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@add_user_male_104px_fill.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <ScrollPane fx:id="casherScrl" layoutX="25.0" layoutY="144.0" prefHeight="265.0" prefWidth="606.0">
+                     <content>
+                        <GridPane fx:id="casherGridPane" prefHeight="113.0" prefWidth="607.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <AnchorPane fx:id="userNode" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #e5e5e5; -fx-border-radius: 5; -fx-background-radius: 5;">
+                                 <children>
+                                    <AnchorPane fx:id="userImg1" layoutX="-35.0" layoutY="12.5" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e5e5e5; -fx-border-radius: 75; -fx-background-radius: 75;">
+                                       <effect>
+                                          <DropShadow color="#b2b2b4" />
+                                       </effect>
+                                    </AnchorPane>
+                                    <Label fx:id="name2" alignment="CENTER_RIGHT" layoutX="47.0" layoutY="36.0" prefHeight="58.0" prefWidth="95.0" text="G'aybullayev Alisher" textAlignment="RIGHT" wrapText="true" />
+                                    <JFXButton fx:id="edit" contentDisplay="GRAPHIC_ONLY" prefHeight="100.0" prefWidth="155.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" />
+                                    <JFXButton fx:id="cancel" contentDisplay="GRAPHIC_ONLY" layoutX="115.0" layoutY="-1.0" visible="false">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@cancel_96px_fill.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <effect>
+                                    <DropShadow color="#b2b2b4" />
+                                 </effect>
+                              </AnchorPane>
+                           </children>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
             <AnchorPane fx:id="monthBox" layoutX="476.0" layoutY="261.0" prefHeight="52.0" prefWidth="180.0" visible="false" />
             <AnchorPane fx:id="teacherNode" layoutX="476.0" layoutY="135.0" prefHeight="114.0" prefWidth="180.0" visible="false" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="rightSideBar" layoutX="898.0" layoutY="15.0" prefHeight="575.0" prefWidth="270.0">
+      <AnchorPane fx:id="rightSideBar" layoutX="898.0" layoutY="15.0" prefHeight="575.0" prefWidth="270.0" visible="false">
          <children>
             <JFXDatePicker defaultColor="#2a4e8b" layoutX="53.0" layoutY="73.0" />
             <VBox fx:id="filterPane" layoutX="16.0" layoutY="114.0" prefHeight="375.0" prefWidth="240.0" spacing="5.0">
@@ -374,6 +432,73 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="1190.0" visible="false" />
+      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="901.0" visible="false">
+         <children>
+            <AnchorPane fx:id="editSubjectNode" layoutX="357.5" layoutY="232.5" prefHeight="135.0" prefWidth="185.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
+               <children>
+                  <JFXButton fx:id="cancelSubject" layoutX="7.0" layoutY="88.0" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+                  <JFXButton fx:id="addSubject" layoutX="94.0" layoutY="88.0" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+                  <Label layoutX="14.0" layoutY="14.0" text="Fan nomi" />
+                  <JFXTextField fx:id="editedSubject" layoutX="11.0" layoutY="44.0" prefHeight="31.0" prefWidth="164.0" />
+               </children>
+               <effect>
+                  <DropShadow color="#b2b2b4" />
+               </effect>
+            </AnchorPane>
+            <AnchorPane fx:id="editUserNode" layoutX="350.0" layoutY="190.0" prefHeight="220.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+               <children>
+                  <AnchorPane fx:id="userImg" layoutX="-15.0" layoutY="-23.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e5e5e5; -fx-border-radius: 75; -fx-background-radius: 75;">
+                     <effect>
+                        <DropShadow color="#b2b2b4" />
+                     </effect>
+                  </AnchorPane>
+                  <Label layoutX="147.0" layoutY="28.0" text="F.I.O" />
+                  <JFXTextField fx:id="editedUserName" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="54.0" prefHeight="31.0" prefWidth="173.0" />
+                  <Label layoutX="98.0" layoutY="102.0" text="Kirish paroli" />
+                  <JFXPasswordField fx:id="userPassword" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="131.0" prefHeight="31.0" prefWidth="173.0" />
+                  <JFXButton fx:id="editUserImg" contentDisplay="GRAPHIC_ONLY" layoutX="34.0" layoutY="21.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #e5e5e5; -fx-effect: drop-shadow(gaussian, #b2b2b4, 10.0, 0.5, 0.0, 0.0);">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@registration_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="cancelUser" layoutX="14.0" layoutY="182.0" onAction="#editUserActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+                  <JFXButton fx:id="addUser" layoutX="101.0" layoutY="182.0" onAction="#editUserActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+               </children>
+               <effect>
+                  <DropShadow color="#b2b2b4" />
+               </effect>
+            </AnchorPane>
+            <AnchorPane fx:id="editTeacherNode" layoutX="340.0" layoutY="180.0" prefHeight="240.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+               <children>
+                  <AnchorPane fx:id="TeacherImg" layoutX="-14.0" layoutY="-24.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e5e5e5; -fx-border-radius: 75; -fx-background-radius: 75;">
+                     <effect>
+                        <DropShadow color="#b2b2b4" />
+                     </effect>
+                  </AnchorPane>
+                  <Label layoutX="157.0" layoutY="38.0" text="F.I.O" />
+                  <JFXTextField fx:id="editedTeacherName" alignment="CENTER_RIGHT" layoutX="23.0" layoutY="64.0" prefHeight="31.0" prefWidth="173.0" />
+                  <Label layoutX="88.0" layoutY="112.0" text="Mutaxasis fani:" />
+                  <JFXButton fx:id="editTeacherImg" contentDisplay="GRAPHIC_ONLY" layoutX="35.0" layoutY="20.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #e5e5e5; -fx-effect: drop-shadow(gaussian, #b2b2b4, 10.0, 0.5, 0.0, 0.0);">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@registration_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="cancelTeacher" layoutX="24.0" layoutY="199.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+                  <JFXButton fx:id="addTeacher" layoutX="111.0" layoutY="199.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+                  <JFXButton fx:id="addSubjectinTEacher" layoutX="39.0" layoutY="152.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: #2a4e8b;" text="Fanni tanlash" />
+               </children>
+               <effect>
+                  <DropShadow color="#b2b2b4" />
+               </effect>
+            </AnchorPane>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

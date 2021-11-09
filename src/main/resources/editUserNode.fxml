@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="editableUserNode" prefHeight="223.0" prefWidth="200.0" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #e5e5e5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="userImg" layoutX="-15.0" layoutY="-23.0" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e5e5e5; -fx-border-radius: 75; -fx-background-radius: 75;">
+         <effect>
+            <DropShadow color="#b2b2b4" />
+         </effect>
+      </AnchorPane>
+      <Label layoutX="147.0" layoutY="28.0" text="F.I.O" />
+      <JFXTextField fx:id="name" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="54.0" prefHeight="31.0" prefWidth="173.0" />
+      <Label layoutX="98.0" layoutY="102.0" text="Kirish paroli" />
+      <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="131.0" prefHeight="31.0" prefWidth="173.0" />
+      <JFXButton fx:id="editUserImg" contentDisplay="GRAPHIC_ONLY" layoutX="34.0" layoutY="21.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #e5e5e5; -fx-effect: drop-shadow(gaussian, #b2b2b4, 10.0, 0.5, 0.0, 0.0);">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@registration_96px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="cancel" layoutX="14.0" layoutY="182.0" onAction="#editUserActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+      <JFXButton fx:id="add" layoutX="101.0" layoutY="182.0" onAction="#editUserActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+   </children>
+   <effect>
+      <DropShadow color="#b2b2b4" />
+   </effect>
 </AnchorPane>

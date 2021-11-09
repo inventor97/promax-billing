@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane fx:id="editSubjectNode" prefHeight="134.0" prefWidth="187.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton fx:id="cancel" layoutX="7.0" layoutY="88.0" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+      <JFXButton fx:id="add" layoutX="94.0" layoutY="88.0" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+      <Label layoutX="14.0" layoutY="14.0" text="Fan nomi" />
+      <JFXTextField layoutX="11.0" layoutY="44.0" prefHeight="31.0" prefWidth="164.0" />
+   </children>
+   <effect>
+      <DropShadow color="#b2b2b4" />
+   </effect>
 </AnchorPane>
