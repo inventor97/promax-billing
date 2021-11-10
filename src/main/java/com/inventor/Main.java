@@ -9,11 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main  extends Application {
@@ -35,6 +34,7 @@ public class Main  extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Font.loadFont(String.valueOf(getClass().getResource("Poppins_regular.ttf")), 12);
         Main.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         Scene scene =  new Scene(root);

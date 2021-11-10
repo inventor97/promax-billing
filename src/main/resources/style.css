@@ -3,7 +3,7 @@
     -fx-background-color: #e5e5e5;
 }
 
-#paymentPage {
+#mainContent {
      -fx-background-image: url("main-page-bkg.png");
     -fx-background-size: cover;
     -fx-background-position: center;
@@ -20,7 +20,7 @@
 }
 .button {
     -fx-text-fill: #e5e5e5;
-    -fx-font-family: Poppins;
+    -fx-font-family: "Poppins_regular";
     -fx-font-weight: bold;
     -fx-font-size: 15px;
 }
@@ -34,7 +34,7 @@
 .text-area,
 .text-field {
     -fx-text-fill: #2a4e8b;
-    -fx-font-family: Poppins;
+    -fx-font-family: "Poppins_regular";
     -fx-font-weight: bold;
     -fx-font-size: 15px;
 }
@@ -85,7 +85,7 @@
 .jfx-combo-box {
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-font-family: "Poppins";
+    -fx-font-family: "Poppins_regular";
     -fx-text-alignment: center;
     -fx-alignment: center;
 }
@@ -115,7 +115,7 @@
 
 }
 .table-view {
-    -fx-font-family: "Poppins";
+    -fx-font-family: "Poppins_regular";
     -fx-font-weight: bold;
     -fx-font-size: 14;
     -fx-text-alignment: center;

@@ -61,7 +61,7 @@ public class mainCtrl  implements Initializable {
     private AnchorPane paymentPage;
 
     @FXML
-    private VBox checkContent;
+    private VBox paymentContent;
 
     @FXML
     private JFXTextField fio;
@@ -97,7 +97,7 @@ public class mainCtrl  implements Initializable {
     private JFXButton generateXLS;
 
     @FXML
-    private AnchorPane databasePage;
+    private AnchorPane teacherContent;
 
     @FXML
     private HBox teachersHb;
@@ -124,7 +124,7 @@ public class mainCtrl  implements Initializable {
     private Label countTeachers;
 
     @FXML
-    private AnchorPane casherPage;
+    private AnchorPane casherContent;
 
     @FXML
     private JFXButton addCasher;
@@ -242,6 +242,13 @@ public class mainCtrl  implements Initializable {
     @FXML
     void clickWindowHandler(ActionEvent event) {
         wCtrl.setCtrl(event);
+
+    }
+
+    private void setVisibilityContent() {
+        paymentPage.setVisible(false);
+        teacherContent.setVisible(false);
+
     }
 
     @FXML
@@ -263,5 +270,10 @@ public class mainCtrl  implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         btnCtrl = new NavButtons(teacherBtn, paymentBtn, casherBtn, historyBtn, teacherIcon, paymentIcon, casherIcon, hisIcon);
         wCtrl = new windowCtrl(close, swipe);
+    }
+
+    @FXML
+    void clickTeachersHandler(ActionEvent event) {
+
     }
 }
