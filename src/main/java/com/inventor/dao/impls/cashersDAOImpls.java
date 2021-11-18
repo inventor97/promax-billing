@@ -48,7 +48,7 @@ public class cashersDAOImpls extends abstractUA<CashersEntity> implements casher
     @Override
     public CashersEntity get(long id) {
         isActiveSession();
-        CashersEntity obj = getSession().get(CashersEntity.class, id);
+        CashersEntity obj = getSession().get(CashersEntity.class, (int) id);
         getSession().getTransaction().commit();
         return obj;
     }

@@ -170,17 +170,27 @@
 #popupBkg {
      -fx-background-color: rgba(0,0,0,0.45);
 }
-#node {
+#node{
     -fx-background-color: rgba(229,229,229,0.8);
-    -fx-effect: dropshadow(gaussian, #b2b2b5, 15.0, 0.5, 0.0, 0.0);
     -fx-border-radius: 8;
-    -fx-background-radius: 8    ;
+    -fx-background-radius: 8;
+    -fx-border-width: 1px;
+    -fx-border-color: #b2b2b5;
 }
+#paymentContent{
+    -fx-background-color: rgba(255,255,255,0.5);
+    -fx-border-width: 1px;
+    -fx-border-color: #e5e5e5;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
 #accountImg {
     -fx-background-radius: 100;
     -fx-border-radius: 100;
     -fx-background-color: #e5e5e5;
-    -fx-effect: dropshadow(gaussian, #b2b2b5, 10.0, 0.5, 0.0, 0.0);
+    -fx-border-width: 1px;
+    -fx-border-color: #b2b2b5;
 }
 
 .scroll-pane,
@@ -203,9 +213,12 @@
 #subjectNode {
     -fx-border-radius: 8;
     -fx-background-radius: 8;
-    -fx-effect: dropshadow(gaussian, #b2b2b5, 10.0, 0.5, 0.0, 0.0);
-    -fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);
+    -fx-background-color: #e5e5e5;
 }
 .jfx-radio-button{
     -jfx-selected-color: #2a4e8b;
+}
+.jfx-check-box {
+    -jfx-unchecked-color: #5A5A5A;
+    -jfx-checked-color: #2a4e8b;
 }

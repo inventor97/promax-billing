@@ -2,6 +2,7 @@ package com.inventor.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,7 @@ public class ChecksDataEntity {
     private String comment;
     private Date dateCrated;
     private String payedMonth;
+    private List<TeachersEntity> teachersList;
 
     @Id
     @Column(name = "id")

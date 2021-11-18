@@ -6,17 +6,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="userNode" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="userNode" prefWidth="153.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="userImg" layoutX="-35.0" layoutY="12.5" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: #e5e5e5; -fx-border-radius: 75; -fx-background-radius: 75;">
-         <effect>
-            <DropShadow color="#b2b2b4" />
-         </effect>
-      </AnchorPane>
-      <Label fx:id="name" alignment="CENTER_RIGHT" layoutX="47.0" layoutY="36.0" prefHeight="58.0" prefWidth="95.0" text="G'aybullayev Alisher" textAlignment="RIGHT" wrapText="true" />
-      <JFXButton fx:id="edit" contentDisplay="GRAPHIC_ONLY" prefHeight="100.0" prefWidth="153.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" />
-      <JFXButton fx:id="cancel" contentDisplay="GRAPHIC_ONLY" layoutX="115.0" layoutY="-1.0" visible="false">
+      <Label fx:id="name" alignment="CENTER_RIGHT" layoutX="63.0" layoutY="25.0" prefHeight="49.0" prefWidth="104.0" text="G'aybullayev Alisher" textAlignment="RIGHT" wrapText="true" />
+      <Circle fx:id="accountImg" fill="#e5e5e5" layoutX="38.0" layoutY="39.0" radius="33.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <JFXButton fx:id="edit" contentDisplay="GRAPHIC_ONLY" prefHeight="77.0" prefWidth="172.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" />
+      <JFXButton fx:id="cancel" contentDisplay="GRAPHIC_ONLY" layoutX="134.0" layoutY="-1.0">
          <graphic>
             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                <image>

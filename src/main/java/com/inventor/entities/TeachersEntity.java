@@ -1,15 +1,45 @@
 package com.inventor.entities;
 
+import com.inventor.dao.impls.subjectDAOimpls;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "teachers", schema = "promax_billing", catalog = "")
+@Table(name = "teachers", schema = "promax_billing")
 public class TeachersEntity {
     private int id;
     private String name;
-    private int subjectId;
+    private String subjectId;
+    private List<SubjectsEntity> subjects = new ArrayList<>();
+    private String img;
 
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public String subjects2String() {
+        int size = subjectId.split(",").length;
+        String[] ids = subjectId.split(",");
+        for (int i = 0; i < size; i++) {
+            int id = Integer.parseInt(ids[i]);
+            subjects.add(subjectDAOimpls.getInstance().get(id));
+        }
+        subjects.removeIf(Objects::isNull);
+        final String[] txt = {""};
+        subjects.forEach(e -> txt[0] +=e.getName() + ", ");
+        return txt[0];
+    }
+
+    public void setSubjects(List<SubjectsEntity> subjects) {
+        for (SubjectsEntity o : subjects) {
+            subjectId += o.getId() +",";
+        }
+        this.subjects = subjects;
+    }
     @Id
     @Column(name = "id")
     public int getId() {
@@ -32,12 +62,18 @@ public class TeachersEntity {
 
     @Basic
     @Column(name = "subject_id")
-    public int getSubjectId() {
+    public String getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    @Basic
+    @Column(name="img")
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Override

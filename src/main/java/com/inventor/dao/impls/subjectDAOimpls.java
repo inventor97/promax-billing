@@ -50,7 +50,7 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
     @Override
     public SubjectsEntity get(long id) {
         isActiveSession();
-        SubjectsEntity obj = getSession().get(SubjectsEntity.class, id);
+        SubjectsEntity obj = getSession().get(SubjectsEntity.class,(int) id);
         getSession().getTransaction().commit();
         return obj;
     }

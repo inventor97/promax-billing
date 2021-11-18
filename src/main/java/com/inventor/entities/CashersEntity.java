@@ -4,11 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cashers", schema = "promax_billing", catalog = "")
+@Table(name = "cashers", schema = "promax_billing")
 public class CashersEntity {
     private int id;
     private String name;
-    private int password;
+    private String password;
+    private String img;
 
     @Id
     @Column(name = "id")
@@ -32,12 +33,22 @@ public class CashersEntity {
 
     @Basic
     @Column(name = "password")
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Basic
+    @Column(name = "img")
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Override

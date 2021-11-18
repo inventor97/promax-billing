@@ -5,8 +5,10 @@ import com.inventor.entities.TeachersEntity;
 import com.inventor.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,4 +87,22 @@ public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teach
         return id;
     }
 
+
+    @Override
+    public List<TeachersEntity> getTeachersList() {
+        return null;
+    }
+
+    @Override
+    public long getTeachersCountOnSubject(int subjetId) {
+        String id = String.valueOf(subjetId);
+        isActiveSession();
+        long count  = (long) getSession()
+                .createCriteria(TeachersEntity.class)
+                .add(Restrictions
+                        .like("subjectId", id, MatchMode.ANYWHERE))
+                .setProjection(Projections
+                        .rowCount()).uniqueResult();
+        return count;
+    }
 }

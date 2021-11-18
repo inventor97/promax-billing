@@ -1,20 +1,30 @@
 package com.inventor.controllers;
 
-import com.inventor.viewUtils.NavButtons;
-import com.inventor.viewUtils.windowCtrl;
+import com.inventor.dao.impls.cashersDAOImpls;
+import com.inventor.dao.impls.subjectDAOimpls;
+import com.inventor.dao.impls.teacherDAOImpls;
+import com.inventor.entities.CashersEntity;
+import com.inventor.entities.SubjectsEntity;
+import com.inventor.utils.FileUtils;
+import com.inventor.utils.windowCtrl;
+import com.inventor.viewUtils.*;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import jdk.nashorn.internal.ir.SwitchNode;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -49,16 +59,10 @@ public class mainCtrl  implements Initializable {
     private JFXButton paymentBtn;
 
     @FXML
-    private JFXButton casherBtn;
-
-    @FXML
     private JFXButton historyBtn;
 
     @FXML
     private Label context_tile;
-
-    @FXML
-    private AnchorPane paymentPage;
 
     @FXML
     private VBox paymentContent;
@@ -102,29 +106,6 @@ public class mainCtrl  implements Initializable {
     @FXML
     private HBox teachersHb;
 
-    @FXML
-    private AnchorPane node;
-
-    @FXML
-    private AnchorPane accountImg;
-
-    @FXML
-    private Label name;
-
-    @FXML
-    private Label speciality;
-
-    @FXML
-    private AnchorPane subjectNode;
-
-    @FXML
-    private Label name1;
-
-    @FXML
-    private Label countTeachers;
-
-    @FXML
-    private AnchorPane casherContent;
 
     @FXML
     private JFXButton addCasher;
@@ -133,22 +114,7 @@ public class mainCtrl  implements Initializable {
     private ScrollPane casherScrl;
 
     @FXML
-    private GridPane casherGridPane;
-
-    @FXML
-    private AnchorPane userNode;
-
-    @FXML
-    private AnchorPane userImg1;
-
-    @FXML
-    private Label name2;
-
-    @FXML
-    private JFXButton edit;
-
-    @FXML
-    private JFXButton cancel;
+    private VBox casherVbox;
 
     @FXML
     private AnchorPane monthBox;
@@ -181,7 +147,7 @@ public class mainCtrl  implements Initializable {
     private AnchorPane editUserNode;
 
     @FXML
-    private AnchorPane userImg;
+    private Circle userImg;
 
     @FXML
     private JFXTextField editedUserName;
@@ -202,7 +168,7 @@ public class mainCtrl  implements Initializable {
     private AnchorPane editTeacherNode;
 
     @FXML
-    private AnchorPane TeacherImg;
+    private Circle TeacherImg;
 
     @FXML
     private JFXTextField editedTeacherName;
@@ -225,14 +191,45 @@ public class mainCtrl  implements Initializable {
     @FXML
     private ImageView paymentIcon;
 
-    @FXML
-    private ImageView casherIcon;
 
     @FXML
     private ImageView hisIcon;
 
+    @FXML
+    AnchorPane hisContent;
+
+    @FXML
+    GridPane subjectGridPane;
+
+    @FXML
+    ScrollPane teacherScrollPane;
+
+    @FXML
+    JFXButton addTeacherBtn;
+
+    @FXML
+    JFXButton addSubjectBtn;
+
+    @FXML
+    AnchorPane subjectChoicePane;
+
+    @FXML
+    ScrollPane subjectChoiceBox;
+
+    @FXML
+    VBox subChoiceHbox;
+
     private NavButtons btnCtrl;
-    private windowCtrl  wCtrl;
+    private windowCtrl wCtrl;
+    public static com.inventor.viewUtils.subjectNode subNode;
+    public static subjectEdit subEditOption;
+    public static com.inventor.viewUtils.teacherNode teachNode;
+    public static teacherEdit teachEditOption;
+    public static casherNode cashNode;
+    public static casherEdit cashEdit;
+
+    public static SubjectsEntity subObj = new SubjectsEntity();
+    public static CashersEntity cashObj = new CashersEntity();
 
     @FXML
     void clickHandler(ActionEvent event) {
@@ -242,38 +239,121 @@ public class mainCtrl  implements Initializable {
     @FXML
     void clickWindowHandler(ActionEvent event) {
         wCtrl.setCtrl(event);
-
     }
 
     private void setVisibilityContent() {
-        paymentPage.setVisible(false);
+        teacherNode.setVisible(false);
+        monthBox.setVisible(false);
+        paymentContent.setVisible(false);
         teacherContent.setVisible(false);
-
+        hisContent.setVisible(false);
     }
 
     @FXML
     void editTeacherActions(ActionEvent event) {
+        if (event.getSource() == cancelTeacher) {
+            popupBkg.setVisible(false);
+            editTeacherNode.setVisible(false);
+        } else if (event.getSource() == addTeacher) {
 
+        }
     }
 
     @FXML
     void editUserActions(ActionEvent event) {
-
+        String imgUrl = "";
+        if (event.getSource() == addUser) {
+            cashObj.setName(editedUserName.getText());
+            cashObj.setPassword(userPassword.getText());
+            cashObj.setImg(imgUrl);
+            cashersDAOImpls.getInstance().update(cashObj);
+            addUser.setText("Qo'shish");
+            windowCtrl.makeToast("Tasdiqlandi");
+            editedUserName.setText("");
+            userPassword.setText("");
+            imgUrl = "";
+        } else if (event.getSource() == cancelUser) {
+            editUserNode.setVisible(false);
+            popupBkg.setVisible(false);
+            cashNode.initCashersNode(cashersDAOImpls.getInstance().getAll());
+        } else if (event.getSource() == editUserImg) {
+            File img = FileUtils.openFile(mainPage);
+            imgUrl = img.getName();
+            userImg.setFill(new ImagePattern(new Image(imgUrl)));
+        }
     }
 
     @FXML
     void leftClickHandler(ActionEvent event) {
         btnCtrl.setFocus(event);
+        if (event.getSource() == teacherBtn) {
+            setVisibilityContent();
+            teacherContent.setVisible(true);
+        } else if (event.getSource() == paymentBtn) {
+            setVisibilityContent();
+            paymentContent.setVisible(true);
+            teacherNode.setVisible(true);
+            monthBox.setVisible(true);
+        } else if (event.getSource() == historyBtn) {
+            setVisibilityContent();
+            hisContent.setVisible(true);
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnCtrl = new NavButtons(teacherBtn, paymentBtn, casherBtn, historyBtn, teacherIcon, paymentIcon, casherIcon, hisIcon);
+        btnCtrl = new NavButtons(teacherBtn, paymentBtn, historyBtn, teacherIcon, paymentIcon, hisIcon);
         wCtrl = new windowCtrl(close, swipe);
+        subNode  = new subjectNode(subjectGridPane);
+        teachNode = new teacherNode(teachersHb);
+        subNode.initSubjectNode(subjectDAOimpls.getInstance().getAll());
+        teachNode.initTeacherNode(teacherDAOImpls.getInstance().getAll());
+        teacherScrollPane.setOnScroll(event -> {
+            if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
+                teacherScrollPane.setHvalue(teacherScrollPane.getHvalue() - event.getDeltaY() / 500);
+            }
+        });
+        cashNode = new casherNode(casherVbox);
+        cashNode.initCashersNode(cashersDAOImpls.getInstance().getAll());
+        subEditOption = new subjectEdit(popupBkg, editSubjectNode, editedSubject, addSubject);
+        cashEdit = new casherEdit(popupBkg, editUserNode, editedUserName, userPassword, addUser, userImg);
     }
 
     @FXML
     void clickTeachersHandler(ActionEvent event) {
 
+    }
+
+    @FXML
+    void teacherClickHandler(ActionEvent event) {
+        if (event.getSource() == addTeacherBtn) {
+            popupBkg.setVisible(true);
+            editTeacherNode.setVisible(true);
+            addTeacher.setText("Qo'shish");
+        } else if (event.getSource() == addSubjectBtn) {
+            subObj = new SubjectsEntity();
+            subEditOption.initEditingSubject(subObj);
+            addSubject.setText("Qo'shish");
+        } else  if (event.getSource() == addCasher) {
+            cashObj = new CashersEntity();
+            cashEdit.initEditingCasher(cashObj);
+            addUser.setText("Qo'shish");
+            userImg.setFill(Paint.valueOf("#e5e5e5"));
+        }
+    }
+
+    @FXML
+    void clickEditSubject(ActionEvent event) {
+        if (event.getSource() == cancelSubject) {
+            popupBkg.setVisible(false);
+            editSubjectNode.setVisible(false);
+            subNode.initSubjectNode(subjectDAOimpls.getInstance().getAll());
+        } else if (event.getSource() == addSubject) {
+            subObj.setName(editedSubject.getText());
+            subjectDAOimpls.getInstance().update(subObj);
+            addSubject.setText("Qo'shish");
+            windowCtrl.makeToast("Tasdiqlandi");
+            editedSubject.setText("");
+        }
     }
 }
