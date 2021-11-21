@@ -50,7 +50,7 @@ public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teach
     @Override
     public TeachersEntity get(long id) {
         isActiveSession();
-        TeachersEntity obj = getSession().get(TeachersEntity.class, id);
+        TeachersEntity obj = getSession().get(TeachersEntity.class, (int) id);
         getSession().getTransaction().commit();
         return obj;
     }

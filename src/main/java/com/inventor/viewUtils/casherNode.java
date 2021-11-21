@@ -3,6 +3,7 @@ package com.inventor.viewUtils;
 import com.inventor.controllers.mainCtrl;
 import com.inventor.dao.impls.cashersDAOImpls;
 import com.inventor.entities.CashersEntity;
+import com.inventor.utils.FileUtils;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -43,8 +44,8 @@ public class casherNode {
                     } else if (p instanceof Circle) {
                         String id = p.getId();
                         if ("accountImg".equals(id)) {
-                            if (o.getImg() != null && !o.getImg().isEmpty()) {
-                                ((Circle) p).setFill(new ImagePattern(new Image(o.getImg())));
+                            if (o.getImg() != null && o.getImg().length > 0) {
+                                ((Circle) p).setFill(new ImagePattern(ImageUtils.byteArray2Image(o.getImg())));
                             }
                         }
                     } else if (p instanceof JFXButton) {

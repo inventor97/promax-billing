@@ -28,8 +28,17 @@
    <children>
       <AnchorPane fx:id="topBar" layoutX="215.0" layoutY="15.0" prefHeight="40.0" prefWidth="665.0">
          <children>
-            <HBox layoutX="585.0" layoutY="5.0">
+            <HBox layoutX="544.0" layoutY="5.0">
                <children>
+                  <JFXButton fx:id="logout" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#clickWindowHandler">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@login_104px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                   <JFXButton fx:id="swipe" contentDisplay="GRAPHIC_ONLY" onAction="#clickWindowHandler">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -50,12 +59,8 @@
                   </JFXButton>
                </children>
             </HBox>
-            <AnchorPane fx:id="topBarAccountImg" layoutX="21.0" layoutY="5.0" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: #e5e5e5;" visible="false">
-               <effect>
-                  <DropShadow color="#b2b2b4" />
-               </effect>
-            </AnchorPane>
-            <Label fx:id="topBarUserName" layoutX="72.0" layoutY="7.0" prefHeight="25.0" text="Muhammad" visible="false" />
+            <Circle fx:id="topBarAccountImg" centerX="30.0" centerY="20.0" fill="TRANSPARENT" radius="16.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Label fx:id="topBarUserName" layoutX="72.0" layoutY="7.0" prefHeight="25.0" text="Muhammad" />
          </children>
       </AnchorPane>
       <VBox fx:id="leftToolBar" prefHeight="600.0" prefWidth="200.0">
@@ -312,8 +317,19 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="monthBox" layoutX="476.0" layoutY="261.0" prefHeight="52.0" prefWidth="180.0" visible="false" />
-            <AnchorPane fx:id="teacherNode" layoutX="476.0" layoutY="135.0" prefHeight="114.0" prefWidth="180.0" visible="false" />
+            <GridPane fx:id="monthBox" layoutX="475.0" layoutY="260.0" prefHeight="52.0" prefWidth="180.0" visible="false">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="teacherBox" layoutX="475.0" layoutY="135.0" prefHeight="114.0" prefWidth="180.0" visible="false">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+            </GridPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="rightSideBar" layoutX="898.0" layoutY="15.0" prefHeight="575.0" prefWidth="270.0" visible="false">
@@ -402,7 +418,7 @@
                   <Label layoutX="157.0" layoutY="38.0" text="F.I.O" />
                   <JFXTextField fx:id="editedTeacherName" alignment="CENTER_RIGHT" layoutX="23.0" layoutY="64.0" prefHeight="31.0" prefWidth="173.0" />
                   <Label layoutX="88.0" layoutY="112.0" text="Mutaxasis fani:" />
-                  <JFXButton fx:id="editTeacherImg" contentDisplay="GRAPHIC_ONLY" layoutX="35.0" layoutY="20.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #e5e5e5; -fx-effect: drop-shadow(gaussian, #b2b2b4, 10.0, 0.5, 0.0, 0.0);">
+                  <JFXButton fx:id="editTeacherImg" contentDisplay="GRAPHIC_ONLY" layoutX="35.0" layoutY="20.0" onAction="#editTeacherActions" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #e5e5e5; -fx-effect: drop-shadow(gaussian, #b2b2b4, 10.0, 0.5, 0.0, 0.0);">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -421,7 +437,7 @@
             </AnchorPane>
             <AnchorPane fx:id="subjectChoicePane" layoutX="340.0" layoutY="180.0" prefHeight="289.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
                <children>
-                  <Label layoutX="90.0" layoutY="14.0" text="Fanlar" />
+                  <Label fx:id="choiceLb" layoutX="90.0" layoutY="14.0" text="Fanlar" />
                   <ScrollPane fx:id="subjectChoiceBox" layoutX="10.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0">
                      <content>
                         <VBox fx:id="subChoiceHbox" prefWidth="200.0" spacing="3.0">
@@ -432,6 +448,12 @@
                      </content>
                   </ScrollPane>
                   <JFXButton fx:id="cancelSubjectChoice" layoutX="67.0" layoutY="236.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="authPane" layoutX="350.0" layoutY="235.0" prefHeight="130.0" prefWidth="200.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
+               <children>
+                  <Label layoutX="18.0" layoutY="14.0" prefHeight="49.0" prefWidth="164.0" text="Foydalanuvchi tasdiqlash kodi" textAlignment="CENTER" wrapText="true" />
+                  <JFXPasswordField fx:id="authPassfield" alignment="CENTER" layoutX="11.0" layoutY="74.0" promptText="parolni kiriting" style="-fx-background-color: #fff; -fx-border-width: 0; -fx-border-color: transparent;" />
                </children>
             </AnchorPane>
          </children></AnchorPane>

@@ -15,7 +15,7 @@ public class TeachersEntity {
     private String name;
     private String subjectId;
     private List<SubjectsEntity> subjects = new ArrayList<>();
-    private String img;
+    private byte[] img;
 
     public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
@@ -35,11 +35,25 @@ public class TeachersEntity {
     }
 
     public void setSubjects(List<SubjectsEntity> subjects) {
+        subjectId = "";
         for (SubjectsEntity o : subjects) {
             subjectId += o.getId() +",";
         }
         this.subjects = subjects;
     }
+
+    public void getSubjects(List<SubjectsEntity> ls) {
+        if (subjectId != null) {
+            int size = subjectId.split(",").length;
+            String[] ids = subjectId.split(",");
+            for (int i = 0; i < size; i++) {
+                int id = Integer.parseInt(ids[i]);
+                ls.add(subjectDAOimpls.getInstance().get(id));
+            }
+            ls.removeIf(Objects::isNull);
+        }
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {
@@ -68,11 +82,11 @@ public class TeachersEntity {
 
     @Basic
     @Column(name="img")
-    public String getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 
@@ -81,7 +95,7 @@ public class TeachersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeachersEntity that = (TeachersEntity) o;
-        return id == that.id && subjectId == that.subjectId && Objects.equals(name, that.name);
+        return id == that.id && subjectId.equals(that.subjectId) && Objects.equals(name, that.name);
     }
 
     @Override

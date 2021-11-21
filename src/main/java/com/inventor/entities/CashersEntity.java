@@ -9,7 +9,7 @@ public class CashersEntity {
     private int id;
     private String name;
     private String password;
-    private String img;
+    private byte[] img;
 
     @Id
     @Column(name = "id")
@@ -43,11 +43,11 @@ public class CashersEntity {
 
     @Basic
     @Column(name = "img")
-    public String getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 

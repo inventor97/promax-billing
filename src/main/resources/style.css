@@ -32,7 +32,8 @@
 .radio-button,
 .label,
 .text-area,
-.text-field {
+.text-field,
+.choice-box {
     -fx-text-fill: #2a4e8b;
     -fx-font-family: "Poppins_regular";
     -fx-font-weight: bold;
@@ -213,7 +214,7 @@
 #subjectNode {
     -fx-border-radius: 8;
     -fx-background-radius: 8;
-    -fx-background-color: #e5e5e5;
+    -fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);
 }
 .jfx-radio-button{
     -jfx-selected-color: #2a4e8b;

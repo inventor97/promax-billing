@@ -69,6 +69,7 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
 
     @Override
     public List<String> getNames() {
+        isActiveSession();
         List<String> list = new ArrayList<>(getSession()
                 .createCriteria(SubjectsEntity.class)
                 .setProjection(Projections
@@ -82,7 +83,9 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
     public int getId(String name) {
         isActiveSession();
         int id = (int) getSession().createCriteria(SubjectsEntity.class)
-                .add(Restrictions.eq("name", name)).uniqueResult();
+                .add(Restrictions.eq("name", name))
+                .setProjection(Projections
+                        .property("id")).uniqueResult();
         getSession().getTransaction().commit();
         return id;
     }

@@ -6,6 +6,7 @@ import com.inventor.dao.impls.teacherDAOImpls;
 import com.inventor.entities.SubjectsEntity;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,14 +28,13 @@ public class subjectNode {
     private styles bkgStyle = new styles();
     private AnchorPane popupBkg;
     private AnchorPane subjectChoicePane;
-    private HBox subChoiceHbox;
+    private VBox subChoiceHbox;
 
     public subjectNode(GridPane subjects) {
         this.subjectsGridPane = subjects;
     }
 
-    public subjectNode(AnchorPane popupBkg, AnchorPane subjectChoicePane, HBox subChoiceHbox) {
-        this.popupBkg = popupBkg;
+    public subjectNode(AnchorPane subjectChoicePane, VBox subChoiceHbox) {
         this.subjectChoicePane = subjectChoicePane;
         this.subChoiceHbox = subChoiceHbox;
     }
@@ -90,38 +91,31 @@ public class subjectNode {
         fillScanGridPane(panes, size);
     }
 
-    public void initSubjectChoiceBox(List<SubjectsEntity> subs, AnchorPane rootPane, List<SubjectsEntity> ls) {
-        popupBkg.setVisible(true);
+    public void initSubjectChoiceBox(List<SubjectsEntity> subs, AnchorPane rootPane) {
         subjectChoicePane.setVisible(true);
         rootPane.setVisible(false);
         subChoiceHbox.getChildren().clear();
-        for (SubjectsEntity o : subjectDAOimpls.getInstance().getAll()) {
-            for (SubjectsEntity p : subs) {
-                if (o.getName().equals(p.getName())) {
-                    subChoiceHbox.getChildren().add(createCheckBox(p, true, ls));
-                } else {
-                    subChoiceHbox.getChildren().add(createCheckBox(p, false, ls));
-                }
+        for (SubjectsEntity p : subjectDAOimpls.getInstance().getAll()) {
+            if (subs.contains(p)) {
+                subChoiceHbox.getChildren().add(createCheckBox(p, true));
+            } else {
+                subChoiceHbox.getChildren().add(createCheckBox(p, false));
             }
         }
+
     }
 
-    private JFXCheckBox createCheckBox(SubjectsEntity obj, boolean selection, List<SubjectsEntity> ls) {
+    private JFXCheckBox createCheckBox(SubjectsEntity obj, boolean selection) {
         JFXCheckBox chBox = new JFXCheckBox();
         chBox.setText(obj.getName());
         chBox.setPrefSize(190,35);
         chBox.setSelected(selection);
-        if (selection) {
-            ls.add(obj);
-        }
-        chBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (chBox.isSelected()) {
-                    ls.remove(obj);
-                } else {
-                    ls.add(obj);
-                }
+        chBox.setStyle("-fx-font-family: Poppins_regular;-fx-font-size: 15px;-fx-font-weight: bold");
+        chBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                mainCtrl.selectedSubjectsTeachers.add(obj);
+            } else {
+                mainCtrl.selectedSubjectsTeachers.remove(obj);
             }
         });
         return chBox;

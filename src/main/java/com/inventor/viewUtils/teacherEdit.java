@@ -1,13 +1,18 @@
 package com.inventor.viewUtils;
 
+import com.inventor.controllers.mainCtrl;
 import com.inventor.entities.TeachersEntity;
+import com.inventor.utils.windowCtrl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+
+import java.awt.*;
+import java.io.IOException;
 
 public class teacherEdit {
 
@@ -15,30 +20,31 @@ public class teacherEdit {
     private AnchorPane popuoBkg;
     private Circle accountImg;
     private JFXTextField fioField;
-    private JFXButton addSubjetBtn;
-    private JFXButton addImageBtn;
     private JFXButton add;
-    private JFXButton cancel;
 
-    public teacherEdit(AnchorPane teacherEditPane, AnchorPane popuoBkg, Circle accountImg, JFXTextField fioField, JFXButton addSubjetBtn, JFXButton addImageBtn, JFXButton add, JFXButton cancel) {
+    public teacherEdit(AnchorPane teacherEditPane, AnchorPane popuoBkg, Circle accountImg, JFXTextField fioField, JFXButton add) {
         this.teacherEditPane = teacherEditPane;
         this.popuoBkg = popuoBkg;
         this.accountImg = accountImg;
         this.fioField = fioField;
-        this.addSubjetBtn = addSubjetBtn;
-        this.addImageBtn = addImageBtn;
         this.add = add;
-        this.cancel = cancel;
     }
 
-    public void initEDitTeacherNOde(TeachersEntity obj) {
+    public void initEditTeacherNode(TeachersEntity obj) {
         popuoBkg.setVisible(true);
         teacherEditPane.setVisible(true);
         if (obj != null) {
-            if (!obj.getImg().isEmpty()) {
-                accountImg.setFill(new ImagePattern(new Image(obj.getImg())));
+            try {
+                if (obj.getImg() != null) {
+                    accountImg.setFill(new ImagePattern(ImageUtils.byteArray2Image(obj.getImg())));
+                }
+                obj.getSubjects(mainCtrl.selectedSubjectsTeachers);
+            } catch(IOException | NullPointerException e){
+                e.printStackTrace();
+                accountImg.setFill(Paint.valueOf("#e5e5e5"));
             }
             fioField.setText(obj.getName());
+            add.setText("O'zgartirish");
         }
     }
 }

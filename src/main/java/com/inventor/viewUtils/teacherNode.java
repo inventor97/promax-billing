@@ -1,5 +1,7 @@
 package com.inventor.viewUtils;
 
+import com.inventor.controllers.mainCtrl;
+import com.inventor.dao.impls.teacherDAOImpls;
 import com.inventor.entities.TeachersEntity;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.EventHandler;
@@ -13,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.awt.*;
@@ -46,22 +49,35 @@ public class teacherNode {
                             ((Label) p).setText(o.subjects2String());
                         }
                     } else if (p instanceof JFXButton) {
-                        // TODO: 11/14/2021 generating editing teacher node
                         String id = p.getId();
                         if ("edit".equals(id)) {
                             ((JFXButton) p).setText(String.valueOf(o.getId()));
                             p.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent event) {
-                                    String id = ((JFXButton) p).getText();
+                                    mainCtrl.teachObj = teacherDAOImpls.getInstance().get(Long.parseLong(((JFXButton) p).getText()));
+                                    mainCtrl.teachEditOption.initEditTeacherNode(mainCtrl.teachObj);
+                                }
+                            });
+                        } else if ("delete".equals(id)) {
+                            ((JFXButton) p).setText(String.valueOf(o.getId()));
+                            p.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    teacherDAOImpls.getInstance().remove(Long.parseLong(((JFXButton) p).getText()));
+                                    mainCtrl.teachNode.initTeacherNode(teacherDAOImpls.getInstance().getAll());
                                 }
                             });
                         }
                     } else if (p instanceof Circle) {
                         String id = p.getId();
                         if ("accountImg".equals(id)) {
-                            if (o.getImg() != null && !o.getImg().isEmpty()) {
-                                ((Circle) p).setFill(new ImagePattern(new Image(o.getImg())));
+                            try {
+                                if (o.getImg() != null) {
+                                    ((Circle) p).setFill(new ImagePattern(ImageUtils.byteArray2Image(o.getImg())));
+                                }
+                            } catch (NullPointerException e) {
+                                ((Circle) p).setFill(Paint.valueOf("#e5e5e5"));
                             }
                         }
                     }

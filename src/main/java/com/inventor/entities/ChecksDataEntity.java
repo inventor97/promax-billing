@@ -1,22 +1,41 @@
 package com.inventor.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
+
+@NoArgsConstructor
 @Entity
 @Table(name = "checks_data", schema = "promax_billing", catalog = "")
 public class ChecksDataEntity {
     private int id;
     private String name;
+    private long amountBill;
+    private boolean paymentType;
     private int casherId;
     private String teachers;
     private int subjectId;
     private String comment;
     private Date dateCrated;
     private String payedMonth;
-    private List<TeachersEntity> teachersList;
+
+    public ChecksDataEntity(String name, long amountBill, boolean paymentType, int casherId, String teachers, int subjectId, String comment, Date dateCrated, String payedMonth) {
+        this.name = name;
+        this.amountBill = amountBill;
+        this.paymentType = paymentType;
+        this.casherId = casherId;
+        this.teachers = teachers;
+        this.subjectId = subjectId;
+        this.comment = comment;
+        this.dateCrated = dateCrated;
+        this.payedMonth = payedMonth;
+    }
 
     @Id
     @Column(name = "id")
@@ -36,6 +55,26 @@ public class ChecksDataEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "amount_bill")
+    public long getAmountBill() {
+        return amountBill;
+    }
+
+    public void setAmountBill(long amountBill) {
+        this.amountBill = amountBill;
+    }
+
+    @Basic
+    @Column(name = "payment_type")
+    public boolean isPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(boolean paymentType) {
+        this.paymentType = paymentType;
     }
 
     @Basic
