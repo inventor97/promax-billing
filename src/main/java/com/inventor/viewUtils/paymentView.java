@@ -6,6 +6,7 @@ import com.inventor.dao.impls.subjectDAOimpls;
 import com.inventor.dao.impls.teacherDAOImpls;
 import com.inventor.entities.ChecksDataEntity;
 import com.inventor.entities.TeachersEntity;
+import com.inventor.utils.generateXlSXprinter;
 import com.inventor.utils.windowCtrl;
 import com.jfoenix.controls.*;
 import javafx.beans.value.ChangeListener;
@@ -219,6 +220,7 @@ public class paymentView {
                     mainCtrl.activeUser.getId(), teachers[0], (int) id,
                     comment.getText(), dateCreated, months[0]);
             checksDataDAOimpls.getInstance().add(obj);
+            generateXlSXprinter.saveSoldCheck(obj);
             fio.setText("");
             cash.setSelected(false);
             card.setSelected(false);

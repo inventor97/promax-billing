@@ -30,6 +30,10 @@ public class casherNode {
     public void initCashersNode(List<CashersEntity> cashers) {
         casherVbox.getChildren().clear();
         int size = cashers.size();
+        cashers.removeIf(e -> !e.equals(mainCtrl.activeUser));
+         if (cashers.size() == 0) {
+            cashers.addAll(cashersDAOImpls.getInstance().getAll());
+        }
         AnchorPane[] panes = new AnchorPane[size];
         int iterator = 0;
         for (CashersEntity o : cashers) {

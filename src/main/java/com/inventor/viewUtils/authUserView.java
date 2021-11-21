@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 public class authUserView {
 
     private AnchorPane popupBkg;
@@ -27,11 +26,13 @@ public class authUserView {
     private Label userName;
     private JFXPasswordField authPassField;
 
-
-    public void initAuthUser() {
-        popupBkg.setVisible(true);
-        authPane.setVisible(true);
-        List<CashersEntity> obj = new ArrayList<>(cashersDAOImpls.getInstance().getAll());
+    public authUserView(AnchorPane popupBkg, AnchorPane authPane, Circle accountImg, Label userName, JFXPasswordField authPassField) {
+        this.popupBkg = popupBkg;
+        this.authPane = authPane;
+        this.accountImg = accountImg;
+        this.userName = userName;
+        this.authPassField = authPassField;
+        List<CashersEntity> obj = new ArrayList<>(cashersDAOImpls.getInstance().getFullData());
         authPassField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -45,15 +46,19 @@ public class authUserView {
                             }
                             mainCtrl.activeUser = o;
                             userName.setText(o.getName());
+                            popupBkg.setVisible(false);
+                            authPane.setVisible(false);
+                            authPassField.setText("");
+                            mainCtrl.cashNode.initCashersNode(cashersDAOImpls.getInstance().getAll());
                         }
                     }
-                    popupBkg.setVisible(false);
-                    authPane.setVisible(false);
-                    authPassField.setText("");
-                } else {
-                    windowCtrl.makeToast("Xavfsizlik kodi tasdiqlanmadi");
                 }
             }
         });
+    }
+
+    public void initAuthUser() {
+        popupBkg.setVisible(true);
+        authPane.setVisible(true);
     }
 }

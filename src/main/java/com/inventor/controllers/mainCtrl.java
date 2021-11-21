@@ -199,40 +199,43 @@ public class mainCtrl  implements Initializable {
     private ImageView hisIcon;
 
     @FXML
-    AnchorPane hisContent;
+    private AnchorPane hisContent;
 
     @FXML
-    GridPane subjectGridPane;
+    private GridPane subjectGridPane;
 
     @FXML
-    ScrollPane teacherScrollPane;
+    private ScrollPane teacherScrollPane;
 
     @FXML
-    JFXButton addTeacherBtn;
+    private JFXButton addTeacherBtn;
 
     @FXML
-    JFXButton addSubjectBtn;
+    private JFXButton addSubjectBtn;
 
     @FXML
-    JFXButton cancelSubjectChoice;
+    private JFXButton cancelSubjectChoice;
 
     @FXML
-    AnchorPane subjectChoicePane;
+    private AnchorPane subjectChoicePane;
 
     @FXML
-    ScrollPane subjectChoiceBox;
+    private ScrollPane subjectChoiceBox;
 
     @FXML
-    VBox subChoiceHbox;
+    private VBox subChoiceHbox;
 
     @FXML
-    Label choiceLb;
+    private Label choiceLb;
 
     @FXML
-    AnchorPane authPane;
+    private AnchorPane authPane;
 
     @FXML
-    JFXPasswordField authPassfield;
+    private JFXPasswordField authPassfield;
+
+    @FXML
+    private JFXButton logout;
 
     private NavButtons btnCtrl;
     private windowCtrl wCtrl;
@@ -256,6 +259,7 @@ public class mainCtrl  implements Initializable {
     public static List<String> selecedMonths = new ArrayList<>();
     public static paymentView payView;
     public static CashersEntity activeUser = new CashersEntity();
+    public static authUserView auth;
 
 
     @FXML
@@ -275,7 +279,14 @@ public class mainCtrl  implements Initializable {
     @FXML
     void clickWindowHandler(ActionEvent event) {
         wCtrl.setCtrl(event);
-    }
+        if (event.getSource() == logout) {
+            activeUser = new CashersEntity();
+            topBarAccountImg.setFill(Paint.valueOf("#e5e5e5"));
+            topBarUserName.setText("");
+            popupBkg.setVisible(true);
+            authPane.setVisible(true);
+        }
+     }
 
     private void setVisibilityContent() {
         teacherBox.setVisible(false);
@@ -416,12 +427,12 @@ public class mainCtrl  implements Initializable {
             }
         });
         cashNode = new casherNode(casherVbox);
-        cashNode.initCashersNode(cashersDAOImpls.getInstance().getAll());
         subEditOption = new subjectEdit(popupBkg, editSubjectNode, editedSubject, addSubject);
         cashEdit = new casherEdit(popupBkg, editUserNode, editedUserName, userPassword, addUser, userImg);
         teachEditOption = new teacherEdit(editTeacherNode, popupBkg, TeacherImg, editedTeacherName, addTeacher);
         subChoiceNode = new subjectNode(subjectChoicePane, subChoiceHbox);
         payView = new paymentView(fio, monthlyBill, subjectCmbx, cashRBtn, cardRBtn, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb, subChoiceHbox);
+        auth = new authUserView(popupBkg, authPane, topBarAccountImg, topBarUserName, authPassfield);
     }
 
     @FXML

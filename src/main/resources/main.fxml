@@ -60,7 +60,7 @@
                </children>
             </HBox>
             <Circle fx:id="topBarAccountImg" centerX="30.0" centerY="20.0" fill="TRANSPARENT" radius="16.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-            <Label fx:id="topBarUserName" layoutX="72.0" layoutY="7.0" prefHeight="25.0" text="Muhammad" />
+            <Label fx:id="topBarUserName" layoutX="72.0" layoutY="7.0" prefHeight="25.0" />
          </children>
       </AnchorPane>
       <VBox fx:id="leftToolBar" prefHeight="600.0" prefWidth="200.0">
@@ -376,7 +376,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="901.0" visible="false">
+      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="901.0">
          <children>
             <AnchorPane fx:id="editSubjectNode" layoutX="357.5" layoutY="232.5" prefHeight="135.0" prefWidth="185.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
                <children>
@@ -450,7 +450,7 @@
                   <JFXButton fx:id="cancelSubjectChoice" layoutX="67.0" layoutY="236.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="authPane" layoutX="350.0" layoutY="235.0" prefHeight="130.0" prefWidth="200.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
+            <AnchorPane fx:id="authPane" layoutX="350.0" layoutY="235.0" prefHeight="130.0" prefWidth="200.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;">
                <children>
                   <Label layoutX="18.0" layoutY="14.0" prefHeight="49.0" prefWidth="164.0" text="Foydalanuvchi tasdiqlash kodi" textAlignment="CENTER" wrapText="true" />
                   <JFXPasswordField fx:id="authPassfield" alignment="CENTER" layoutX="11.0" layoutY="74.0" promptText="parolni kiriting" style="-fx-background-color: #fff; -fx-border-width: 0; -fx-border-color: transparent;" />

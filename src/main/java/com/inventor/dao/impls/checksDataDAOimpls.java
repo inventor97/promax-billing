@@ -86,4 +86,12 @@ public class checksDataDAOimpls extends abstractUA<ChecksDataEntity> implements 
         return id;
     }
 
+    public int getMaxId() {
+        isActiveSession();
+        int maxId = (int) getSession().createCriteria(ChecksDataEntity.class)
+                .setProjection(Projections
+                        .max("id")).uniqueResult();
+        return maxId;
+    }
+
 }

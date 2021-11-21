@@ -56,7 +56,7 @@ public class CashersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CashersEntity that = (CashersEntity) o;
-        return id == that.id && password == that.password && Objects.equals(name, that.name);
+        return id == that.id && password.equals(that.password) && Objects.equals(name, that.name);
     }
 
     @Override

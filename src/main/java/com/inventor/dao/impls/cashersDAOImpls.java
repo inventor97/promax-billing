@@ -37,10 +37,18 @@ public class cashersDAOImpls extends abstractUA<CashersEntity> implements casher
         return cDAOImpls;
     }
 
+    public List<CashersEntity> getFullData() {
+        isActiveSession();
+        List<CashersEntity> list = new ArrayList<>(getSession().createCriteria(CashersEntity.class).list());
+        getSession().getTransaction().commit();
+        return list;
+    }
+
     @Override
     public List<CashersEntity> getAll() {
         isActiveSession();
         List<CashersEntity> list = new ArrayList<>(getSession().createCriteria(CashersEntity.class).list());
+        list.removeIf(e -> e.getId() == 9);
         getSession().getTransaction().commit();
         return list;
     }
