@@ -4,5 +4,6 @@ import com.inventor.entities.SubjectsEntity;
 
 public interface subject extends commonDAO<SubjectsEntity>{
 
+    String getSubjects(String ids);
 
 }

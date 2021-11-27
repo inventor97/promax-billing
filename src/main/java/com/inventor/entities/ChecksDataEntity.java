@@ -1,12 +1,9 @@
 package com.inventor.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -20,18 +17,18 @@ public class ChecksDataEntity {
     private boolean paymentType;
     private int casherId;
     private String teachers;
-    private int subjectId;
+    private String subjectIds;
     private String comment;
     private Date dateCrated;
     private String payedMonth;
 
-    public ChecksDataEntity(String name, long amountBill, boolean paymentType, int casherId, String teachers, int subjectId, String comment, Date dateCrated, String payedMonth) {
+    public ChecksDataEntity(String name, long amountBill, boolean paymentType, int casherId, String teachers, String subjectIds, String comment, Date dateCrated, String payedMonth) {
         this.name = name;
         this.amountBill = amountBill;
         this.paymentType = paymentType;
         this.casherId = casherId;
         this.teachers = teachers;
-        this.subjectId = subjectId;
+        this.subjectIds = subjectIds;
         this.comment = comment;
         this.dateCrated = dateCrated;
         this.payedMonth = payedMonth;
@@ -98,13 +95,13 @@ public class ChecksDataEntity {
     }
 
     @Basic
-    @Column(name = "subject_id")
-    public int getSubjectId() {
-        return subjectId;
+    @Column(name = "subject_ids")
+    public String getSubjectId() {
+        return subjectIds;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubjectId(String subjectId) {
+        this.subjectIds = subjectId;
     }
 
     @Basic
@@ -140,13 +137,13 @@ public class ChecksDataEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ChecksDataEntity)) return false;
         ChecksDataEntity that = (ChecksDataEntity) o;
-        return id == that.id && casherId == that.casherId && subjectId == that.subjectId && Objects.equals(teachers, that.teachers) && Objects.equals(comment, that.comment) && Objects.equals(dateCrated, that.dateCrated) && Objects.equals(payedMonth, that.payedMonth);
+        return id == that.id && amountBill == that.amountBill && paymentType == that.paymentType && casherId == that.casherId && name.equals(that.name) && teachers.equals(that.teachers) && subjectIds.equals(that.subjectIds) && comment.equals(that.comment) && dateCrated.equals(that.dateCrated) && payedMonth.equals(that.payedMonth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, casherId, teachers, subjectId, comment, dateCrated, payedMonth);
+        return Objects.hash(id, name, amountBill, paymentType, casherId, teachers, subjectIds, comment, dateCrated, payedMonth);
     }
 }

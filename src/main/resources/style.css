@@ -53,6 +53,7 @@
     -fx-background-radius: 10;
 }
 #addTeacherBIlling,
+#addSubjectBilling,
 #confirmBtn,
 #selectMonthpayment {
     -fx-text-fill: #e5e5e5;

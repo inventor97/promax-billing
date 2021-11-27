@@ -75,9 +75,6 @@ public class mainCtrl  implements Initializable {
     private JFXTextField fio;
 
     @FXML
-    private JFXComboBox<String> subjectCmbx;
-
-    @FXML
     private JFXTextField monthlyBill;
 
     @FXML
@@ -120,10 +117,10 @@ public class mainCtrl  implements Initializable {
     private VBox casherVbox;
 
     @FXML
-    private GridPane monthBox;
+    private AnchorPane monthBox;
 
     @FXML
-    private GridPane teacherBox;
+    private AnchorPane teacherBox;
 
     @FXML
     private AnchorPane rightSideBar;
@@ -194,7 +191,6 @@ public class mainCtrl  implements Initializable {
     @FXML
     private ImageView paymentIcon;
 
-
     @FXML
     private ImageView hisIcon;
 
@@ -237,6 +233,15 @@ public class mainCtrl  implements Initializable {
     @FXML
     private JFXButton logout;
 
+    @FXML
+    private JFXButton addSubjectBilling;
+
+    @FXML
+    private AnchorPane subjectBox;
+
+    @FXML
+    private JFXSpinner spinner;
+
     private NavButtons btnCtrl;
     private windowCtrl wCtrl;
 
@@ -257,6 +262,7 @@ public class mainCtrl  implements Initializable {
     public static List<SubjectsEntity> selectedSubjectsTeachers = new ArrayList<>();
     public static List<TeachersEntity> selectedTeacherForPay = new ArrayList<>();
     public static List<String> selecedMonths = new ArrayList<>();
+    public static List<SubjectsEntity> selecedSubjects = new ArrayList<>();
     public static paymentView payView;
     public static CashersEntity activeUser = new CashersEntity();
     public static authUserView auth;
@@ -268,11 +274,14 @@ public class mainCtrl  implements Initializable {
            payView.initMonthChoice();
        } else if (event.getSource() == confirmBtn) {
            if (payView.checkForCorrection()) {
-               payView.recordCheck();
-               windowCtrl.makeToast("Malumot saqlandi");
+               popupBkg.setVisible(true);
+               spinner.setVisible(true);
+               new Thread(payView.initRecordTask()).start();
            }
        } else  if (event.getSource() == addTeacherBIlling) {
            payView.initTeacherChoice();
+       } else  if (event.getSource() == addSubjectBilling) {
+           payView.initSubjectChoice();
        }
     }
 
@@ -291,6 +300,7 @@ public class mainCtrl  implements Initializable {
     private void setVisibilityContent() {
         teacherBox.setVisible(false);
         monthBox.setVisible(false);
+        subjectBox.setVisible(false);
         paymentContent.setVisible(false);
         teacherContent.setVisible(false);
         hisContent.setVisible(false);
@@ -348,8 +358,8 @@ public class mainCtrl  implements Initializable {
                 popupBkg.setVisible(false);
                 payView.addTeacherBox(selectedTeacherForPay);
                 payView.addMonthBox(selecedMonths);
+                payView.addSubjectBox(selecedSubjects);
             }
-
         }
     }
 
@@ -402,9 +412,11 @@ public class mainCtrl  implements Initializable {
             selectedTeacherForPay.clear();
         } else if (event.getSource() == paymentBtn) {
             setVisibilityContent();
+            payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb, subChoiceHbox, spinner);
             paymentContent.setVisible(true);
             teacherBox.setVisible(true);
             monthBox.setVisible(true);
+            subjectBox.setVisible(true);
         } else if (event.getSource() == historyBtn) {
             setVisibilityContent();
             hisContent.setVisible(true);
@@ -431,7 +443,7 @@ public class mainCtrl  implements Initializable {
         cashEdit = new casherEdit(popupBkg, editUserNode, editedUserName, userPassword, addUser, userImg);
         teachEditOption = new teacherEdit(editTeacherNode, popupBkg, TeacherImg, editedTeacherName, addTeacher);
         subChoiceNode = new subjectNode(subjectChoicePane, subChoiceHbox);
-        payView = new paymentView(fio, monthlyBill, subjectCmbx, cashRBtn, cardRBtn, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb, subChoiceHbox);
+        payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb, subChoiceHbox, spinner);
         auth = new authUserView(popupBkg, authPane, topBarAccountImg, topBarUserName, authPassfield);
     }
 
@@ -462,6 +474,7 @@ public class mainCtrl  implements Initializable {
     @FXML
     void clickEditSubject(ActionEvent event) {
         if (event.getSource() == cancelSubject) {
+            editedSubject.setText("");
             popupBkg.setVisible(false);
             editSubjectNode.setVisible(false);
             subNode.initSubjectNode(subjectDAOimpls.getInstance().getAll());
@@ -481,4 +494,47 @@ public class mainCtrl  implements Initializable {
             }
         }
     }
+
+    @FXML
+    void exitOnESC(KeyEvent event) {
+        if (event.getSource() == subjectChoicePane) {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                subjectChoicePane.setVisible(false);
+                if (teacherContent.isVisible()) {
+                    editTeacherNode.setVisible(true);
+                } else  {
+                    popupBkg.setVisible(false);
+                    payView.addTeacherBox(selectedTeacherForPay);
+                    payView.addMonthBox(selecedMonths);
+                    payView.addSubjectBox(selecedSubjects);
+                }
+            }
+        } else if (event.getSource() == editTeacherNode) {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                popupBkg.setVisible(false);
+                editTeacherNode.setVisible(false);
+                TeacherImg.setFill(Paint.valueOf("#e5e5e5"));
+                imgUrl = null;
+                selectedSubjectsTeachers.clear();
+                addTeacher.setText("Qo'shish");
+                editedTeacherName.setText("");
+                teachNode.initTeacherNode(teacherDAOImpls.getInstance().getAll());
+            }
+        } else if (event.getSource() == editUserNode) {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                editUserNode.setVisible(false);
+                popupBkg.setVisible(false);
+                cashNode.initCashersNode(cashersDAOImpls.getInstance().getAll());
+            }
+        } else if (event.getSource() == editSubjectNode) {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                editedSubject.setText("");
+                popupBkg.setVisible(false);
+                editSubjectNode.setVisible(false);
+                subNode.initSubjectNode(subjectDAOimpls.getInstance().getAll());
+            }
+        }
+    }
+
+
 }

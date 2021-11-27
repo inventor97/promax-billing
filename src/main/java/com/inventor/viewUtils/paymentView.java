@@ -5,12 +5,15 @@ import com.inventor.dao.impls.checksDataDAOimpls;
 import com.inventor.dao.impls.subjectDAOimpls;
 import com.inventor.dao.impls.teacherDAOImpls;
 import com.inventor.entities.ChecksDataEntity;
+import com.inventor.entities.SubjectsEntity;
 import com.inventor.entities.TeachersEntity;
 import com.inventor.utils.generateXlSXprinter;
 import com.inventor.utils.windowCtrl;
 import com.jfoenix.controls.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,21 +37,22 @@ public class paymentView {
 
     private JFXTextField fio;
     private JFXTextField amount;
-    private JFXComboBox<String> subjectCmbx;
+    private AnchorPane subjectBox;
     private JFXRadioButton cash;
     private JFXRadioButton card;
     private JFXTextArea comment;
-    private GridPane monthBox;
-    private GridPane teacherBox;
+    private AnchorPane monthBox;
+    private AnchorPane teacherBox;
     private AnchorPane popBkg;
     private AnchorPane subjectChoiceNode;
     private Label choiceLb;
+    private JFXSpinner spinner;
     private VBox subChoiceHbox;
 
-    public paymentView(JFXTextField fio, JFXTextField amount, JFXComboBox<String> subjectCmbx, JFXRadioButton cash, JFXRadioButton card, JFXTextArea comment, GridPane monthBox, GridPane teacherBox, AnchorPane popBkg, AnchorPane subjectChoiceNode, Label choiceLb, VBox subChoiceHbox) {
+    public paymentView(JFXTextField fio, JFXTextField amount, AnchorPane subjectBox, JFXRadioButton cash, JFXRadioButton card, JFXTextArea comment, AnchorPane monthBox, AnchorPane teacherBox, AnchorPane popBkg, AnchorPane subjectChoiceNode, Label choiceLb, VBox subChoiceHbox, JFXSpinner spinner) {
         this.fio = fio;
         this.amount = amount;
-        this.subjectCmbx = subjectCmbx;
+        this.subjectBox = subjectBox;
         this.cash = cash;
         this.card = card;
         this.comment = comment;
@@ -58,13 +62,36 @@ public class paymentView {
         this.subjectChoiceNode = subjectChoiceNode;
         this.choiceLb = choiceLb;
         this.subChoiceHbox = subChoiceHbox;
-        initCombx();
+        this.spinner = spinner;
         initTxtRestr();
     }
 
-    private void initCombx() {
-        subjectCmbx.getItems().clear();
-        subjectCmbx.getItems().addAll(subjectDAOimpls.getInstance().getNames());
+    public Task<Void> initRecordTask() {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                recordCheck();
+                return null;
+            }
+        };
+        task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                windowCtrl.makeToast("Malumot saqlandi");
+                fio.setText("");
+                cash.setSelected(false);
+                card.setSelected(false);
+                teacherBox.getChildren().clear();
+                monthBox.getChildren().clear();
+                subjectBox.getChildren().clear();
+                amount.setText("");
+                comment.setText("");
+                popBkg.setVisible(false);
+                spinner.setVisible(false);
+            }
+        });
+
+        return task;
     }
 
     private void initTxtRestr() {
@@ -124,7 +151,48 @@ public class paymentView {
             iterator++;
         }
         for (int i = 0; i < nodes.length; i++) {
-            teacherBox.add(nodes[i], i, 0);
+            nodes[i].setLayoutX(i*10);
+            teacherBox.getChildren().add(nodes[i]);
+        }
+    }
+
+    public void addSubjectBox(List<SubjectsEntity> subs) {
+        subjectBox.getChildren().clear();
+        List<AnchorPane> nodes = new ArrayList<>();
+        int itr = 0;
+        for (SubjectsEntity o : subs) {
+            try {
+                nodes.add(FXMLLoader.load(getClass().getResource("/monthNode.fxml")));
+                nodes.get(itr).setStyle("-fx-background-color: linear-gradient(to bottom right, #FF5F6D, #FFC371)");
+                for (Node p : nodes.get(itr).getChildren()) {
+                    if (p instanceof Label) {
+                        String id = p.getId();
+                        if ("name".equals(id)) {
+                            ((Label) p).setText(o.getName());
+                        }
+                    } else if (p instanceof JFXButton) {
+                        if ("cancel".equals(p.getId())) {
+                            ((JFXButton) p).setText(String.valueOf(o.getId()));
+                            p.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    SubjectsEntity obj = subjectDAOimpls.getInstance()
+                                            .get(Long.parseLong(((JFXButton) p).getText()));
+                                    mainCtrl.selecedSubjects.removeIf(e -> e.equals(obj));
+                                    mainCtrl.payView.addSubjectBox(mainCtrl.selecedSubjects);
+                                }
+                            });
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            itr++;
+        }
+        for (int i = 0; i < nodes.size(); i++) {
+            nodes.get(i).setLayoutX(i*10);
+            subjectBox.getChildren().add(nodes.get(i));
         }
     }
 
@@ -160,7 +228,8 @@ public class paymentView {
             itr++;
         }
         for (int i = 0; i < nodes.size(); i++) {
-            monthBox.add(nodes.get(i), i, 0);
+            nodes.get(i).setLayoutX(i*10);
+            monthBox.getChildren().add(nodes.get(i));
         }
     }
 
@@ -171,7 +240,7 @@ public class paymentView {
                     if (cash.isSelected() || card.isSelected()) {
                         if (mainCtrl.selecedMonths.size() > 0 && mainCtrl.selectedTeacherForPay.size() > 0) {
                             if (!comment.getText().equals("")) {
-                                if (!subjectCmbx.getSelectionModel().getSelectedItem().equals("")) {
+                                if (mainCtrl.selecedSubjects.size() > 0 ) {
                                     return true;
                                 } else {
                                     windowCtrl.makeToast("O'quv fanini tanlang");
@@ -204,7 +273,10 @@ public class paymentView {
     }
 
     public void recordCheck() {
-        long id = subjectDAOimpls.getInstance().getId(subjectCmbx.getSelectionModel().getSelectedItem());
+        StringBuilder subIds = new StringBuilder();
+        for (SubjectsEntity o : mainCtrl.selecedSubjects) {
+            subIds.append(o.getId()).append(",");
+        }
         final String[] teachers = {""};
         mainCtrl.selectedTeacherForPay.forEach(e -> {
             teachers[0] += e.getName() + ",";
@@ -217,23 +289,30 @@ public class paymentView {
         try {
             ChecksDataEntity obj = new ChecksDataEntity(fio.getText(),
                     Long.parseLong(amount.getText()), cash.isSelected(),
-                    mainCtrl.activeUser.getId(), teachers[0], (int) id,
+                    mainCtrl.activeUser.getId(), teachers[0], subIds.toString(),
                     comment.getText(), dateCreated, months[0]);
             checksDataDAOimpls.getInstance().add(obj);
             generateXlSXprinter.saveSoldCheck(obj);
-            fio.setText("");
-            cash.setSelected(false);
-            card.setSelected(false);
-            teacherBox.getChildren().clear();
-            monthBox.getChildren().clear();
-            subjectCmbx.getSelectionModel().clearSelection();
-            amount.setText("");
-            comment.setText("");
             mainCtrl.selecedMonths.clear();
             mainCtrl.selectedTeacherForPay.clear();
+            mainCtrl.selecedSubjects.clear();
         } catch (Exception e) {
             e.printStackTrace();
             windowCtrl.makeToast("Ma'lumotlar yuklanishida xatolik");
+        }
+    }
+
+    public void initSubjectChoice() {
+        popBkg.setVisible(true);
+        subjectChoiceNode.setVisible(true);
+        choiceLb.setText("Fanni tanlang");
+        subChoiceHbox.getChildren().clear();
+        for (SubjectsEntity o : subjectDAOimpls.getInstance().getAll()) {
+            if (mainCtrl.selecedSubjects.contains(o)) {
+                subChoiceHbox.getChildren().add(createSubjectCheckBox(o, true));
+            } else {
+                subChoiceHbox.getChildren().add(createSubjectCheckBox(o, false));
+            }
         }
     }
 
@@ -263,6 +342,22 @@ public class paymentView {
                 subChoiceHbox.getChildren().add(createMonthCheckBox(o, false));
             }
         }
+    }
+
+    private JFXCheckBox createSubjectCheckBox(SubjectsEntity obj, boolean selection) {
+        JFXCheckBox chBox = new JFXCheckBox();
+        chBox.setText(obj.getName());
+        chBox.setPrefSize(Region.USE_COMPUTED_SIZE,35);
+        chBox.setSelected(selection);
+        chBox.setStyle("-fx-font-family: Poppins_regular;-fx-font-size: 15px;-fx-font-weight: bold");
+        chBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                mainCtrl.selecedSubjects.add(obj);
+            }else {
+                mainCtrl.selecedSubjects.remove(obj);
+            }
+        });
+        return chBox;
     }
 
     private JFXCheckBox createTeacherCheckBox(TeachersEntity obj, boolean selection) {

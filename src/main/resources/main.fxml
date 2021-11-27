@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -141,7 +142,15 @@
                         <VBox>
                            <children>
                               <Label prefWidth="78.0" text="O'quv fani:" />
-                              <JFXComboBox fx:id="subjectCmbx" prefHeight="30.0" prefWidth="200.0" />
+                              <JFXButton fx:id="addSubjectBilling" contentDisplay="GRAPHIC_ONLY" onAction="#clickHandler" prefHeight="35.0" prefWidth="205.0" text="O'qituvchi qo'shish">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@add_list_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
                            </children>
                         </VBox>
                      </children>
@@ -317,19 +326,9 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <GridPane fx:id="monthBox" layoutX="475.0" layoutY="260.0" prefHeight="52.0" prefWidth="180.0" visible="false">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </GridPane>
-            <GridPane fx:id="teacherBox" layoutX="475.0" layoutY="135.0" prefHeight="114.0" prefWidth="180.0" visible="false">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-            </GridPane>
+            <AnchorPane fx:id="subjectBox" layoutX="475.0" layoutY="92.0" prefHeight="52.0" prefWidth="180.0" visible="false" />
+            <AnchorPane fx:id="monthBox" layoutX="475.0" layoutY="260.0" prefHeight="52.0" prefWidth="180.0" visible="false" />
+            <AnchorPane fx:id="teacherBox" layoutX="475.0" layoutY="145.0" prefHeight="114.0" prefWidth="180.0" visible="false" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="rightSideBar" layoutX="898.0" layoutY="15.0" prefHeight="575.0" prefWidth="270.0" visible="false">
@@ -378,7 +377,7 @@
       </AnchorPane>
       <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="901.0">
          <children>
-            <AnchorPane fx:id="editSubjectNode" layoutX="357.5" layoutY="232.5" prefHeight="135.0" prefWidth="185.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
+            <AnchorPane fx:id="editSubjectNode" layoutX="357.5" layoutY="232.5" onKeyPressed="#exitOnESC" prefHeight="135.0" prefWidth="185.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
                <children>
                   <JFXButton fx:id="cancelSubject" layoutX="7.0" layoutY="88.0" onAction="#clickEditSubject" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
                   <JFXButton fx:id="addSubject" layoutX="94.0" layoutY="88.0" onAction="#clickEditSubject" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
@@ -389,7 +388,7 @@
                   <DropShadow color="#b2b2b4" />
                </effect>
             </AnchorPane>
-            <AnchorPane fx:id="editUserNode" layoutX="350.0" layoutY="190.0" prefHeight="220.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+            <AnchorPane fx:id="editUserNode" layoutX="350.0" layoutY="190.0" onKeyPressed="#exitOnESC" prefHeight="220.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
                <children>
                   <Circle fx:id="userImg" fill="#e5e5e5" layoutX="10.0" layoutY="10.0" radius="45.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                   <Label layoutX="147.0" layoutY="28.0" text="F.I.O" />
@@ -412,7 +411,7 @@
                   <DropShadow color="#b2b2b4" />
                </effect>
             </AnchorPane>
-            <AnchorPane fx:id="editTeacherNode" layoutX="340.0" layoutY="180.0" prefHeight="240.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+            <AnchorPane fx:id="editTeacherNode" layoutX="340.0" layoutY="180.0" onKeyPressed="#exitOnESC" prefHeight="240.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
                <children>
                   <Circle fx:id="TeacherImg" fill="#e5e5e5" layoutX="10.0" layoutY="10.0" radius="45.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                   <Label layoutX="157.0" layoutY="38.0" text="F.I.O" />
@@ -435,9 +434,9 @@
                   <DropShadow color="#b2b2b4" />
                </effect>
             </AnchorPane>
-            <AnchorPane fx:id="subjectChoicePane" layoutX="340.0" layoutY="180.0" prefHeight="289.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+            <AnchorPane fx:id="subjectChoicePane" layoutX="340.0" layoutY="180.0" onKeyPressed="#exitOnESC" prefHeight="289.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
                <children>
-                  <Label fx:id="choiceLb" layoutX="90.0" layoutY="14.0" text="Fanlar" />
+                  <Label fx:id="choiceLb" alignment="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="21.0" prefWidth="205.0" text="Fanlar" />
                   <ScrollPane fx:id="subjectChoiceBox" layoutX="10.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0">
                      <content>
                         <VBox fx:id="subChoiceHbox" prefWidth="200.0" spacing="3.0">
@@ -456,6 +455,7 @@
                   <JFXPasswordField fx:id="authPassfield" alignment="CENTER" layoutX="11.0" layoutY="74.0" promptText="parolni kiriting" style="-fx-background-color: #fff; -fx-border-width: 0; -fx-border-color: transparent;" />
                </children>
             </AnchorPane>
+            <JFXSpinner fx:id="spinner" layoutX="450.0" layoutY="276.0" visible="false" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

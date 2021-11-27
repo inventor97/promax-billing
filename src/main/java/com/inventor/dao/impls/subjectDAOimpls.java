@@ -89,4 +89,17 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
         getSession().getTransaction().commit();
         return id;
     }
+
+    @Override
+    public String getSubjects(String ids) {
+        StringBuilder subs = new StringBuilder();
+        for (int i = 0; i < ids.split(",").length - 1; i++) {
+            isActiveSession();
+            int subId = Integer.parseInt(ids.split(",")[i]);
+            SubjectsEntity obj = getSession().get(SubjectsEntity.class, subId);
+            getSession().getTransaction().commit();
+            subs.append(obj.getName()).append(", ");
+        }
+        return subs.toString();
+    }
 }
