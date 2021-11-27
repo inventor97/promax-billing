@@ -275,7 +275,7 @@ public class paymentView {
     public void recordCheck() {
         StringBuilder subIds = new StringBuilder();
         for (SubjectsEntity o : mainCtrl.selecedSubjects) {
-            subIds.append(o.getId()).append(",");
+            subIds.append(o.getName()).append(",");
         }
         final String[] teachers = {""};
         mainCtrl.selectedTeacherForPay.forEach(e -> {

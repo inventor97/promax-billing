@@ -22,4 +22,11 @@ public class MonthData {
         months.add("Dekabr");
         return months;
     }
+
+    public static List<String> getMonthForSpinner(){
+        List<String> ls = new ArrayList<>();
+        ls.add("Barchasi");
+        ls.addAll(getMonths());
+        return ls;
+    }
 }

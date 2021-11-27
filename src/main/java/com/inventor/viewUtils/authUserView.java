@@ -57,8 +57,4 @@ public class authUserView {
         });
     }
 
-    public void initAuthUser() {
-        popupBkg.setVisible(true);
-        authPane.setVisible(true);
-    }
 }

@@ -3,7 +3,6 @@
 <?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXSpinner?>
@@ -13,6 +12,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -25,7 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="901.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventor.controllers.mainCtrl">
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1185.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventor.controllers.mainCtrl">
    <children>
       <AnchorPane fx:id="topBar" layoutX="215.0" layoutY="15.0" prefHeight="40.0" prefWidth="665.0">
          <children>
@@ -110,12 +110,24 @@
                   <Insets left="20.0" />
                </VBox.margin>
             </JFXButton>
+            <JFXButton fx:id="expencesBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="30.0" layoutY="329.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="Xarajatlar" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="expensesIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ledger_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </JFXButton>
             <Separator prefWidth="200.0">
                <padding>
                   <Insets left="25.0" right="25.0" />
                </padding>
                <VBox.margin>
-                  <Insets top="180.0" />
+                  <Insets top="135.0" />
                </VBox.margin>
             </Separator>
             <Label fx:id="context_tile" alignment="CENTER" prefWidth="200.0" text="promax education 2021" />
@@ -231,24 +243,25 @@
                   <Insets left="20.0" right="20.0" top="20.0" />
                </padding>
             </VBox>
-            <AnchorPane fx:id="hisContent" prefHeight="515.0" prefWidth="665.0" visible="false">
+            <AnchorPane fx:id="hisContent" prefHeight="515.0" prefWidth="665.0">
                <children>
                   <JFXTextField fx:id="searchHis" alignment="CENTER_RIGHT" focusColor="#2a4e8b" layoutX="253.0" layoutY="9.0" prefHeight="31.0" prefWidth="345.0" promptText="qidiruv...">
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </JFXTextField>
-                  <TableView layoutX="6.0" layoutY="47.0" prefHeight="405.0" prefWidth="645.0">
+                  <TableView fx:id="statTableView" layoutX="6.0" layoutY="47.0" prefHeight="405.0" prefWidth="645.0">
                     <columns>
-                      <TableColumn prefWidth="40.0" text="№" />
-                      <TableColumn prefWidth="212.0" text="F.I.O" />
-                        <TableColumn prefWidth="102.0" text="Fan" />
-                        <TableColumn prefWidth="138.0" text="O'qituvchi" />
-                        <TableColumn prefWidth="69.0" text="oy" />
-                        <TableColumn prefWidth="82.0" text=" to'lov" />
+                      <TableColumn fx:id="no" prefWidth="40.0" text="№" />
+                      <TableColumn fx:id="name" prefWidth="212.0" text="F.I.O" />
+                        <TableColumn fx:id="subject" prefWidth="102.0" text="Fan" />
+                        <TableColumn fx:id="teacher" prefWidth="138.0" text="O'qituvchi" />
+                        <TableColumn fx:id="month" prefWidth="69.0" text="oy" />
+                        <TableColumn fx:id="amount" prefWidth="82.0" text=" to'lov" />
+                        <TableColumn fx:id="object" prefWidth="82.0" visible="false" />
                     </columns>
                   </TableView>
-                  <Label layoutX="14.0" layoutY="467.0" prefHeight="40.0" prefWidth="245.0" text="Umumiy to'lov: 654 000 000" />
+                  <Label fx:id="sumUpLb" layoutX="14.0" layoutY="467.0" prefHeight="40.0" prefWidth="245.0" text="Umumiy to'lov: 654 000 000" />
                   <JFXButton fx:id="generateXLS" layoutX="413.0" layoutY="466.0" onAction="#clickTeachersHandler" prefHeight="40.0" prefWidth="230.0" text="Excelga ko'chirish" />
                   <JFXButton fx:id="openRightSideBar" contentDisplay="GRAPHIC_ONLY" layoutX="608.0" layoutY="5.0" onAction="#clickTeachersHandler">
                      <graphic>
@@ -261,7 +274,7 @@
                   </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="teacherContent" prefHeight="515.0" prefWidth="665.0">
+            <AnchorPane fx:id="teacherContent" prefHeight="515.0" prefWidth="665.0" visible="false">
                <children>
                   <ScrollPane fx:id="teacherScrollPane" layoutX="15.0" layoutY="55.0" prefHeight="208.0" prefWidth="625.0">
                      <content>
@@ -331,23 +344,24 @@
             <AnchorPane fx:id="teacherBox" layoutX="475.0" layoutY="145.0" prefHeight="114.0" prefWidth="180.0" visible="false" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="rightSideBar" layoutX="898.0" layoutY="15.0" prefHeight="575.0" prefWidth="270.0" visible="false">
+      <AnchorPane fx:id="rightSideBar" layoutX="898.0" layoutY="15.0" prefHeight="575.0" prefWidth="270.0">
          <children>
-            <JFXDatePicker defaultColor="#2a4e8b" layoutX="53.0" layoutY="73.0" />
-            <VBox fx:id="filterPane" layoutX="16.0" layoutY="114.0" prefHeight="375.0" prefWidth="240.0" spacing="5.0">
+            <VBox fx:id="filterPane" layoutX="16.0" layoutY="140.0" prefHeight="375.0" prefWidth="240.0" spacing="5.0">
                <children>
                   <Label text="Fan bo'yicha">
                      <VBox.margin>
-                        <Insets top="75.0" />
+                        <Insets top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXComboBox prefHeight="38.0" prefWidth="210.0" />
+                  <JFXComboBox fx:id="subjectFilter" prefHeight="38.0" prefWidth="210.0" />
+                  <Label layoutX="25.0" layoutY="55.0" text="To'lov oyi" />
+                  <JFXComboBox fx:id="monthFilter" layoutX="25.0" layoutY="81.0" prefHeight="38.0" prefWidth="210.0" />
                   <Label layoutX="25.0" layoutY="25.0" text="O'qituvchi bo'yicha">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXComboBox layoutX="25.0" layoutY="51.0" prefHeight="38.0" prefWidth="210.0" />
+                  <JFXComboBox fx:id="teacherFilter" layoutX="25.0" layoutY="51.0" prefHeight="38.0" prefWidth="210.0" />
                   <Label layoutX="25.0" layoutY="184.0" text="To'lov turi:">
                      <VBox.margin>
                         <Insets top="15.0" />
@@ -355,8 +369,8 @@
                   </Label>
                   <ToggleButtonGroup selectionType="SINGLE">
                      <toggles>
-                        <JFXRadioButton text="Naqd" />
-                        <JFXRadioButton layoutX="10.0" layoutY="10.0" text="To'lov karta" />
+                        <JFXRadioButton fx:id="cashFilter" text="Naqd" />
+                        <JFXRadioButton fx:id="cardFilter" layoutX="10.0" layoutY="10.0" text="To'lov karta" />
                      </toggles>
                   </ToggleButtonGroup>
                </children>
@@ -364,18 +378,12 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding>
             </VBox>
-            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="2.0" layoutY="1.0">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@back_96px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
+            <Spinner fx:id="yearSpinner" layoutX="17.0" layoutY="34.0" prefHeight="40.0" prefWidth="240.0" styleClass="split-arrows-horizontal" />
+            <Spinner fx:id="dateSpinner" layoutX="147.0" layoutY="91.0" prefHeight="40.0" prefWidth="110.0" styleClass="split-arrows-horizontal" />
+            <JFXComboBox fx:id="monthCmbx" layoutX="14.0" layoutY="91.0" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: #e5e5e5;" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="901.0">
+      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="901.0" visible="false">
          <children>
             <AnchorPane fx:id="editSubjectNode" layoutX="357.5" layoutY="232.5" onKeyPressed="#exitOnESC" prefHeight="135.0" prefWidth="185.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
                <children>

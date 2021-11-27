@@ -1,9 +1,8 @@
 package com.inventor.dao.impls;
 
-import com.inventor.dao.interfaces.subject;
-import com.inventor.entities.CashersEntity;
-import com.inventor.entities.ChecksDataEntity;
-import com.inventor.entities.SubjectsEntity;
+import com.inventor.dao.interfaces.expensesDAO;
+import com.inventor.entities.ExpensesEntity;
+import com.inventor.entities.TeachersEntity;
 import com.inventor.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,12 +12,12 @@ import org.hibernate.criterion.Restrictions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subject {
+public class expenesDAOImpls extends abstractUA<ExpensesEntity> implements expensesDAO {
 
-    private static subjectDAOimpls sDAOImpl;
+    private static expenesDAOImpls tDAOImpl;
     private SessionFactory sessionFactory = null;
 
-    public subjectDAOimpls() {
+    public expenesDAOImpls() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
@@ -32,25 +31,25 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
         }
     }
 
-    public static subjectDAOimpls getInstance() {
-        if (sDAOImpl == null) {
-            sDAOImpl = new subjectDAOimpls();
+    public static expenesDAOImpls getInstance() {
+        if (tDAOImpl == null) {
+            tDAOImpl = new expenesDAOImpls();
         }
-        return sDAOImpl;
+        return tDAOImpl;
     }
 
     @Override
-    public List<SubjectsEntity> getAll() {
+    public List<ExpensesEntity> getAll() {
         isActiveSession();
-        List<SubjectsEntity> list = new ArrayList<>(getSession().createCriteria(SubjectsEntity.class).list());
+        List<ExpensesEntity> list = new ArrayList<>(getSession().createCriteria(ExpensesEntity.class).list());
         getSession().getTransaction().commit();
         return list;
     }
 
     @Override
-    public SubjectsEntity get(long id) {
+    public ExpensesEntity get(long id) {
         isActiveSession();
-        SubjectsEntity obj = getSession().get(SubjectsEntity.class,(int) id);
+        ExpensesEntity obj = getSession().get(ExpensesEntity.class, (int) id);
         getSession().getTransaction().commit();
         return obj;
     }
@@ -58,7 +57,7 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
     @Override
     public boolean remove(long obj) {
         isActiveSession();
-        SubjectsEntity var = getSession().load(SubjectsEntity.class, (int) obj);
+        ExpensesEntity var = getSession().load(ExpensesEntity.class, (int) obj);
         if (var != null) {
             getSession().delete(var);
             return true;
@@ -69,9 +68,8 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
 
     @Override
     public List<String> getNames() {
-        isActiveSession();
         List<String> list = new ArrayList<>(getSession()
-                .createCriteria(SubjectsEntity.class)
+                .createCriteria(ExpensesEntity.class)
                 .setProjection(Projections
                         .property( "name"))
                 .list());
@@ -82,11 +80,10 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
     @Override
     public int getId(String name) {
         isActiveSession();
-        int id = (int) getSession().createCriteria(SubjectsEntity.class)
-                .add(Restrictions.eq("name", name))
-                .setProjection(Projections
-                        .property("id")).uniqueResult();
+        int id = (int) getSession().createCriteria(ExpensesEntity.class)
+                .add(Restrictions.eq("name", name)).uniqueResult();
         getSession().getTransaction().commit();
         return id;
     }
+
 }

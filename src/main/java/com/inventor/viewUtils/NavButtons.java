@@ -4,25 +4,20 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class NavButtons {
 
     private JFXButton teacherBtn;
     private JFXButton paymentBtn;
     private JFXButton hisBtn;
+    private JFXButton expensesBtn;
     private ImageView teacherIcon;
     private ImageView paymentIcon;
     private ImageView hisIcon;
+    private ImageView expensesIcon;
 
-
-    public NavButtons(JFXButton teacherBtn, JFXButton paymentBtn, JFXButton hisBtn, ImageView teacherIcon, ImageView paymentIcon, ImageView hisIcon) {
-        this.teacherBtn = teacherBtn;
-        this.paymentBtn = paymentBtn;
-        this.hisBtn = hisBtn;
-        this.teacherIcon = teacherIcon;
-        this.paymentIcon = paymentIcon;
-        this.hisIcon = hisIcon;
-    }
 
     public void setFocus(ActionEvent event) {
         if (event.getSource() == teacherBtn) {
@@ -40,6 +35,11 @@ public class NavButtons {
             setDefaultNavBtnIcons();
             hisBtn.setStyle(styles.NAV_BUTTON);
             hisIcon.setImage(new Image("order_history_96px _fill.png", 30, 30, false, false));
+        } else if (event.getSource() == expensesBtn) {
+            setTransparentBkg();
+            setDefaultNavBtnIcons();
+            expensesBtn.setStyle(styles.NAV_BUTTON);
+            expensesIcon.setImage(new Image("ledger_fill.png", 30, 30, false, false));
         }
     }
 
@@ -47,11 +47,13 @@ public class NavButtons {
         teacherBtn.setStyle("-fx-background-color: transparent");
         paymentBtn.setStyle("-fx-background-color: transparent");
         hisBtn.setStyle("-fx-background-color: transparent");
+        expensesBtn.setStyle("-fx-background-color: transparent");
     }
 
     public void setDefaultNavBtnIcons() {
         teacherIcon.setImage(new Image("data_recovery_96px.png", 30,30,false, false));
         paymentIcon.setImage(new Image("check.png", 30,30,false, false));
         hisIcon.setImage(new Image("order_history_96px.png", 30,30,false, false));
+        expensesIcon.setImage(new Image("ledger_96px.png", 30, 30, false, false));
     }
 }

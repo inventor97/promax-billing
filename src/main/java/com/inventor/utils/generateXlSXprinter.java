@@ -32,7 +32,7 @@ public class generateXlSXprinter {
         val.append("FIO: ").append(data.getName())
                 .append("\nTo'lov: ").append(data.getAmountBill())
                 .append("\nOy: ").append(data.getPayedMonth())
-                .append("\nFan: ").append(data.getSubjectId())
+                .append("\nFan: ").append(data.getSubjects())
                 .append("\ndate: ").append(data.getDateCrated());
 
         Image qrCode = generateQRCode.generateCode(val.toString(), 420, 420).getImage();
@@ -94,7 +94,7 @@ public class generateXlSXprinter {
             df.setMaximumFractionDigits(0);
 
             addRow(sheet, workbook, "O'quvchi: ", data.getName(), 12, 1,false, 15);
-            addRow(sheet, workbook, "O'quv fani: ", subjectDAOimpls.getInstance().getSubjects(data.getSubjectId()), 13, 1, false, 15);
+            addRow(sheet, workbook, "O'quv fani: ", data.getSubjects(), 13, 1, false, 15);
             addRow(sheet, workbook, "O'qituvchilar:", data.getTeachers(), 14, 1, false, 15);
             addRow(sheet, workbook,"", "", 15, 1, true, 14);
             addRow(sheet, workbook, "To'lov oyi: ", data.getPayedMonth(), 16, 1, false, 15);

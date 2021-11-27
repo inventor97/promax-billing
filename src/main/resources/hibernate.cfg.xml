@@ -13,5 +13,6 @@
         <mapping class="com.inventor.entities.ChecksDataEntity"/>
         <mapping class="com.inventor.entities.SubjectsEntity"/>
         <mapping class="com.inventor.entities.TeachersEntity"/>
+        <mapping class="com.inventor.entities.ExpensesEntity"/>
     </session-factory>
 </hibernate-configuration>

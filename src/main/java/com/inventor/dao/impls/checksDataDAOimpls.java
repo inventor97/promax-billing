@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,4 +95,41 @@ public class checksDataDAOimpls extends abstractUA<ChecksDataEntity> implements 
         return maxId;
     }
 
+    @Override
+    public List<ChecksDataEntity> getListByDate(Date date) {
+        isActiveSession();
+        List<ChecksDataEntity> ls = new ArrayList<>(getSession().createCriteria(ChecksDataEntity.class)
+                .add(Restrictions
+                        .eq("dateCrated", date)).list());
+        getSession().getTransaction().commit();
+        return ls;
+    }
+
+    @Override
+    public List<ChecksDataEntity> getListBySubject(String sub) {
+        isActiveSession();
+        List<ChecksDataEntity> ls = new ArrayList<>(getSession()
+                .createCriteria(ChecksDataEntity.class).add(Restrictions.ilike("subjects", sub + ",")).list());
+        getSession().getTransaction().commit();
+        return ls;
+    }
+
+    @Override
+    public List<ChecksDataEntity> getListByTeacher(String teacher) {
+        isActiveSession();
+        List<ChecksDataEntity> ls = new ArrayList<>(getSession()
+                .createCriteria(ChecksDataEntity.class)
+                .add(Restrictions.ilike("teachers", teacher+",")).list());
+        getSession().getTransaction().commit();
+        return ls;
+    }
+
+    @Override
+    public List<ChecksDataEntity> getListByMonth(String month) {
+        isActiveSession();
+        List<ChecksDataEntity> ls = new ArrayList<>(getSession()
+                .createCriteria(ChecksDataEntity.class).add(Restrictions.ilike("payedMonth", month)).list());
+        getSession().getTransaction().commit();
+        return ls;
+    }
 }

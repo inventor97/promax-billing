@@ -4,6 +4,7 @@ import com.inventor.dao.impls.cashersDAOImpls;
 import com.inventor.dao.impls.subjectDAOimpls;
 import com.inventor.dao.impls.teacherDAOImpls;
 import com.inventor.entities.CashersEntity;
+import com.inventor.entities.ChecksDataEntity;
 import com.inventor.entities.SubjectsEntity;
 import com.inventor.entities.TeachersEntity;
 import com.inventor.utils.FileUtils;
@@ -11,7 +12,6 @@ import com.inventor.utils.windowCtrl;
 import com.inventor.viewUtils.*;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -242,6 +242,12 @@ public class mainCtrl  implements Initializable {
     @FXML
     private JFXSpinner spinner;
 
+    @FXML
+    private ImageView expensesIcon;
+
+    @FXML
+    private JFXButton expensesBtn;
+
     private NavButtons btnCtrl;
     private windowCtrl wCtrl;
 
@@ -266,6 +272,9 @@ public class mainCtrl  implements Initializable {
     public static paymentView payView;
     public static CashersEntity activeUser = new CashersEntity();
     public static authUserView auth;
+    public static statsPageUtils tableUtils;
+
+    public static List<ChecksDataEntity> currentTableValues = new ArrayList<>();
 
 
     @FXML
@@ -422,12 +431,14 @@ public class mainCtrl  implements Initializable {
             hisContent.setVisible(true);
             selecedMonths.clear();
             selectedTeacherForPay.clear();
+        } else if (event.getSource() == expensesBtn) {
+            setVisibilityContent();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnCtrl = new NavButtons(teacherBtn, paymentBtn, historyBtn, teacherIcon, paymentIcon, hisIcon);
+        btnCtrl = new NavButtons(teacherBtn, paymentBtn, historyBtn, expensesBtn, teacherIcon, paymentIcon, hisIcon, expensesIcon);
         wCtrl = new windowCtrl(close, swipe);
         subNode  = new subjectNode(subjectGridPane);
         teachNode = new teacherNode(teachersHb);
