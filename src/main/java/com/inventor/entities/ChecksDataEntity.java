@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "checks_data", schema = "promax_billing", catalog = "")
+@Table(name = "checks_data", schema = "promax_billing")
 public class ChecksDataEntity {
     private int id;
     private String name;
@@ -21,8 +21,10 @@ public class ChecksDataEntity {
     private String comment;
     private Date dateCrated;
     private String payedMonth;
+    private String cardHolder;
 
-    public ChecksDataEntity(String name, long amountBill, boolean paymentType, int casherId, String teachers, String subjects, String comment, Date dateCrated, String payedMonth) {
+
+    public ChecksDataEntity(String name, long amountBill, boolean paymentType, int casherId, String teachers, String subjects, String comment, Date dateCrated, String payedMonth, String cardHolder) {
         this.name = name;
         this.amountBill = amountBill;
         this.paymentType = paymentType;
@@ -32,6 +34,7 @@ public class ChecksDataEntity {
         this.comment = comment;
         this.dateCrated = dateCrated;
         this.payedMonth = payedMonth;
+        this.cardHolder = cardHolder;
     }
 
     @Id
@@ -134,16 +137,27 @@ public class ChecksDataEntity {
         this.payedMonth = payedMonth;
     }
 
+
+    @Basic
+    @Column(name = "card_holder")
+    public String getCardHolder() {
+        return cardHolder;
+    }
+
+    public void setCardHolder(String cardHolder) {
+        this.cardHolder = cardHolder;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ChecksDataEntity)) return false;
         ChecksDataEntity that = (ChecksDataEntity) o;
-        return id == that.id && amountBill == that.amountBill && paymentType == that.paymentType && casherId == that.casherId && name.equals(that.name) && teachers.equals(that.teachers) && subjects.equals(that.subjects) && comment.equals(that.comment) && dateCrated.equals(that.dateCrated) && payedMonth.equals(that.payedMonth);
+        return id == that.id && amountBill == that.amountBill && paymentType == that.paymentType && casherId == that.casherId && name.equals(that.name) && teachers.equals(that.teachers) && subjects.equals(that.subjects) && comment.equals(that.comment) && dateCrated.equals(that.dateCrated) && payedMonth.equals(that.payedMonth) && cardHolder.equals(that.cardHolder);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, amountBill, paymentType, casherId, teachers, subjects, comment, dateCrated, payedMonth);
+        return Objects.hash(id, name, amountBill, paymentType, casherId, teachers, subjects, comment, dateCrated, payedMonth, cardHolder);
     }
 }

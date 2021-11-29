@@ -246,7 +246,13 @@ public class mainCtrl  implements Initializable {
     private ImageView expensesIcon;
 
     @FXML
-    private JFXButton expensesBtn;
+    private JFXButton expencesBtn;
+
+    @FXML
+    private HBox cardHolderPane;
+
+    @FXML
+    private JFXTextField cardHolderTxt;
 
     private NavButtons btnCtrl;
     private windowCtrl wCtrl;
@@ -421,7 +427,7 @@ public class mainCtrl  implements Initializable {
             selectedTeacherForPay.clear();
         } else if (event.getSource() == paymentBtn) {
             setVisibilityContent();
-            payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb, subChoiceHbox, spinner);
+            payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, cardHolderTxt, cardHolderPane, omment, monthBox, teacherBox, popupBkg, subjectChoicePane, choiceLb, spinner, subChoiceHbox);
             paymentContent.setVisible(true);
             teacherBox.setVisible(true);
             monthBox.setVisible(true);
@@ -431,14 +437,14 @@ public class mainCtrl  implements Initializable {
             hisContent.setVisible(true);
             selecedMonths.clear();
             selectedTeacherForPay.clear();
-        } else if (event.getSource() == expensesBtn) {
+        } else if (event.getSource() == expencesBtn) {
             setVisibilityContent();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnCtrl = new NavButtons(teacherBtn, paymentBtn, historyBtn, expensesBtn, teacherIcon, paymentIcon, hisIcon, expensesIcon);
+        btnCtrl = new NavButtons(teacherBtn, paymentBtn, historyBtn, expencesBtn, teacherIcon, paymentIcon, hisIcon, expensesIcon);
         wCtrl = new windowCtrl(close, swipe);
         subNode  = new subjectNode(subjectGridPane);
         teachNode = new teacherNode(teachersHb);
@@ -454,7 +460,7 @@ public class mainCtrl  implements Initializable {
         cashEdit = new casherEdit(popupBkg, editUserNode, editedUserName, userPassword, addUser, userImg);
         teachEditOption = new teacherEdit(editTeacherNode, popupBkg, TeacherImg, editedTeacherName, addTeacher);
         subChoiceNode = new subjectNode(subjectChoicePane, subChoiceHbox);
-        payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb, subChoiceHbox, spinner);
+        payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, cardHolderTxt, cardHolderPane, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb,spinner, subChoiceHbox);
         auth = new authUserView(popupBkg, authPane, topBarAccountImg, topBarUserName, authPassfield);
     }
 
@@ -546,6 +552,5 @@ public class mainCtrl  implements Initializable {
             }
         }
     }
-
 
 }

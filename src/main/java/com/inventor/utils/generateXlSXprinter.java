@@ -1,5 +1,6 @@
 package com.inventor.utils;
 
+import com.inventor.controllers.mainCtrl;
 import com.inventor.dao.impls.checksDataDAOimpls;
 import com.inventor.dao.impls.subjectDAOimpls;
 import com.inventor.entities.ChecksDataEntity;
@@ -71,7 +72,7 @@ public class generateXlSXprinter {
             main.setCellValue(dataDate);
 
             Cell no = datRow1.createCell(1);
-            no.setCellStyle(style(workbook, HorizontalAlignment.CENTER, false, 14));
+            no.setCellStyle(style(workbook, HorizontalAlignment.RIGHT, false, 14));
             no.setCellValue("#" + checksDataDAOimpls.getInstance().getMaxId());
 
             Row datRow3 = sheet.createRow(7);
@@ -93,15 +94,16 @@ public class generateXlSXprinter {
             DecimalFormat df = new DecimalFormat("#,###");
             df.setMaximumFractionDigits(0);
 
-            addRow(sheet, workbook, "O'quvchi: ", data.getName(), 12, 1,false, 15);
-            addRow(sheet, workbook, "O'quv fani: ", data.getSubjects(), 13, 1, false, 15);
-            addRow(sheet, workbook, "O'qituvchilar:", data.getTeachers(), 14, 1, false, 15);
-            addRow(sheet, workbook,"", "", 15, 1, true, 14);
-            addRow(sheet, workbook, "To'lov oyi: ", data.getPayedMonth(), 16, 1, false, 15);
-            addRow(sheet, workbook, "To'lov turi: ", data.isPaymentType() ? "Naqd": "To'lov karta", 17, 1, false, 15);
-            addRow(sheet, workbook, "Summa: ", df.format(data.getAmountBill()), 18, 1, false, 20);
-            addRow(sheet, workbook,"", "", 19, 1, true, 14);
-            addRow(sheet, workbook, "Izoh: ", data.getComment(), 20, 1, true, 15);
+            addRow(sheet, workbook, "Admin:", mainCtrl.activeUser.getName(), 12, 1, false, 15);
+            addRow(sheet, workbook, "O'quvchi: ", data.getName(), 13, 1,false, 15);
+            addRow(sheet, workbook, "O'quv fani: ", data.getSubjects(), 14, 1, false, 15);
+            addRow(sheet, workbook, "O'qituvchilar:", data.getTeachers(), 15, 1, false, 15);
+            addRow(sheet, workbook,"", "", 16, 1, true, 14);
+            addRow(sheet, workbook, "To'lov oyi: ", data.getPayedMonth(), 17, 1, false, 15);
+            addRow(sheet, workbook, "To'lov turi: ", data.isPaymentType() ? "Naqd": "To'lov karta ( " + data.getCardHolder() + " )", 18, 1, false, 15);
+            addRow(sheet, workbook, "Summa: ", df.format(data.getAmountBill()), 19, 1, false, 20);
+            addRow(sheet, workbook,"", "", 20, 1, true, 14);
+            addRow(sheet, workbook, "Izoh: ", data.getComment(), 21, 1, true, 15);
 
             Row bottom = sheet.createRow(48);
             bottom.setHeight((short) 650);
@@ -111,7 +113,11 @@ public class generateXlSXprinter {
 
             setHeaderImages(workbook, sheet, qrCode, 0, 24);
 
-            String xlsName = data.getName() + new Date().getTime();
+            DateTimeFormatter dt = DateTimeFormatter.ofPattern("ddMMyy_HHmmss");
+            LocalDateTime nowTime = LocalDateTime.now();
+
+
+            String xlsName = data.getName() + dt.format(nowTime);
             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath() + "/" + xlsName + ".xls");
             workbook.write(fileOut);
             fileOut.close();

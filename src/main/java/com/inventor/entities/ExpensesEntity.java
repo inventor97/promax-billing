@@ -25,4 +25,7 @@ public class ExpensesEntity {
     @Basic
     @Column(name = "amount")
     private double amount;
+    @Basic
+    @Column(name = "comment")
+    private String comment;
 }

@@ -19,14 +19,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -40,6 +36,8 @@ public class paymentView {
     private AnchorPane subjectBox;
     private JFXRadioButton cash;
     private JFXRadioButton card;
+    private JFXTextField cardHOlderTxt;
+    private HBox cardHolderPane;
     private JFXTextArea comment;
     private AnchorPane monthBox;
     private AnchorPane teacherBox;
@@ -49,21 +47,24 @@ public class paymentView {
     private JFXSpinner spinner;
     private VBox subChoiceHbox;
 
-    public paymentView(JFXTextField fio, JFXTextField amount, AnchorPane subjectBox, JFXRadioButton cash, JFXRadioButton card, JFXTextArea comment, AnchorPane monthBox, AnchorPane teacherBox, AnchorPane popBkg, AnchorPane subjectChoiceNode, Label choiceLb, VBox subChoiceHbox, JFXSpinner spinner) {
+    public paymentView(JFXTextField fio, JFXTextField amount, AnchorPane subjectBox, JFXRadioButton cash, JFXRadioButton card, JFXTextField cardHOlderTxt, HBox cardHolderPane, JFXTextArea comment, AnchorPane monthBox, AnchorPane teacherBox, AnchorPane popBkg, AnchorPane subjectChoiceNode, Label choiceLb, JFXSpinner spinner, VBox subChoiceHbox) {
         this.fio = fio;
         this.amount = amount;
         this.subjectBox = subjectBox;
         this.cash = cash;
         this.card = card;
+        this.cardHOlderTxt = cardHOlderTxt;
+        this.cardHolderPane = cardHolderPane;
         this.comment = comment;
         this.monthBox = monthBox;
         this.teacherBox = teacherBox;
         this.popBkg = popBkg;
         this.subjectChoiceNode = subjectChoiceNode;
         this.choiceLb = choiceLb;
-        this.subChoiceHbox = subChoiceHbox;
         this.spinner = spinner;
+        this.subChoiceHbox = subChoiceHbox;
         initTxtRestr();
+        initRadioBtnListener();
     }
 
     public Task<Void> initRecordTask() {
@@ -101,6 +102,16 @@ public class paymentView {
                 if (!newValue.matches("\\d*(\\.\\d*)?")) {
                     amount.setText(oldValue);
                 }
+            }
+        });
+    }
+
+    private void initRadioBtnListener() {
+        card.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                cardHolderPane.setVisible(true);
+            } else {
+                cardHolderPane.setVisible(false);
             }
         });
     }
@@ -241,7 +252,16 @@ public class paymentView {
                         if (mainCtrl.selecedMonths.size() > 0 && mainCtrl.selectedTeacherForPay.size() > 0) {
                             if (!comment.getText().equals("")) {
                                 if (mainCtrl.selecedSubjects.size() > 0 ) {
-                                    return true;
+                                    if (card.isSelected()) {
+                                        if (!cardHOlderTxt.getText().equals("")) {
+                                            return true;
+                                        } else {
+                                            windowCtrl.makeToast("Karta egasini kiriting.");
+                                            return false;
+                                        }
+                                    } else {
+                                        return true;
+                                    }
                                 } else {
                                     windowCtrl.makeToast("O'quv fanini tanlang");
                                     return false;
@@ -290,7 +310,7 @@ public class paymentView {
             ChecksDataEntity obj = new ChecksDataEntity(fio.getText(),
                     Long.parseLong(amount.getText()), cash.isSelected(),
                     mainCtrl.activeUser.getId(), teachers[0], subIds.toString(),
-                    comment.getText(), dateCreated, months[0]);
+                    comment.getText(), dateCreated, months[0], cash.isSelected() ? "" : cardHOlderTxt.getText());
             checksDataDAOimpls.getInstance().add(obj);
             generateXlSXprinter.saveSoldCheck(obj);
             mainCtrl.selecedMonths.clear();
