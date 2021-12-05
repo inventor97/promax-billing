@@ -92,7 +92,6 @@ public class paymentView {
                 spinner.setVisible(false);
             }
         });
-
         return task;
     }
 

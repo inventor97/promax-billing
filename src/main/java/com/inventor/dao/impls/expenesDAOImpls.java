@@ -1,14 +1,18 @@
 package com.inventor.dao.impls;
 
 import com.inventor.dao.interfaces.expensesDAO;
+import com.inventor.entities.ChecksDataEntity;
 import com.inventor.entities.ExpensesEntity;
 import com.inventor.entities.TeachersEntity;
 import com.inventor.utils.HibernateUtil;
+import com.inventor.utils.dateUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,4 +91,17 @@ public class expenesDAOImpls extends abstractUA<ExpensesEntity> implements expen
         return id;
     }
 
+    @Override
+    public List<ExpensesEntity> getByList(Date date, boolean byMonth) {
+        isActiveSession();
+        Criteria criteria = getSession().createCriteria(ChecksDataEntity.class);
+        if (!byMonth) {
+            criteria.add(Restrictions.eq("dateCrated", date));
+        } else {
+            criteria.add(Restrictions.between("dateCrated", dateUtils.getFirstDayMonth(date), dateUtils.getLastDayMonth(date)));
+        }
+        List<ExpensesEntity> ls = new ArrayList<>(criteria.list());
+        getSession().getTransaction().commit();
+        return ls;
+    }
 }

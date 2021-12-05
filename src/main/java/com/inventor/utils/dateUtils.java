@@ -1,6 +1,8 @@
 package com.inventor.utils;
 
+import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -86,5 +88,11 @@ public class dateUtils {
         int m = date.getMonth() + 1;
         int lastDay  = YearMonth.of(y, m).lengthOfMonth();
         return java.sql.Date.valueOf(y + "-" + m + "-" + lastDay);
+    }
+
+    public static String nameDateFormat() {
+        DateTimeFormatter dt = DateTimeFormatter.ofPattern("ddMMyy_HHmmss");
+        LocalDateTime nowTime = LocalDateTime.now();
+        return dt.format(nowTime);
     }
 }

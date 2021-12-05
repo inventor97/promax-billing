@@ -8,28 +8,24 @@ import org.apache.poi.ss.usermodel.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class generateXLS {
+public class generateExpXLS {
 
     public static boolean saveStats(List<tableClass> data) {
 
         List<String> columns = new ArrayList<>();
         columns.add("#");
-        columns.add("F.I.O");
-        columns.add("Fan");
-        columns.add("O'qituvchi");
-        columns.add("To'lov oyi");
-        columns.add("To'lov");
-        columns.add("To'lov turi");
-        columns.add("To'lov karta egasi");
+        columns.add("Xarajat");
+        columns.add("Tomonidan");
         columns.add("Izoh");
-        columns.add("Chek sanasi");
-        columns.add("Admin");
-
+        columns.add("Sana");
 
         JFileChooser fr = new JFileChooser();
         FileSystemView fw = fr.getFileSystemView();
@@ -66,26 +62,20 @@ public class generateXLS {
                 row.setRowStyle(rowStyle(workbook));
                 row.setHeight((short)-1);
                 addCell(workbook, row, String.valueOf(data.get(i).getNo()), 0);
-                addCell(workbook, row, data.get(i).getName(), 1);
-                addCell(workbook, row, data.get(i).getSub(), 2);
+                addCell(workbook, row, df.format(data.get(i).getAmount()), 1);
+                addCell(workbook, row, data.get(i).getSub(), 4);
                 addCell(workbook, row, data.get(i).getTeacher(), 3);
-                addCell(workbook, row, data.get(i).getMonth(), 4);
-                addCell(workbook, row, df.format(data.get(i).getAmount()), 5);
-                addCell(workbook, row, data.get(i).getObj().isPaymentType() ? "Naqd": "To'lov karta", 6);
-                addCell(workbook, row, data.get(i).getObj().getCardHolder(), 7);
-                addCell(workbook, row, data.get(i).getObj().getComment(), 8);
-                addCell(workbook, row, String.valueOf(data.get(i).getObj().getDateCrated()), 9);
-                addCell(workbook, row, cashersDAOImpls.getInstance().get(data.get(i).getObj().getCasherId()).getName(), 10);
+                addCell(workbook, row, data.get(i).getMonth(), 2);
                 summ += data.get(i).getAmount();
             }
 
             rowNum = rowNum + 2;
             Row prRow = sheet.createRow(rowNum);
-            Cell prCell = prRow.createCell(10);
+            Cell prCell = prRow.createCell(4);
             prCell.setCellStyle(style(workbook, true, true,BorderStyle.THICK, false, 15));
             prCell.setCellValue(df.format(summ));
 
-            String xlsName = "Hisobot" + dateUtils.nameDateFormat();
+            String xlsName = "Xarajat" + dateUtils.nameDateFormat();
             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath() + "/" + xlsName + ".xls");
             workbook.write(fileOut);
             fileOut.close();
@@ -112,12 +102,6 @@ public class generateXLS {
         sheet.setColumnWidth(2, 11550);
         sheet.setColumnWidth(3, 11550);
         sheet.setColumnWidth(4, 7895);
-        sheet.setColumnWidth(5, 4895);
-        sheet.setColumnWidth(6, 5895);
-        sheet.setColumnWidth(7, 4895);
-        sheet.setColumnWidth(8, 8895);
-        sheet.setColumnWidth(9, 4895);
-        sheet.setColumnWidth(10, 4895);
 
     }
 
@@ -146,5 +130,6 @@ public class generateXLS {
         st.setFont(newFont);
         return st;
     }
+
 
 }

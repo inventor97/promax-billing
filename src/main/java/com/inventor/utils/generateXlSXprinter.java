@@ -112,11 +112,8 @@ public class generateXlSXprinter {
             btm.setCellValue("Eng muhim maqsadlaringizni biling!");
 
             setHeaderImages(workbook, sheet, qrCode, 0, 24);
-
-            DateTimeFormatter dt = DateTimeFormatter.ofPattern("ddMMyy_HHmmss");
-            LocalDateTime nowTime = LocalDateTime.now();
             
-            String xlsName = data.getName() + dt.format(nowTime);
+            String xlsName = data.getName() + dateUtils.nameDateFormat();
             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath() + "/" + xlsName + ".xls");
             workbook.write(fileOut);
             fileOut.close();

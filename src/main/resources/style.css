@@ -181,7 +181,9 @@
     -fx-border-width: 1px;
     -fx-border-color: #b2b2b5;
 }
-#paymentContent{
+#paymentContent,
+#expensesForm,
+#expensesStatsPane {
     -fx-background-color: rgba(255,255,255,0.5);
     -fx-border-width: 1px;
     -fx-border-color: #e5e5e5;

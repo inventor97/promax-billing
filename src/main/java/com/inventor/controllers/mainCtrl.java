@@ -1,18 +1,21 @@
 package com.inventor.controllers;
 
 import com.inventor.Main;
-import com.inventor.dao.impls.cashersDAOImpls;
-import com.inventor.dao.impls.checksDataDAOimpls;
-import com.inventor.dao.impls.subjectDAOimpls;
-import com.inventor.dao.impls.teacherDAOImpls;
+import com.inventor.dao.impls.*;
 import com.inventor.entities.*;
 import com.inventor.utils.FileUtils;
 import com.inventor.utils.dateUtils;
+import com.inventor.utils.generateXLS;
 import com.inventor.utils.windowCtrl;
 import com.inventor.viewUtils.*;
 import com.jfoenix.controls.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -327,6 +330,58 @@ public class mainCtrl  implements Initializable {
     @FXML
     private ImageView rightSideIcon;
 
+    @FXML
+    private JFXTextField expenseAmount;
+
+    @FXML
+    private JFXTextField expensesComment;
+
+    @FXML
+    private JFXButton saveExpenses;
+
+    @FXML
+    private Spinner<Integer> expYearSpinner;
+
+    @FXML
+    private JFXComboBox<String> expMonthCmbx;
+
+    @FXML
+    private Spinner<Integer> expDaySpinner;
+
+    @FXML
+    private TableView<tableClass> expensesTableView;
+
+    @FXML
+    private TableColumn<tableClass, Integer> expNo;
+
+    @FXML
+    private TableColumn<tableClass, String> expAmount;
+
+    @FXML
+    private TableColumn<tableClass, String> expBy;
+
+    @FXML
+    private TableColumn<tableClass, String> expDate;
+
+    @FXML
+    private TableColumn<tableClass, String> expComment;
+
+    @FXML
+    private TableColumn<tableClass, String> expObj;
+
+    @FXML
+    private JFXRadioButton expWholeMonth;
+
+    @FXML
+    private Label expSummUp;
+
+    @FXML
+    private JFXButton generateExpXls;
+
+    @FXML
+    private AnchorPane expensesStatsPane;
+
+
     private NavButtons btnCtrl;
     private windowCtrl wCtrl;
 
@@ -398,6 +453,66 @@ public class mainCtrl  implements Initializable {
        }
     }
 
+    private void initSavingStats() {
+        popupBkg.setVisible(true);
+        spinner.setVisible(true);
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                List<tableClass> ls = new ArrayList<>(statTableView.getItems());
+                com.inventor.utils.generateXLS.saveStats(ls);
+                return null;
+            }
+        };
+        task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                windowCtrl.makeToast("Hisobot saqlandi");
+                popupBkg.setVisible(false);
+                spinner.setVisible(false);
+            }
+        });
+        task.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                windowCtrl.makeToast("Error missing argument");
+                popupBkg.setVisible(false);
+                spinner.setVisible(false);
+            }
+        });
+        new Thread(task).start();
+    }
+
+    private void initExpSavingStats() {
+        popupBkg.setVisible(true);
+        spinner.setVisible(true);
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                List<tableClass> ls = new ArrayList<>(statTableView.getItems());
+                com.inventor.utils.generateExpXLS.saveStats(ls);
+                return null;
+            }
+        };
+        task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                windowCtrl.makeToast("Hisobot saqlandi");
+                popupBkg.setVisible(false);
+                spinner.setVisible(false);
+            }
+        });
+        task.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                windowCtrl.makeToast("Error missing argument");
+                popupBkg.setVisible(false);
+                spinner.setVisible(false);
+            }
+        });
+        new Thread(task).start();
+    }
+
     @FXML
     void clickWindowHandler(ActionEvent event) {
         wCtrl.setCtrl(event);
@@ -407,6 +522,7 @@ public class mainCtrl  implements Initializable {
             topBarUserName.setText("");
             popupBkg.setVisible(true);
             authPane.setVisible(true);
+            expensesStatsPane.setVisible(false);
         }
      }
 
@@ -540,6 +656,11 @@ public class mainCtrl  implements Initializable {
             initSearchAutoCompliation();
         } else if (event.getSource() == expencesBtn) {
             setVisibilityContent();
+            expensesPane.setVisible(true);
+            if (activeUser.getId() == 9) {
+                expensesStatsPane.setVisible(true);
+            }
+            filterExpBy();
             closeRightSide();
         }
     }
@@ -564,6 +685,14 @@ public class mainCtrl  implements Initializable {
         subChoiceNode = new subjectNode(subjectChoicePane, subChoiceHbox);
         payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, cardHolderTxt, cardHolderPane, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb,spinner, subChoiceHbox);
         auth = new authUserView(popupBkg, authPane, topBarAccountImg, topBarUserName, authPassfield);
+        expenseAmount.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                    expenseAmount.setText(oldValue);
+                }
+            }
+        });
         initTable();
         initDateFilter();
         initCmbx();
@@ -582,6 +711,8 @@ public class mainCtrl  implements Initializable {
            } else {
                closeRightSide();
            }
+        } else if (event.getSource() == generateXLS) {
+            initSavingStats();
         }
     }
 
@@ -609,6 +740,24 @@ public class mainCtrl  implements Initializable {
             statTableView.setItems(FXCollections.observableArrayList(ls));
         } catch (NullPointerException e) {
             statTableView.setItems(FXCollections.observableArrayList(ls));
+        }
+    }
+
+    private List<tableClass> convertToExpTable(List<ExpensesEntity> lsExpeneses) {
+        int order = 1;
+        List<tableClass> ls = new ArrayList<>();
+        for (ExpensesEntity o : lsExpeneses) {
+            ls.add(new tableClass(order++, o));
+        }
+        return ls;
+    }
+
+    private void setExpTableValues(List<tableClass> ls) {
+        try {
+            expensesTableView.getItems().clear();
+            expensesTableView.setItems(FXCollections.observableArrayList(ls));
+        } catch (NullPointerException e) {
+            expensesTableView.setItems(FXCollections.observableArrayList(ls));
         }
     }
 
@@ -657,6 +806,13 @@ public class mainCtrl  implements Initializable {
         calculateTable();
     }
 
+    private void filterExpBy() {
+        Date date = getExpSelectedDate();
+        boolean bMonth = expWholeMonth.selectedProperty().getValue();
+        setExpTableValues(convertToExpTable(expenesDAOImpls.getInstance().getByList(date, bMonth)));
+        calculateExpTable();
+    }
+
     private void calculateTable() {
         double summ = 0.0;
         for (tableClass o : statTableView.getItems()) {
@@ -665,6 +821,16 @@ public class mainCtrl  implements Initializable {
         DecimalFormat df = new DecimalFormat("#,###");
         df.setMaximumFractionDigits(0);
         sumUpLb.setText("Umumiy to'lov: " + df.format(summ));
+    }
+
+    private void calculateExpTable() {
+        double summ = 0.0;
+        for (tableClass o : statTableView.getItems()) {
+            summ += o.getAmount();
+        }
+        DecimalFormat df = new DecimalFormat("#,###");
+        df.setMaximumFractionDigits(0);
+        sumUpLb.setText("Umumiy xarajat: " + df.format(summ));
     }
 
     private void initTable(){
@@ -677,6 +843,15 @@ public class mainCtrl  implements Initializable {
         initTableWrapText(subject);
         month.setCellValueFactory(new PropertyValueFactory<>("month"));
         amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+
+        expNo.setCellValueFactory(new PropertyValueFactory<>("no"));
+        expAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        expBy.setCellValueFactory(new PropertyValueFactory<>("month"));
+        expDate.setCellValueFactory(new PropertyValueFactory<>("sub"));
+        expComment.setCellValueFactory(new PropertyValueFactory<>("teacher"));
+        initTableWrapText(expBy);
+        initTableWrapText(expComment);
+
     }
 
     private void initTableWrapText(TableColumn<tableClass, String> clm) {
@@ -696,11 +871,15 @@ public class mainCtrl  implements Initializable {
         int crDy = new java.util.Date().getDate();
         SpinnerValueFactory<Integer> ySp = new SpinnerValueFactory.IntegerSpinnerValueFactory(2021, 1900 + crYear,crYear);
         yearSpinner.setValueFactory(ySp);
+        expYearSpinner.setValueFactory(ySp);
         monthCmbx.setItems(FXCollections.observableArrayList(dateUtils.getMonths()));
         monthCmbx.getSelectionModel().select(dateUtils.getCurrentMonth());
+        expMonthCmbx.setItems(FXCollections.observableArrayList(dateUtils.getMonths()));
+        expMonthCmbx.getSelectionModel().select(dateUtils.getCurrentMonth());
         int lengthMonth = dateUtils.getLastDayMonth();
         SpinnerValueFactory<Integer> dSp = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, lengthMonth,crDy);
         dateSpinner.setValueFactory(dSp);
+        expDaySpinner.setValueFactory(dSp);
         yearSpinner.valueProperty().addListener(e ->  {
             filterBy();
         });
@@ -710,12 +889,31 @@ public class mainCtrl  implements Initializable {
         dateSpinner.valueProperty().addListener(newValue ->  {
             filterBy();
         });
+        expYearSpinner.valueProperty().addListener(e -> {
+            filterExpBy();
+        });
+        expDaySpinner.valueProperty().addListener(e -> {
+            filterExpBy();
+        });
+        expMonthCmbx.valueProperty().addListener(e -> {
+            filterExpBy();
+        });
+        expWholeMonth.selectedProperty().addListener(e -> {
+            filterExpBy();
+        });
     }
 
     private Date getSelectedDate() {
         String year  = String.valueOf(yearSpinner.getValue());
         String month  = monthCmbx.getSelectionModel().getSelectedItem();
         String day = String.valueOf(dateSpinner.getValue());
+        return  Date.valueOf(year + "-" + dateUtils.getMonthOrder(month) + "-" + day);
+    }
+
+    private Date getExpSelectedDate() {
+        String year  = String.valueOf(expYearSpinner.getValue());
+        String month  = expMonthCmbx.getSelectionModel().getSelectedItem();
+        String day = String.valueOf(expDaySpinner.getValue());
         return  Date.valueOf(year + "-" + dateUtils.getMonthOrder(month) + "-" + day);
     }
 
@@ -803,4 +1001,29 @@ public class mainCtrl  implements Initializable {
         }
     }
 
+    @FXML
+    void expensesClickHandler(ActionEvent event) {
+        if (event.getSource() == saveExpenses) {
+            try {
+                if (!expensesComment.getText().equals("") && !expenseAmount.getText().equals("")) {
+                    ExpensesEntity obj = new ExpensesEntity();
+                    obj.setAmount(Double.valueOf(expAmount.getText()));
+                    obj.setDateCreated(new Date(new java.util.Date().getTime()));
+                    obj.setUser(activeUser.getName());
+                    obj.setComment(expensesComment.getText());
+                    expenesDAOImpls.getInstance().add(obj);
+                    expenseAmount.setText("");
+                    expensesComment.setText("");
+                    windowCtrl.makeToast("Ma'lumot saqlandi");
+
+                } else {
+                    windowCtrl.makeToast("Ma'lumot to'liq emas");
+                }
+            } catch (NullPointerException e) {
+                windowCtrl.makeToast("Ma'lumot to'liq emas");
+            }
+        } else if (event.getSource() == generateExpXls) {
+            initExpSavingStats();
+        }
+    }
 }

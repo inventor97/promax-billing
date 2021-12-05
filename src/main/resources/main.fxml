@@ -178,7 +178,7 @@
                   <Insets left="20.0" right="20.0" top="20.0" />
                </padding>
             </VBox>
-            <AnchorPane fx:id="hisContent" prefHeight="515.0" prefWidth="665.0">
+            <AnchorPane fx:id="hisContent" prefHeight="515.0" prefWidth="665.0" visible="false">
                <children>
                   <JFXTextField fx:id="searchHis" alignment="CENTER_RIGHT" focusColor="#2a4e8b" layoutX="253.0" layoutY="9.0" prefHeight="31.0" prefWidth="345.0" promptText="qidiruv...">
                      <padding>
@@ -207,10 +207,56 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="generateXLSMonth" layoutX="296.0" layoutY="462.0" onAction="#clickTeachersHandler" prefHeight="40.0" prefWidth="164.0" text="Oy bo'yicha" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="expensesPane" prefHeight="515.0" prefWidth="665.0" visible="false" />
+            <AnchorPane fx:id="expensesPane" prefHeight="515.0" prefWidth="665.0" visible="false">
+               <children>
+                  <HBox fx:id="expensesForm" layoutX="14.0" layoutY="7.0" prefHeight="60.0" prefWidth="635.0" spacing="20.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Xarajat miqdori" />
+                              <JFXTextField fx:id="expenseAmount" alignment="CENTER" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0">
+                           <children>
+                              <Label text="Izoh" />
+                              <JFXTextField fx:id="expensesComment" alignment="CENTER" prefHeight="31.0" prefWidth="250.0" />
+                           </children>
+                        </VBox>
+                        <JFXButton fx:id="saveExpenses" onAction="#expensesClickHandler" prefHeight="60.0" prefWidth="134.0" style="-fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);" text="Saqlash" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <AnchorPane fx:id="expensesStatsPane" layoutX="17.0" layoutY="81.0" prefHeight="421.0" prefWidth="635.0" visible="false">
+                     <children>
+                        <Spinner fx:id="expYearSpinner" layoutX="19.0" layoutY="12.0" prefHeight="32.0" prefWidth="141.0" styleClass="split-arrows-horizontal" />
+                        <JFXComboBox fx:id="expMonthCmbx" layoutX="175.0" layoutY="13.0" prefHeight="30.0" prefWidth="153.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" />
+                        <Spinner fx:id="expDaySpinner" editable="true" layoutX="343.0" layoutY="12.0" prefHeight="32.0" prefWidth="89.0" styleClass="split-arrows-horizontal" />
+                        <TableView fx:id="expensesTableView" layoutX="18.0" layoutY="58.0" prefHeight="300.0" prefWidth="594.0">
+                          <columns>
+                            <TableColumn fx:id="expNo" prefWidth="39.0" text="№" />
+                            <TableColumn fx:id="expAmount" prefWidth="150.0" text="Xarajat miqdori" />
+                              <TableColumn fx:id="expBy" prefWidth="150.0" text="Tomonidan" />
+                              <TableColumn fx:id="expDate" prefWidth="95.0" text="Sana" />
+                              <TableColumn fx:id="expComment" prefWidth="156.0" text="Izoh" />
+                              <TableColumn fx:id="expObj" minWidth="1.0" prefWidth="1.0" text="Izoh" visible="false" />
+                          </columns>
+                        </TableView>
+                        <JFXButton fx:id="generateExpXls" layoutX="422.0" layoutY="367.0" onAction="#expensesClickHandler" prefHeight="49.0" prefWidth="192.0" style="-fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);" text="Excelga ko'chirish" />
+                        <Label fx:id="expSummUp" layoutX="19.0" layoutY="367.0" prefHeight="42.0" prefWidth="360.0" style="-fx-font-size: 20;" text="Umumiy xarajat:" />
+                        <JFXRadioButton fx:id="expWholeMonth" layoutX="444.0" layoutY="12.0" prefHeight="35.0" prefWidth="141.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" text="Butun Oy">
+                           <padding>
+                              <Insets left="5.0" top="10.0" />
+                           </padding>
+                        </JFXRadioButton>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
             <AnchorPane fx:id="teacherContent" prefHeight="515.0" prefWidth="665.0" visible="false">
                <children>
                   <ScrollPane fx:id="teacherScrollPane" layoutX="15.0" layoutY="55.0" prefHeight="208.0" prefWidth="625.0">
@@ -396,7 +442,7 @@
             </JFXRadioButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="901.0" visible="false">
+      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="1200.0">
          <children>
             <AnchorPane fx:id="editSubjectNode" layoutX="357.5" layoutY="232.5" onKeyPressed="#exitOnESC" prefHeight="135.0" prefWidth="185.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
                <children>
