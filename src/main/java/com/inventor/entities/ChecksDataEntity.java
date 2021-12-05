@@ -19,7 +19,7 @@ public class ChecksDataEntity {
     private String teachers;
     private String subjects;
     private String comment;
-    private Date dateCrated;
+    private java.sql.Date dateCrated;
     private String payedMonth;
     private String cardHolder;
 
@@ -119,11 +119,11 @@ public class ChecksDataEntity {
 
     @Basic
     @Column(name = "date_crated")
-    public Date getDateCrated() {
+    public java.sql.Date getDateCrated() {
         return dateCrated;
     }
 
-    public void setDateCrated(Date dateCrated) {
+    public void setDateCrated(java.sql.Date dateCrated) {
         this.dateCrated = dateCrated;
     }
 

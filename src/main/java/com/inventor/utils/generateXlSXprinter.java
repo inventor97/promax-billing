@@ -79,7 +79,7 @@ public class generateXlSXprinter {
             datRow3.setHeight((short) 1860);
             Cell date = datRow3.createCell(0);
             date.setCellStyle(titleStyle(workbook,14, false));
-            date.setCellValue("Promax education o'quv markazi \n" +
+            date.setCellValue("PROMAX EDUCATION o'quv markazi \n" +
                     "Manzil: Toshkent sh. Chilonzor t.\nIntegro 7 -qavat\n" +
                     "Tel nomer: 99895 5137775");
 
@@ -115,8 +115,7 @@ public class generateXlSXprinter {
 
             DateTimeFormatter dt = DateTimeFormatter.ofPattern("ddMMyy_HHmmss");
             LocalDateTime nowTime = LocalDateTime.now();
-
-
+            
             String xlsName = data.getName() + dt.format(nowTime);
             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath() + "/" + xlsName + ".xls");
             workbook.write(fileOut);

@@ -75,6 +75,7 @@ public class cashersDAOImpls extends abstractUA<CashersEntity> implements casher
 
     @Override
     public List<String> getNames() {
+        isActiveSession();
         List<String> list = new ArrayList<>(getSession()
                 .createCriteria(CashersEntity.class)
                 .setProjection(Projections

@@ -3,14 +3,19 @@ package com.inventor.dao.impls;
 import com.inventor.dao.interfaces.checks;
 import com.inventor.entities.ChecksDataEntity;
 import com.inventor.utils.HibernateUtil;
+import com.inventor.utils.dateUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class checksDataDAOimpls extends abstractUA<ChecksDataEntity> implements checks {
 
@@ -68,13 +73,14 @@ public class checksDataDAOimpls extends abstractUA<ChecksDataEntity> implements 
 
     @Override
     public List<String> getNames() {
-        List<String> list = new ArrayList<>(getSession()
+        isActiveSession();
+        Set<String> list = new HashSet<>(getSession()
                 .createCriteria(ChecksDataEntity.class)
                 .setProjection(Projections
                         .property( "name"))
                 .list());
         getSession().getTransaction().commit();
-        return list;
+        return new ArrayList<>(list);
     }
 
     @Override
@@ -106,29 +112,41 @@ public class checksDataDAOimpls extends abstractUA<ChecksDataEntity> implements 
     }
 
     @Override
-    public List<ChecksDataEntity> getListBySubject(String sub) {
+    public List<ChecksDataEntity> getListBy(String month, String sub, String teach, Date date, boolean cash, boolean card, boolean byMonth) {
         isActiveSession();
-        List<ChecksDataEntity> ls = new ArrayList<>(getSession()
-                .createCriteria(ChecksDataEntity.class).add(Restrictions.ilike("subjects", sub + ",")).list());
+        Criteria criteria = getSession().createCriteria(ChecksDataEntity.class);
+        if (!month.equals("Barchasi")) {
+            criteria.add(Restrictions.ilike("payedMonth", month + ",", MatchMode.ANYWHERE));
+        }
+
+        if (!sub.equals("Barchasi")) {
+            criteria.add(Restrictions.ilike("subjects", sub + ",", MatchMode.ANYWHERE));
+        }
+        if (!teach.equals("Barchasi")) {
+            criteria.add(Restrictions.ilike("teachers", teach + ",", MatchMode.ANYWHERE));
+        }
+        if (cash) {
+            criteria.add(Restrictions.eq("paymentType", true));
+        }
+        if (card) {
+            criteria.add(Restrictions.eq("paymentType", false));
+        }
+        if (!byMonth) {
+            criteria.add(Restrictions.eq("dateCrated", date));
+        } else {
+            criteria.add(Restrictions.between("dateCrated",dateUtils.getFirstDayMonth(date), dateUtils.getLastDayMonth(date)));
+        }
+        List<ChecksDataEntity> ls = new ArrayList<>(criteria.list());
         getSession().getTransaction().commit();
         return ls;
     }
 
     @Override
-    public List<ChecksDataEntity> getListByTeacher(String teacher) {
+    public List<ChecksDataEntity> getByName(String name) {
         isActiveSession();
         List<ChecksDataEntity> ls = new ArrayList<>(getSession()
                 .createCriteria(ChecksDataEntity.class)
-                .add(Restrictions.ilike("teachers", teacher+",")).list());
-        getSession().getTransaction().commit();
-        return ls;
-    }
-
-    @Override
-    public List<ChecksDataEntity> getListByMonth(String month) {
-        isActiveSession();
-        List<ChecksDataEntity> ls = new ArrayList<>(getSession()
-                .createCriteria(ChecksDataEntity.class).add(Restrictions.ilike("payedMonth", month)).list());
+                .add(Restrictions.eq("name", name)).list());
         getSession().getTransaction().commit();
         return ls;
     }

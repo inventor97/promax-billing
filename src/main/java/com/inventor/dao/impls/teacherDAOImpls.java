@@ -69,6 +69,7 @@ public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teach
 
     @Override
     public List<String> getNames() {
+        isActiveSession();
         List<String> list = new ArrayList<>(getSession()
                 .createCriteria(TeachersEntity.class)
                 .setProjection(Projections

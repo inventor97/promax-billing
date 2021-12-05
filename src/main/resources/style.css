@@ -64,7 +64,7 @@
 
 #generateXLS {
     -fx-text-fill: #2a4e8b;
-    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);
     -fx-effect: dropshadow(gaussian, #b2b2b5, 15.0, 0, 0,0);
 }
 .combo-box .list-view {
@@ -120,12 +120,14 @@
     -fx-font-family: "Poppins_regular";
     -fx-font-weight: bold;
     -fx-font-size: 14;
+    -fx-text-fill: #2a4e8b;
     -fx-text-alignment: center;
     -fx-selection-bar: #e5e5e5;
     -fx-background-color: rgba(229,229,229,0.8);
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-color: #b2b2b5;
     -fx-table-cell-border-color: transparent;
 }
 .table-view .table-row-cell {
@@ -228,7 +230,7 @@
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button {
     -fx-background-color: #e5e5e5;
-    -fx-padding: 25px;
+    -fx-padding: 5px;
 }
 .spinner .decrement-arrow-button .decrement-arrow,
 .spinner .increment-arrow-button .increment-arrow {
@@ -238,7 +240,7 @@
     -fx-background-color: #e5e5e5;
     -fx-border-width: 0 0 1 0;
     -fx-border-color: transparent;
-    -fx-text-fill: #e5e5e5;
+    -fx-text-fill: #2a4e8b;
     -fx-text-alignment: center;
     -fx-alignment: center;
 }

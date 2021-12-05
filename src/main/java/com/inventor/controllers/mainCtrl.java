@@ -1,21 +1,22 @@
 package com.inventor.controllers;
 
+import com.inventor.Main;
 import com.inventor.dao.impls.cashersDAOImpls;
+import com.inventor.dao.impls.checksDataDAOimpls;
 import com.inventor.dao.impls.subjectDAOimpls;
 import com.inventor.dao.impls.teacherDAOImpls;
-import com.inventor.entities.CashersEntity;
-import com.inventor.entities.ChecksDataEntity;
-import com.inventor.entities.SubjectsEntity;
-import com.inventor.entities.TeachersEntity;
+import com.inventor.entities.*;
 import com.inventor.utils.FileUtils;
+import com.inventor.utils.dateUtils;
 import com.inventor.utils.windowCtrl;
 import com.inventor.viewUtils.*;
 import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -24,10 +25,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,10 +43,10 @@ public class mainCtrl  implements Initializable {
     private AnchorPane mainPage;
 
     @FXML
-    private VBox leftToolBar;
+    private AnchorPane topBar;
 
     @FXML
-    private AnchorPane topBar;
+    private JFXButton logout;
 
     @FXML
     private JFXButton swipe;
@@ -57,22 +61,16 @@ public class mainCtrl  implements Initializable {
     private Label topBarUserName;
 
     @FXML
-    private JFXButton teacherBtn;
-
-    @FXML
-    private JFXButton paymentBtn;
-
-    @FXML
-    private JFXButton historyBtn;
-
-    @FXML
-    private Label context_tile;
+    private AnchorPane mainContent;
 
     @FXML
     private VBox paymentContent;
 
     @FXML
     private JFXTextField fio;
+
+    @FXML
+    private JFXButton addSubjectBilling;
 
     @FXML
     private JFXTextField monthlyBill;
@@ -90,22 +88,76 @@ public class mainCtrl  implements Initializable {
     private JFXButton selectMonthpayment;
 
     @FXML
+    private HBox cardHolderPane;
+
+    @FXML
+    private JFXTextField cardHolderTxt;
+
+    @FXML
     private JFXTextArea omment;
 
     @FXML
     private JFXButton confirmBtn;
 
     @FXML
+    private AnchorPane hisContent;
+
+    @FXML
     private JFXTextField searchHis;
+
+    @FXML
+    private TableView<tableClass> statTableView;
+
+    @FXML
+    private TableColumn<tableClass, Integer> no;
+
+    @FXML
+    private TableColumn<tableClass, String> name;
+
+    @FXML
+    private TableColumn<tableClass, String> subject;
+
+    @FXML
+    private TableColumn<tableClass, String> teacher;
+
+    @FXML
+    private TableColumn<tableClass, String> month;
+
+    @FXML
+    private TableColumn<tableClass, Long> amount;
+
+    @FXML
+    private TableColumn<tableClass, ChecksDataEntity> object;
+
+    @FXML
+    private Label sumUpLb;
 
     @FXML
     private JFXButton generateXLS;
 
     @FXML
+    private JFXButton openRightSideBar;
+
+    @FXML
+    private AnchorPane expensesPane;
+
+    @FXML
     private AnchorPane teacherContent;
 
     @FXML
+    private ScrollPane teacherScrollPane;
+
+    @FXML
     private HBox teachersHb;
+
+    @FXML
+    private JFXButton addTeacherBtn;
+
+    @FXML
+    private JFXButton addSubjectBtn;
+
+    @FXML
+    private GridPane subjectGridPane;
 
     @FXML
     private JFXButton addCasher;
@@ -117,16 +169,76 @@ public class mainCtrl  implements Initializable {
     private VBox casherVbox;
 
     @FXML
+    private AnchorPane subjectBox;
+
+    @FXML
     private AnchorPane monthBox;
 
     @FXML
     private AnchorPane teacherBox;
 
     @FXML
+    private VBox leftToolBar;
+
+    @FXML
+    private JFXButton teacherBtn;
+
+    @FXML
+    private ImageView teacherIcon;
+
+    @FXML
+    private JFXButton paymentBtn;
+
+    @FXML
+    private ImageView paymentIcon;
+
+    @FXML
+    private JFXButton historyBtn;
+
+    @FXML
+    private ImageView hisIcon;
+
+    @FXML
+    private JFXButton expencesBtn;
+
+    @FXML
+    private ImageView expensesIcon;
+
+    @FXML
+    private Label context_tile;
+
+    @FXML
     private AnchorPane rightSideBar;
 
     @FXML
     private VBox filterPane;
+
+    @FXML
+    private JFXComboBox<String> subjectFilter;
+
+    @FXML
+    private JFXComboBox<String> monthFilter;
+
+    @FXML
+    private JFXComboBox<String> teacherFilter;
+
+    @FXML
+    private JFXRadioButton cashFilter;
+
+    @FXML
+    private JFXRadioButton cardFilter;
+
+    @FXML
+    private Spinner<Integer> yearSpinner;
+
+    @FXML
+    private Spinner<Integer> dateSpinner;
+
+    @FXML
+    private JFXComboBox<String> monthCmbx;
+
+    @FXML
+    private JFXRadioButton wholeMonthRBtn;
 
     @FXML
     private AnchorPane popupBkg;
@@ -186,34 +298,10 @@ public class mainCtrl  implements Initializable {
     private JFXButton addSubjectinTEacher;
 
     @FXML
-    private ImageView teacherIcon;
-
-    @FXML
-    private ImageView paymentIcon;
-
-    @FXML
-    private ImageView hisIcon;
-
-    @FXML
-    private AnchorPane hisContent;
-
-    @FXML
-    private GridPane subjectGridPane;
-
-    @FXML
-    private ScrollPane teacherScrollPane;
-
-    @FXML
-    private JFXButton addTeacherBtn;
-
-    @FXML
-    private JFXButton addSubjectBtn;
-
-    @FXML
-    private JFXButton cancelSubjectChoice;
-
-    @FXML
     private AnchorPane subjectChoicePane;
+
+    @FXML
+    private Label choiceLb;
 
     @FXML
     private ScrollPane subjectChoiceBox;
@@ -222,7 +310,7 @@ public class mainCtrl  implements Initializable {
     private VBox subChoiceHbox;
 
     @FXML
-    private Label choiceLb;
+    private JFXButton cancelSubjectChoice;
 
     @FXML
     private AnchorPane authPane;
@@ -231,28 +319,13 @@ public class mainCtrl  implements Initializable {
     private JFXPasswordField authPassfield;
 
     @FXML
-    private JFXButton logout;
-
-    @FXML
-    private JFXButton addSubjectBilling;
-
-    @FXML
-    private AnchorPane subjectBox;
-
-    @FXML
     private JFXSpinner spinner;
 
     @FXML
-    private ImageView expensesIcon;
+    private HBox winTools;
 
     @FXML
-    private JFXButton expencesBtn;
-
-    @FXML
-    private HBox cardHolderPane;
-
-    @FXML
-    private JFXTextField cardHolderTxt;
+    private ImageView rightSideIcon;
 
     private NavButtons btnCtrl;
     private windowCtrl wCtrl;
@@ -278,9 +351,34 @@ public class mainCtrl  implements Initializable {
     public static paymentView payView;
     public static CashersEntity activeUser = new CashersEntity();
     public static authUserView auth;
-    public static statsPageUtils tableUtils;
+    private static JFXAutoCompletePopup<String> searchName = new JFXAutoCompletePopup<>();
 
-    public static List<ChecksDataEntity> currentTableValues = new ArrayList<>();
+
+    private void initSearchAutoCompliation() {
+        List<String> names = new ArrayList<>(checksDataDAOimpls.getInstance().getNames());
+        searchName.getSuggestions().setAll(names);
+        searchName.setPrefSize(345, 350);
+        searchName.setStyle("-fx-text-fill: #2a4e8b;" +
+                "    -fx-font-family: \"Poppins_regular\";" +
+                "    -fx-font-weight: bold;" +
+                "    -fx-font-size: 12;" +
+                "    -fx-text-alignment: center;" +
+                "    -fx-selection-bar: #faf3dd;" +
+                "    -fx-background-color: transparent;");
+        searchName.setSelectionHandler(e -> {
+            searchHis.setText(e.getObject());
+            setTableValues(convertToTable(checksDataDAOimpls.getInstance().getByName(e.getObject())));
+        });
+        searchHis.textProperty().addListener(observable -> {
+            searchName.filter( string -> string.toLowerCase().contains(searchHis.getText().toLowerCase()));
+            if (searchName.getFilteredSuggestions().isEmpty() || searchHis.getText().isEmpty()) {
+                searchName.hide();
+            } else {
+                searchName.show(searchHis);
+            }
+        });
+
+    }
 
 
     @FXML
@@ -425,6 +523,7 @@ public class mainCtrl  implements Initializable {
             teacherContent.setVisible(true);
             selecedMonths.clear();
             selectedTeacherForPay.clear();
+            closeRightSide();
         } else if (event.getSource() == paymentBtn) {
             setVisibilityContent();
             payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, cardHolderTxt, cardHolderPane, omment, monthBox, teacherBox, popupBkg, subjectChoicePane, choiceLb, spinner, subChoiceHbox);
@@ -432,13 +531,16 @@ public class mainCtrl  implements Initializable {
             teacherBox.setVisible(true);
             monthBox.setVisible(true);
             subjectBox.setVisible(true);
+            closeRightSide();
         } else if (event.getSource() == historyBtn) {
             setVisibilityContent();
             hisContent.setVisible(true);
             selecedMonths.clear();
             selectedTeacherForPay.clear();
+            initSearchAutoCompliation();
         } else if (event.getSource() == expencesBtn) {
             setVisibilityContent();
+            closeRightSide();
         }
     }
 
@@ -462,11 +564,159 @@ public class mainCtrl  implements Initializable {
         subChoiceNode = new subjectNode(subjectChoicePane, subChoiceHbox);
         payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, cardHolderTxt, cardHolderPane, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb,spinner, subChoiceHbox);
         auth = new authUserView(popupBkg, authPane, topBarAccountImg, topBarUserName, authPassfield);
+        initTable();
+        initDateFilter();
+        initCmbx();
     }
 
     @FXML
     void clickTeachersHandler(ActionEvent event) {
+        if (event.getSource() == openRightSideBar) {
+           if (!rightSideBar.isVisible()) {
+               Main.primaryStage.setWidth(1200);
+               mainPage.setPrefWidth(1200);
+               topBar.setPrefWidth(955);
+               winTools.setLayoutX(830);
+               topBar.setStyle("-fx-background-image: url(top-bkg-extended.png)");
+               rightSideBar.setVisible(true);
+           } else {
+               closeRightSide();
+           }
+        }
+    }
 
+    private void closeRightSide() {
+        Main.primaryStage.setWidth(900);
+        mainPage.setPrefWidth(900);
+        topBar.setPrefWidth(665);
+        winTools.setLayoutX(540);
+        topBar.setStyle("-fx-background-image: url(top-bkg.png)");
+        rightSideBar.setVisible(false);
+    }
+
+    private List<tableClass> convertToTable(List<ChecksDataEntity> lsCheck) {
+        int order = 1;
+        List<tableClass> ls = new ArrayList<>();
+        for (ChecksDataEntity o : lsCheck) {
+            ls.add(new tableClass(order++, o));
+        }
+        return ls;
+    }
+
+    private void setTableValues(List<tableClass> ls) {
+        try {
+            statTableView.getItems().clear();
+            statTableView.setItems(FXCollections.observableArrayList(ls));
+        } catch (NullPointerException e) {
+            statTableView.setItems(FXCollections.observableArrayList(ls));
+        }
+    }
+
+    private void initCmbx() {
+        List<String> subList = new ArrayList<>();
+        subList.add("Barchasi");
+        subList.addAll(subjectDAOimpls.getInstance().getNames());
+        List<String> teachList = new ArrayList<>();
+        teachList.add("Barchasi");
+        teachList.addAll(teacherDAOImpls.getInstance().getNames());
+        subjectFilter.setItems(FXCollections.observableArrayList(subList));
+        subjectFilter.getSelectionModel().select(0);
+        monthFilter.setItems(FXCollections.observableArrayList(dateUtils.getMonthForSpinner()));
+        monthFilter.getSelectionModel().select(0);
+        teacherFilter.setItems(FXCollections.observableArrayList(teachList));
+        teacherFilter.getSelectionModel().select(0);
+        subjectFilter.valueProperty().addListener(newValue ->  {
+            filterBy();
+        });
+        monthFilter.valueProperty().addListener(newValue -> {
+            filterBy();
+        });
+        teacherFilter.valueProperty().addListener(newValue -> {
+            filterBy();
+        });
+        cashFilter.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            filterBy();
+        });
+        cardFilter.selectedProperty().addListener((observable, oldValue, newValue) ->  {
+            filterBy();
+        });
+        wholeMonthRBtn.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            filterBy();
+        });
+    }
+
+    private void filterBy() {
+        Date date = getSelectedDate();
+        String month = monthFilter.getSelectionModel().getSelectedItem();
+        String teacher = teacherFilter.getSelectionModel().getSelectedItem();
+        String subject = subjectFilter.getSelectionModel().getSelectedItem();
+        boolean cash = cashFilter.selectedProperty().getValue();
+        boolean card = cardFilter.selectedProperty().getValue();
+        boolean byMonth = wholeMonthRBtn.selectedProperty().getValue();
+        setTableValues(convertToTable(checksDataDAOimpls.getInstance().getListBy(month, subject, teacher, date, cash, card, byMonth)));
+        calculateTable();
+    }
+
+    private void calculateTable() {
+        double summ = 0.0;
+        for (tableClass o : statTableView.getItems()) {
+            summ += o.getAmount();
+        }
+        DecimalFormat df = new DecimalFormat("#,###");
+        df.setMaximumFractionDigits(0);
+        sumUpLb.setText("Umumiy to'lov: " + df.format(summ));
+    }
+
+    private void initTable(){
+        no.setCellValueFactory(new PropertyValueFactory<>("no"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        subject.setCellValueFactory(new PropertyValueFactory<>("sub"));
+        teacher.setCellValueFactory(new PropertyValueFactory<>("teacher"));
+        initTableWrapText(teacher);
+        initTableWrapText(name);
+        initTableWrapText(subject);
+        month.setCellValueFactory(new PropertyValueFactory<>("month"));
+        amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+    }
+
+    private void initTableWrapText(TableColumn<tableClass, String> clm) {
+        clm.setCellFactory(tc -> {
+            TableCell<tableClass, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(clm.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+    }
+
+    private void initDateFilter() {
+        int crYear = new java.util.Date().getYear();
+        int crDy = new java.util.Date().getDate();
+        SpinnerValueFactory<Integer> ySp = new SpinnerValueFactory.IntegerSpinnerValueFactory(2021, 1900 + crYear,crYear);
+        yearSpinner.setValueFactory(ySp);
+        monthCmbx.setItems(FXCollections.observableArrayList(dateUtils.getMonths()));
+        monthCmbx.getSelectionModel().select(dateUtils.getCurrentMonth());
+        int lengthMonth = dateUtils.getLastDayMonth();
+        SpinnerValueFactory<Integer> dSp = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, lengthMonth,crDy);
+        dateSpinner.setValueFactory(dSp);
+        yearSpinner.valueProperty().addListener(e ->  {
+            filterBy();
+        });
+        monthCmbx.valueProperty().addListener(newValue ->  {
+            filterBy();
+        });
+        dateSpinner.valueProperty().addListener(newValue ->  {
+            filterBy();
+        });
+    }
+
+    private Date getSelectedDate() {
+        String year  = String.valueOf(yearSpinner.getValue());
+        String month  = monthCmbx.getSelectionModel().getSelectedItem();
+        String day = String.valueOf(dateSpinner.getValue());
+        return  Date.valueOf(year + "-" + dateUtils.getMonthOrder(month) + "-" + day);
     }
 
     @FXML

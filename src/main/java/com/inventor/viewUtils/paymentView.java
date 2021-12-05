@@ -7,6 +7,7 @@ import com.inventor.dao.impls.teacherDAOImpls;
 import com.inventor.entities.ChecksDataEntity;
 import com.inventor.entities.SubjectsEntity;
 import com.inventor.entities.TeachersEntity;
+import com.inventor.utils.dateUtils;
 import com.inventor.utils.generateXlSXprinter;
 import com.inventor.utils.windowCtrl;
 import com.jfoenix.controls.*;
@@ -355,7 +356,7 @@ public class paymentView {
         subjectChoiceNode.setVisible(true);
         choiceLb.setText("Oyni tanlang");
         subChoiceHbox.getChildren().clear();
-        for (String o : MonthData.getMonths()) {
+        for (String o : dateUtils.getMonths()) {
             if (mainCtrl.selecedMonths.contains(o)) {
                 subChoiceHbox.getChildren().add(createMonthCheckBox(o, true));
             } else {

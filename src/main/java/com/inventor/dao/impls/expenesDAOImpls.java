@@ -68,6 +68,7 @@ public class expenesDAOImpls extends abstractUA<ExpensesEntity> implements expen
 
     @Override
     public List<String> getNames() {
+        isActiveSession();
         List<String> list = new ArrayList<>(getSession()
                 .createCriteria(ExpensesEntity.class)
                 .setProjection(Projections

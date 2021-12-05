@@ -39,7 +39,8 @@ public class ImageUtils{
     public static Image byteArray2Image(byte[] imgData) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(imgData);
         BufferedImage capture = ImageIO.read(bais);
-        Image image = SwingFXUtils.toFXImage(capture, null);
+        Image image = SwingFXUtils.
+                toFXImage(capture, null);
         return image;
     }
 
