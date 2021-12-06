@@ -118,6 +118,7 @@ public class generateXlSXprinter {
             workbook.write(fileOut);
             fileOut.close();
             workbook.close();
+            printDoc.initPrint(file.getAbsolutePath() + "/" + xlsName + ".xls");
             return true;
         } catch (IOException e) {
             e.printStackTrace();

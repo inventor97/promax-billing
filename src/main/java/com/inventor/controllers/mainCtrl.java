@@ -408,7 +408,6 @@ public class mainCtrl  implements Initializable {
     public static authUserView auth;
     private static JFXAutoCompletePopup<String> searchName = new JFXAutoCompletePopup<>();
 
-
     private void initSearchAutoCompliation() {
         List<String> names = new ArrayList<>(checksDataDAOimpls.getInstance().getNames());
         searchName.getSuggestions().setAll(names);
@@ -434,7 +433,6 @@ public class mainCtrl  implements Initializable {
         });
 
     }
-
 
     @FXML
     void clickHandler(ActionEvent event) {
