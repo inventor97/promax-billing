@@ -94,11 +94,11 @@ public class expenesDAOImpls extends abstractUA<ExpensesEntity> implements expen
     @Override
     public List<ExpensesEntity> getByList(Date date, boolean byMonth) {
         isActiveSession();
-        Criteria criteria = getSession().createCriteria(ChecksDataEntity.class);
+        Criteria criteria = getSession().createCriteria(ExpensesEntity.class);
         if (!byMonth) {
-            criteria.add(Restrictions.eq("dateCrated", date));
+            criteria.add(Restrictions.eq("dateCreated", date));
         } else {
-            criteria.add(Restrictions.between("dateCrated", dateUtils.getFirstDayMonth(date), dateUtils.getLastDayMonth(date)));
+            criteria.add(Restrictions.between("dateCreated", dateUtils.getFirstDayMonth(date), dateUtils.getLastDayMonth(date)));
         }
         List<ExpensesEntity> ls = new ArrayList<>(criteria.list());
         getSession().getTransaction().commit();

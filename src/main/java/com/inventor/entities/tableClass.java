@@ -32,13 +32,4 @@ public class tableClass {
         this.amount = obj.getAmountBill();
     }
 
-    public tableClass(int order, ExpensesEntity obj) {
-        this.expObj = obj;
-        this.no = order;
-        this.amount = (long) obj.getAmount();
-        this.month = obj.getUser();
-        this.sub = String.valueOf(obj.getDateCreated());
-        this.teacher = obj.getComment();
-    }
-
 }

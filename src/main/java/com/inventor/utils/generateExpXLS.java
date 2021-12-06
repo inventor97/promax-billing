@@ -1,6 +1,7 @@
 package com.inventor.utils;
 
 import com.inventor.dao.impls.cashersDAOImpls;
+import com.inventor.entities.expTableClass;
 import com.inventor.entities.tableClass;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class generateExpXLS {
 
-    public static boolean saveStats(List<tableClass> data) {
+    public static boolean saveStats(List<expTableClass> data) {
 
         List<String> columns = new ArrayList<>();
         columns.add("#");
@@ -63,9 +64,9 @@ public class generateExpXLS {
                 row.setHeight((short)-1);
                 addCell(workbook, row, String.valueOf(data.get(i).getNo()), 0);
                 addCell(workbook, row, df.format(data.get(i).getAmount()), 1);
-                addCell(workbook, row, data.get(i).getSub(), 4);
-                addCell(workbook, row, data.get(i).getTeacher(), 3);
-                addCell(workbook, row, data.get(i).getMonth(), 2);
+                addCell(workbook, row, data.get(i).getDate(), 4);
+                addCell(workbook, row, data.get(i).getComment(), 3);
+                addCell(workbook, row, data.get(i).getBy(), 2);
                 summ += data.get(i).getAmount();
             }
 

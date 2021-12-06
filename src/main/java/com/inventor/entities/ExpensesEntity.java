@@ -24,7 +24,7 @@ public class ExpensesEntity {
     private Date dateCreated;
     @Basic
     @Column(name = "amount")
-    private double amount;
+    private long amount;
     @Basic
     @Column(name = "comment")
     private String comment;

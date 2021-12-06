@@ -257,7 +257,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="teacherContent" prefHeight="515.0" prefWidth="665.0" visible="false">
+            <AnchorPane fx:id="teacherContent" prefHeight="515.0" prefWidth="665.0">
                <children>
                   <ScrollPane fx:id="teacherScrollPane" layoutX="15.0" layoutY="55.0" prefHeight="208.0" prefWidth="625.0">
                      <content>

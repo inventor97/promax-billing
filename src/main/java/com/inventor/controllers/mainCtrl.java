@@ -349,25 +349,25 @@ public class mainCtrl  implements Initializable {
     private Spinner<Integer> expDaySpinner;
 
     @FXML
-    private TableView<tableClass> expensesTableView;
+    private TableView<expTableClass> expensesTableView;
 
     @FXML
-    private TableColumn<tableClass, Integer> expNo;
+    private TableColumn<expTableClass, Integer> expNo;
 
     @FXML
-    private TableColumn<tableClass, String> expAmount;
+    private TableColumn<expTableClass, Long> expAmount;
 
     @FXML
-    private TableColumn<tableClass, String> expBy;
+    private TableColumn<expTableClass, String> expBy;
 
     @FXML
-    private TableColumn<tableClass, String> expDate;
+    private TableColumn<expTableClass, String> expDate;
 
     @FXML
-    private TableColumn<tableClass, String> expComment;
+    private TableColumn<expTableClass, String> expComment;
 
     @FXML
-    private TableColumn<tableClass, String> expObj;
+    private TableColumn<expTableClass, String> expObj;
 
     @FXML
     private JFXRadioButton expWholeMonth;
@@ -489,7 +489,7 @@ public class mainCtrl  implements Initializable {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                List<tableClass> ls = new ArrayList<>(statTableView.getItems());
+                List<expTableClass> ls = new ArrayList<>(expensesTableView.getItems());
                 com.inventor.utils.generateExpXLS.saveStats(ls);
                 return null;
             }
@@ -533,6 +533,7 @@ public class mainCtrl  implements Initializable {
         paymentContent.setVisible(false);
         teacherContent.setVisible(false);
         hisContent.setVisible(false);
+        expensesPane.setVisible(false);
     }
 
     @FXML
@@ -712,7 +713,15 @@ public class mainCtrl  implements Initializable {
                closeRightSide();
            }
         } else if (event.getSource() == generateXLS) {
-            initSavingStats();
+            try {
+                if (statTableView.getItems().size() > 0) {
+                    initSavingStats();
+                } else {
+                    windowCtrl.makeToast("Ma'lumot mavjud emas");
+                }
+            } catch (NullPointerException e) {
+                windowCtrl.makeToast("Ma'lumot mavjud emas");
+            }
         }
     }
 
@@ -743,16 +752,16 @@ public class mainCtrl  implements Initializable {
         }
     }
 
-    private List<tableClass> convertToExpTable(List<ExpensesEntity> lsExpeneses) {
+    private List<expTableClass> convertToExpTable(List<ExpensesEntity> lsExpeneses) {
         int order = 1;
-        List<tableClass> ls = new ArrayList<>();
+        List<expTableClass> ls = new ArrayList<>();
         for (ExpensesEntity o : lsExpeneses) {
-            ls.add(new tableClass(order++, o));
+            ls.add(new expTableClass(order++, o));
         }
         return ls;
     }
 
-    private void setExpTableValues(List<tableClass> ls) {
+    private void setExpTableValues(List<expTableClass> ls) {
         try {
             expensesTableView.getItems().clear();
             expensesTableView.setItems(FXCollections.observableArrayList(ls));
@@ -825,12 +834,12 @@ public class mainCtrl  implements Initializable {
 
     private void calculateExpTable() {
         double summ = 0.0;
-        for (tableClass o : statTableView.getItems()) {
+        for (expTableClass o : expensesTableView.getItems()) {
             summ += o.getAmount();
         }
         DecimalFormat df = new DecimalFormat("#,###");
         df.setMaximumFractionDigits(0);
-        sumUpLb.setText("Umumiy xarajat: " + df.format(summ));
+        expSummUp.setText("Umumiy xarajat: " + df.format(summ));
     }
 
     private void initTable(){
@@ -846,17 +855,29 @@ public class mainCtrl  implements Initializable {
 
         expNo.setCellValueFactory(new PropertyValueFactory<>("no"));
         expAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        expBy.setCellValueFactory(new PropertyValueFactory<>("month"));
-        expDate.setCellValueFactory(new PropertyValueFactory<>("sub"));
-        expComment.setCellValueFactory(new PropertyValueFactory<>("teacher"));
-        initTableWrapText(expBy);
-        initTableWrapText(expComment);
+        expBy.setCellValueFactory(new PropertyValueFactory<>("by"));
+        expDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        expComment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+        initExpTableWrapText(expBy);
+        initExpTableWrapText(expComment);
 
     }
 
     private void initTableWrapText(TableColumn<tableClass, String> clm) {
         clm.setCellFactory(tc -> {
             TableCell<tableClass, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(clm.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+    }
+
+    private void initExpTableWrapText(TableColumn<expTableClass, String> clm) {
+        clm.setCellFactory(tc -> {
+            TableCell<expTableClass, String> cell = new TableCell<>();
             Text text = new Text();
             cell.setGraphic(text);
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
@@ -1007,7 +1028,7 @@ public class mainCtrl  implements Initializable {
             try {
                 if (!expensesComment.getText().equals("") && !expenseAmount.getText().equals("")) {
                     ExpensesEntity obj = new ExpensesEntity();
-                    obj.setAmount(Double.valueOf(expAmount.getText()));
+                    obj.setAmount(Long.parseLong(expenseAmount.getText()));
                     obj.setDateCreated(new Date(new java.util.Date().getTime()));
                     obj.setUser(activeUser.getName());
                     obj.setComment(expensesComment.getText());
@@ -1015,7 +1036,7 @@ public class mainCtrl  implements Initializable {
                     expenseAmount.setText("");
                     expensesComment.setText("");
                     windowCtrl.makeToast("Ma'lumot saqlandi");
-
+                    filterExpBy();
                 } else {
                     windowCtrl.makeToast("Ma'lumot to'liq emas");
                 }
@@ -1023,7 +1044,15 @@ public class mainCtrl  implements Initializable {
                 windowCtrl.makeToast("Ma'lumot to'liq emas");
             }
         } else if (event.getSource() == generateExpXls) {
-            initExpSavingStats();
+            try {
+                if (expensesTableView.getItems().size() > 0) {
+                    initExpSavingStats();
+                } else {
+                    windowCtrl.makeToast("Ma'lumot mavjud emas");
+                }
+            } catch (NullPointerException e) {
+                windowCtrl.makeToast("Ma'lumot mavjud emas");
+            }
         }
     }
 }
