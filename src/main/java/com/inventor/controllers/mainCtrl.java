@@ -599,12 +599,11 @@ public class mainCtrl  implements Initializable {
                         && !userPassword.getText().equals("")) {
                     cashObj.setName(editedUserName.getText());
                     cashObj.setPassword(userPassword.getText());
-                    try {
-                        cashObj.setImg(ImageUtils.Img2ByteArray(imgUrl));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        windowCtrl.makeToast("Rasm yulanishda xatolik");
-                    }
+                        try {
+                            cashObj.setImg(ImageUtils.Img2ByteArray(imgUrl));
+                        } catch (IOException | IllegalArgumentException e) {
+                            e.printStackTrace();
+                        }
                     cashersDAOImpls.getInstance().update(cashObj);
                     addUser.setText("Qo'shish");
                     windowCtrl.makeToast("Tasdiqlandi");

@@ -7,13 +7,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="subjectNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="100.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <effect>
       <DropShadow color="#b2b2b4" />
    </effect>
    <children>
-      <Label fx:id="name" layoutX="29.0" layoutY="16.0" style="-fx-text-fill: #e5e5e5;" text="Aprel" />
+      <Label fx:id="name" alignment="CENTER" layoutY="14.0" prefHeight="28.0" prefWidth="100.0" style="-fx-text-fill: #e5e5e5;" text="Aprel" />
       <JFXButton fx:id="cancel" contentDisplay="GRAPHIC_ONLY" layoutX="68.0" layoutY="-2.0">
          <graphic>
             <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">

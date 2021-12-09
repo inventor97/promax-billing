@@ -1,0 +1,70 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="promax-billing">
+    <output-path>$PROJECT_DIR$/out/artifacts/promax_billing</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.inventor.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="exe" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="promax_billing.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="promax-billing" />
+        <element id="jpa-descriptors" facet="promax-billing/jpa/JPA" />
+        <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.8.0-beta2" />
+        <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.8.0-beta2" />
+        <element id="library" level="project" name="Maven: org.jvnet.staxex:stax-ex:1.8" />
+        <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.13.1" />
+        <element id="library" level="project" name="Maven: org.jboss:jandex:2.1.3.Final" />
+        <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.1.1.Final" />
+        <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
+        <element id="library" level="project" name="Maven: org.javassist:javassist:3.24.0-GA" />
+        <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:5.4.21.Final" />
+        <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.4.21.Final" />
+        <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.1.0.Final" />
+        <element id="library" level="project" name="Maven: org.glassfish.jaxb:txw2:2.3.1" />
+        <element id="library" level="project" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.1" />
+        <element id="library" level="project" name="Maven: org.dom4j:dom4j:2.1.3" />
+        <element id="library" level="project" name="Maven: org.controlsfx:controlsfx:8.40.14" />
+        <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:3.1.0" />
+        <element id="library" level="project" name="Maven: org.apache.poi:poi:4.1.2" />
+        <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:4.1.2" />
+        <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:4.1.2" />
+        <element id="library" level="project" name="Maven: org.apache.poi:ooxml-schemas:1.4" />
+        <element id="library" level="project" name="Maven: org.apache.commons:commons-math3:3.6.1" />
+        <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.19" />
+        <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.4" />
+        <element id="library" level="project" name="Maven: net.bytebuddy:byte-buddy:1.10.10" />
+        <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.23" />
+        <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.3.1" />
+        <element id="library" level="project" name="Maven: javax.persistence:javax.persistence-api:2.2" />
+        <element id="library" level="project" name="Maven: javax.activation:javax.activation-api:1.2.0" />
+        <element id="library" level="project" name="Maven: io.github.typhon0:AnimateFX:1.2.1" />
+        <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.13" />
+        <element id="library" level="project" name="Maven: com.zaxxer:SparseBitSet:1.2" />
+        <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" />
+        <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" />
+        <element id="library" level="project" name="Maven: com.jfoenix:jfoenix:8.0.7" />
+        <element id="library" level="project" name="Maven: com.google.zxing:core:3.4.1" />
+        <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.11.4" />
+        <element id="library" level="project" name="Maven: com.gluonhq:charm-glisten:4.2.0" />
+        <element id="library" level="project" name="Maven: com.gluonhq:charm-down-plugin-storage:3.1.0" />
+        <element id="library" level="project" name="Maven: com.gluonhq:charm-down-plugin-statusbar:3.1.0" />
+        <element id="library" level="project" name="Maven: com.gluonhq:charm-down-plugin-lifecycle:3.1.0" />
+        <element id="library" level="project" name="Maven: com.gluonhq:charm-down-plugin-display:3.1.0" />
+        <element id="library" level="project" name="Maven: com.gluonhq:charm-down-core:3.1.0" />
+        <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.06" />
+        <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.5.1" />
+        <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+      </element>
+    </root>
+  </artifact>
+</component>

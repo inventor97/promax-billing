@@ -9,11 +9,13 @@ import javafx.scene.image.Image;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.DecimalFormat;
@@ -25,7 +27,7 @@ import java.util.List;
 
 public class generateXlSXprinter {
 
-    private static Image logo = new Image("header-check.png", 420,180,false,false);
+    private static Image logo = new Image("header-check.png", 2500,600,false,false);
 
     public static boolean saveSoldCheck(ChecksDataEntity data) {
         StringBuilder val = new StringBuilder();
@@ -36,7 +38,7 @@ public class generateXlSXprinter {
                 .append("\nFan: ").append(data.getSubjects())
                 .append("\ndate: ").append(data.getDateCrated());
 
-        Image qrCode = generateQRCode.generateCode(val.toString(), 420, 420).getImage();
+        Image qrCode = generateQRCode.generateCode(val.toString(), 1000, 1000).getImage();
 
         JFileChooser fr = new JFileChooser();
         FileSystemView fw = fr.getFileSystemView();
@@ -55,60 +57,63 @@ public class generateXlSXprinter {
             sheet.setMargin(Sheet.LeftMargin, 0.0);
             sheet.setMargin(Sheet.RightMargin, 0.0);
             Row headerRow = sheet.createRow(0);
-            headerRow.setHeight((short) 2375);
+            Row headerRow2 = sheet.createRow(1);
+            headerRow.setHeight((short) 6375);
+            headerRow2.setHeight((short) 4375);
             setUtils(sheet);
 
             setHeaderImages(workbook, sheet,logo, 0, 0);
 
             setHeaderImages(workbook, sheet,logo, 0, 0);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy.MM.dd\nHH:mm:ss");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yy\nHH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String dataDate = dtf.format(now);
 
             Row datRow1 = sheet.createRow(5);
-            datRow1.setRowStyle(titleStyle(workbook, 15, false));
+            datRow1.setHeight((short) 4375);
+            datRow1.setRowStyle(titleStyle(workbook, 85, false));
             Cell main = datRow1.createCell(0);
-            main.setCellStyle(titleStyle(workbook, 15, false));
+            main.setCellStyle(titleStyle(workbook, 85, false));
             main.setCellValue(dataDate);
 
             Cell no = datRow1.createCell(1);
-            no.setCellStyle(style(workbook, HorizontalAlignment.RIGHT, false, 14));
+            no.setCellStyle(style(workbook, HorizontalAlignment.RIGHT, false, 85));
             no.setCellValue("#" + checksDataDAOimpls.getInstance().getMaxId());
 
             Row datRow3 = sheet.createRow(7);
-            datRow3.setHeight((short) 1860);
+            datRow3.setHeight((short) 8060);
             Cell date = datRow3.createCell(0);
-            date.setCellStyle(titleStyle(workbook,14, false));
+            date.setCellStyle(titleStyle(workbook,87, false));
             date.setCellValue("PROMAX EDUCATION o'quv markazi \n" +
                     "Manzil: Toshkent sh. Chilonzor t.\nIntegro 7 -qavat\n" +
                     "Tel nomer: 99895 5137775");
 
             Row datRow4 = sheet.createRow(11);
-            datRow4.setHeight((short) 1060);
+            datRow4.setHeight((short) 3060);
             Cell date4 = datRow4.createCell(0);
-            date4.setCellStyle(style(workbook, HorizontalAlignment.CENTER, true, 15));
-            date4.setCellValue("Hisob to'lov varag'i");
+            date4.setCellStyle(style(workbook, HorizontalAlignment.CENTER, true, 85));
+            date4.setCellValue("HISOB TO'LOV VAROG'I");
             Cell dat5 = datRow4.createCell(1);
-            dat5.setCellStyle(style(workbook, HorizontalAlignment.CENTER, true, 15));
+            dat5.setCellStyle(style(workbook, HorizontalAlignment.CENTER, true, 85));
 
             DecimalFormat df = new DecimalFormat("#,###");
             df.setMaximumFractionDigits(0);
 
-            addRow(sheet, workbook, "Admin:", mainCtrl.activeUser.getName(), 12, 1, false, 15);
-            addRow(sheet, workbook, "O'quvchi: ", data.getName(), 13, 1,false, 15);
-            addRow(sheet, workbook, "O'quv fani: ", data.getSubjects(), 14, 1, false, 15);
-            addRow(sheet, workbook, "O'qituvchilar:", data.getTeachers(), 15, 1, false, 15);
+            addRow(sheet, workbook, "Admin:", mainCtrl.activeUser.getName(), 12, 1, false, 85);
+            addRow(sheet, workbook, "O'quvchi: ", data.getName(), 13, 1,false, 85);
+            addRow(sheet, workbook, "O'quv fani: ", data.getSubjects(), 14, 1, false, 85);
+            addRow(sheet, workbook, "O'qituvchilar:", data.getTeachers(), 15, 1, false, 85);
             addRow(sheet, workbook,"", "", 16, 1, true, 14);
-            addRow(sheet, workbook, "To'lov oyi: ", data.getPayedMonth(), 17, 1, false, 15);
-            addRow(sheet, workbook, "To'lov turi: ", data.isPaymentType() ? "Naqd": "To'lov karta ( " + data.getCardHolder() + " )", 18, 1, false, 15);
-            addRow(sheet, workbook, "Summa: ", df.format(data.getAmountBill()), 19, 1, false, 20);
-            addRow(sheet, workbook,"", "", 20, 1, true, 14);
-            addRow(sheet, workbook, "Izoh: ", data.getComment(), 21, 1, true, 15);
+            addRow(sheet, workbook, "To'lov oyi: ", data.getPayedMonth(), 17, 1, false, 85);
+            addRow(sheet, workbook, "To'lov turi: ", data.isPaymentType() ? "Naqd": "To'lov karta\n( " + data.getCardHolder() + " )", 18, 1, false, 85);
+            addRow(sheet, workbook, "Summa: ", df.format(data.getAmountBill()), 19, 1, false, 150);
+            addRow(sheet, workbook,"", "", 20, 1, true, 85);
+            addRow(sheet, workbook, "Izoh: ", data.getComment(), 21, 1, true, 85);
 
-            Row bottom = sheet.createRow(48);
-            bottom.setHeight((short) 650);
+            Row bottom = sheet.createRow(85);
+            bottom.setHeight((short) 2650);
             Cell btm = bottom.createCell(0);
-            btm.setCellStyle(titleStyle(workbook, 12, true));
+            btm.setCellStyle(titleStyle(workbook, 75, true));
             btm.setCellValue("Eng muhim maqsadlaringizni biling!");
 
             setHeaderImages(workbook, sheet, qrCode, 0, 24);
@@ -118,7 +123,7 @@ public class generateXlSXprinter {
             workbook.write(fileOut);
             fileOut.close();
             workbook.close();
-            printDoc.initPrint(file.getAbsolutePath() + "/" + xlsName + ".xls");
+            Desktop.getDesktop().print(new File(file.getAbsolutePath() + "/" + xlsName + ".xls"));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,7 +131,6 @@ public class generateXlSXprinter {
 
         return false;
     }
-
 
     private static void setHeaderImages(HSSFWorkbook workbook, Sheet sheet, Image image, int col, int row){
         try {
@@ -155,10 +159,10 @@ public class generateXlSXprinter {
         sheet.addMergedRegion(new CellRangeAddress(3, 3, 2, 5));
         sheet.addMergedRegion(new CellRangeAddress(7, 10, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(11, 11, 0, 1));
-        sheet.addMergedRegion(new CellRangeAddress(48, 48, 0, 1));
+        sheet.addMergedRegion(new CellRangeAddress(85, 85, 0, 1));
 
-        sheet.setColumnWidth(0, 5730);
-        sheet.setColumnWidth(1, 9980);
+        sheet.setColumnWidth(0, 43730);
+        sheet.setColumnWidth(1, 43280);
     }
 
     private static void addRow(HSSFSheet sheet, HSSFWorkbook workbook, String firstClm,
@@ -169,7 +173,7 @@ public class generateXlSXprinter {
         row.setHeight((short)-1);
 
         Cell cell0 = row.createCell(0);
-        cell0.setCellStyle(style(workbook, HorizontalAlignment.LEFT, border, 15));
+        cell0.setCellStyle(style(workbook, HorizontalAlignment.LEFT, border, 85));
         cell0.setCellValue(firstClm);
 
         if (alignment == 1) {
@@ -186,7 +190,7 @@ public class generateXlSXprinter {
     private static CellStyle style(HSSFWorkbook workbook, HorizontalAlignment align, boolean border, int size) {
         CellStyle st = workbook.createCellStyle();
         if (border){
-            st.setBorderBottom(BorderStyle.DASH_DOT);
+            st.setBorderBottom(BorderStyle.THICK);
         }
         st.setWrapText(true);
         Font newFont = workbook.createFont();
