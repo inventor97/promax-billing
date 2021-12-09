@@ -40,7 +40,7 @@ public class Main  extends Application {
         Scene scene =  new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("logo.png"));
-        primaryStage.setAlwaysOnTop(true);
+        primaryStage.setAlwaysOnTop(false);
         primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.initStyle(StageStyle.TRANSPARENT);

@@ -37,10 +37,12 @@ public class authUserView {
                 if (event.getCode() == KeyCode.ENTER) {
                     for (CashersEntity o : obj) {
                         if (o.getPassword().equals(authPassField.getText())) {
-                            try {
-                                accountImg.setFill(new ImagePattern(ImageUtils.byteArray2Image(o.getImg())));
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            if (o.getImg() != null) {
+                                try {
+                                    accountImg.setFill(new ImagePattern(ImageUtils.byteArray2Image(o.getImg())));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             mainCtrl.activeUser = o;
                             userName.setText(o.getName());
