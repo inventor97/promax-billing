@@ -1,17 +1,14 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.inventor.controllers.mainCtrl;
 import com.inventor.entities.TeachersEntity;
-import com.inventor.utils.windowCtrl;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class teacherEdit {

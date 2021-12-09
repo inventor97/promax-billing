@@ -1,4 +1,4 @@
-package com.inventor.dao.interfaces;
+package com.inventor.dto.interfaces;
 
 import com.inventor.entities.ExpensesEntity;
 

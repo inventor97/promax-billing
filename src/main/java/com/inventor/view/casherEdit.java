@@ -1,11 +1,9 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.inventor.entities.CashersEntity;
-import com.inventor.utils.FileUtils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;

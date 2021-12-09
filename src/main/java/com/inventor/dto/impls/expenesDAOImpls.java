@@ -1,24 +1,25 @@
-package com.inventor.dao.impls;
+package com.inventor.dto.impls;
 
-import com.inventor.dao.interfaces.teachers;
-import com.inventor.entities.TeachersEntity;
+import com.inventor.dto.interfaces.expensesDAO;
+import com.inventor.entities.ExpensesEntity;
 import com.inventor.utils.HibernateUtil;
+import com.inventor.utils.dateUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teachers {
+public class expenesDAOImpls extends abstractUA<ExpensesEntity> implements expensesDAO {
 
-    private static teacherDAOImpls tDAOImpl;
+    private static expenesDAOImpls tDAOImpl;
     private SessionFactory sessionFactory = null;
 
-    public teacherDAOImpls() {
+    public expenesDAOImpls() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
@@ -32,25 +33,25 @@ public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teach
         }
     }
 
-    public static teacherDAOImpls getInstance() {
+    public static expenesDAOImpls getInstance() {
         if (tDAOImpl == null) {
-            tDAOImpl = new teacherDAOImpls();
+            tDAOImpl = new expenesDAOImpls();
         }
         return tDAOImpl;
     }
 
     @Override
-    public List<TeachersEntity> getAll() {
+    public List<ExpensesEntity> getAll() {
         isActiveSession();
-        List<TeachersEntity> list = new ArrayList<>(getSession().createCriteria(TeachersEntity.class).list());
+        List<ExpensesEntity> list = new ArrayList<>(getSession().createCriteria(ExpensesEntity.class).list());
         getSession().getTransaction().commit();
         return list;
     }
 
     @Override
-    public TeachersEntity get(long id) {
+    public ExpensesEntity get(long id) {
         isActiveSession();
-        TeachersEntity obj = getSession().get(TeachersEntity.class, (int) id);
+        ExpensesEntity obj = getSession().get(ExpensesEntity.class, (int) id);
         getSession().getTransaction().commit();
         return obj;
     }
@@ -58,7 +59,7 @@ public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teach
     @Override
     public boolean remove(long obj) {
         isActiveSession();
-        TeachersEntity var = getSession().load(TeachersEntity.class, (int) obj);
+        ExpensesEntity var = getSession().load(ExpensesEntity.class, (int) obj);
         if (var != null) {
             getSession().delete(var);
             return true;
@@ -71,7 +72,7 @@ public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teach
     public List<String> getNames() {
         isActiveSession();
         List<String> list = new ArrayList<>(getSession()
-                .createCriteria(TeachersEntity.class)
+                .createCriteria(ExpensesEntity.class)
                 .setProjection(Projections
                         .property( "name"))
                 .list());
@@ -82,28 +83,23 @@ public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teach
     @Override
     public int getId(String name) {
         isActiveSession();
-        int id = (int) getSession().createCriteria(TeachersEntity.class)
+        int id = (int) getSession().createCriteria(ExpensesEntity.class)
                 .add(Restrictions.eq("name", name)).uniqueResult();
         getSession().getTransaction().commit();
         return id;
     }
 
-
     @Override
-    public List<TeachersEntity> getTeachersList() {
-        return null;
-    }
-
-    @Override
-    public long getTeachersCountOnSubject(int subjetId) {
-        String id = String.valueOf(subjetId);
+    public List<ExpensesEntity> getByList(Date date, boolean byMonth) {
         isActiveSession();
-        long count  = (long) getSession()
-                .createCriteria(TeachersEntity.class)
-                .add(Restrictions
-                        .like("subjectId", id, MatchMode.ANYWHERE))
-                .setProjection(Projections
-                        .rowCount()).uniqueResult();
-        return count;
+        Criteria criteria = getSession().createCriteria(ExpensesEntity.class);
+        if (!byMonth) {
+            criteria.add(Restrictions.eq("dateCreated", date));
+        } else {
+            criteria.add(Restrictions.between("dateCreated", dateUtils.getFirstDayMonth(date), dateUtils.getLastDayMonth(date)));
+        }
+        List<ExpensesEntity> ls = new ArrayList<>(criteria.list());
+        getSession().getTransaction().commit();
+        return ls;
     }
 }

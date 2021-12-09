@@ -1,7 +1,7 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.inventor.controllers.mainCtrl;
-import com.inventor.dao.impls.teacherDAOImpls;
+import com.inventor.dto.impls.teacherDAOImpls;
 import com.inventor.entities.TeachersEntity;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.EventHandler;
@@ -9,8 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -18,7 +16,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 

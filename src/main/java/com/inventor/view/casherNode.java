@@ -1,22 +1,19 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.inventor.controllers.mainCtrl;
-import com.inventor.dao.impls.cashersDAOImpls;
+import com.inventor.dto.impls.cashersDAOImpls;
 import com.inventor.entities.CashersEntity;
-import com.inventor.utils.FileUtils;
 import com.inventor.utils.windowCtrl;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import jdk.nashorn.internal.ir.SwitchNode;
 
 import java.io.IOException;
 import java.util.List;

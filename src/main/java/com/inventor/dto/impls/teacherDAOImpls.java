@@ -1,24 +1,23 @@
-package com.inventor.dao.impls;
+package com.inventor.dto.impls;
 
-import com.inventor.dao.interfaces.subject;
-import com.inventor.entities.CashersEntity;
-import com.inventor.entities.ChecksDataEntity;
-import com.inventor.entities.SubjectsEntity;
+import com.inventor.dto.interfaces.teachers;
+import com.inventor.entities.TeachersEntity;
 import com.inventor.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subject {
+public class teacherDAOImpls extends abstractUA<TeachersEntity> implements teachers {
 
-    private static subjectDAOimpls sDAOImpl;
+    private static teacherDAOImpls tDAOImpl;
     private SessionFactory sessionFactory = null;
 
-    public subjectDAOimpls() {
+    public teacherDAOImpls() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
@@ -32,25 +31,25 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
         }
     }
 
-    public static subjectDAOimpls getInstance() {
-        if (sDAOImpl == null) {
-            sDAOImpl = new subjectDAOimpls();
+    public static teacherDAOImpls getInstance() {
+        if (tDAOImpl == null) {
+            tDAOImpl = new teacherDAOImpls();
         }
-        return sDAOImpl;
+        return tDAOImpl;
     }
 
     @Override
-    public List<SubjectsEntity> getAll() {
+    public List<TeachersEntity> getAll() {
         isActiveSession();
-        List<SubjectsEntity> list = new ArrayList<>(getSession().createCriteria(SubjectsEntity.class).list());
+        List<TeachersEntity> list = new ArrayList<>(getSession().createCriteria(TeachersEntity.class).list());
         getSession().getTransaction().commit();
         return list;
     }
 
     @Override
-    public SubjectsEntity get(long id) {
+    public TeachersEntity get(long id) {
         isActiveSession();
-        SubjectsEntity obj = getSession().get(SubjectsEntity.class,(int) id);
+        TeachersEntity obj = getSession().get(TeachersEntity.class, (int) id);
         getSession().getTransaction().commit();
         return obj;
     }
@@ -58,7 +57,7 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
     @Override
     public boolean remove(long obj) {
         isActiveSession();
-        SubjectsEntity var = getSession().load(SubjectsEntity.class, (int) obj);
+        TeachersEntity var = getSession().load(TeachersEntity.class, (int) obj);
         if (var != null) {
             getSession().delete(var);
             return true;
@@ -71,7 +70,7 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
     public List<String> getNames() {
         isActiveSession();
         List<String> list = new ArrayList<>(getSession()
-                .createCriteria(SubjectsEntity.class)
+                .createCriteria(TeachersEntity.class)
                 .setProjection(Projections
                         .property( "name"))
                 .list());
@@ -82,11 +81,28 @@ public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subje
     @Override
     public int getId(String name) {
         isActiveSession();
-        int id = (int) getSession().createCriteria(SubjectsEntity.class)
-                .add(Restrictions.eq("name", name))
-                .setProjection(Projections
-                        .property("id")).uniqueResult();
+        int id = (int) getSession().createCriteria(TeachersEntity.class)
+                .add(Restrictions.eq("name", name)).uniqueResult();
         getSession().getTransaction().commit();
         return id;
+    }
+
+
+    @Override
+    public List<TeachersEntity> getTeachersList() {
+        return null;
+    }
+
+    @Override
+    public long getTeachersCountOnSubject(int subjetId) {
+        String id = String.valueOf(subjetId);
+        isActiveSession();
+        long count  = (long) getSession()
+                .createCriteria(TeachersEntity.class)
+                .add(Restrictions
+                        .like("subjectId", id, MatchMode.ANYWHERE))
+                .setProjection(Projections
+                        .rowCount()).uniqueResult();
+        return count;
     }
 }

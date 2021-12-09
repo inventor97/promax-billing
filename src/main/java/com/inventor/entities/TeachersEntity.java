@@ -1,10 +1,9 @@
 package com.inventor.entities;
 
-import com.inventor.dao.impls.subjectDAOimpls;
+import com.inventor.dto.impls.subjectDAOimpls;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import javafx.embed.swing.SwingFXUtils;

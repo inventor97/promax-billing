@@ -1,9 +1,9 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.inventor.controllers.mainCtrl;
-import com.inventor.dao.impls.checksDataDAOimpls;
-import com.inventor.dao.impls.subjectDAOimpls;
-import com.inventor.dao.impls.teacherDAOImpls;
+import com.inventor.dto.impls.checksDataDAOimpls;
+import com.inventor.dto.impls.subjectDAOimpls;
+import com.inventor.dto.impls.teacherDAOImpls;
 import com.inventor.entities.ChecksDataEntity;
 import com.inventor.entities.SubjectsEntity;
 import com.inventor.entities.TeachersEntity;

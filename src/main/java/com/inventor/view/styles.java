@@ -1,6 +1,4 @@
-package com.inventor.viewUtils;
-
-import java.util.Random;
+package com.inventor.view;
 
 public class styles {
 

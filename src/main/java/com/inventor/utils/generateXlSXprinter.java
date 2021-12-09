@@ -1,8 +1,7 @@
 package com.inventor.utils;
 
 import com.inventor.controllers.mainCtrl;
-import com.inventor.dao.impls.checksDataDAOimpls;
-import com.inventor.dao.impls.subjectDAOimpls;
+import com.inventor.dto.impls.checksDataDAOimpls;
 import com.inventor.entities.ChecksDataEntity;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -21,9 +20,6 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class generateXlSXprinter {
 

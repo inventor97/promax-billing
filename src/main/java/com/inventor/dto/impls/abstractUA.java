@@ -1,6 +1,6 @@
-package com.inventor.dao.impls;
+package com.inventor.dto.impls;
 
-import com.inventor.dao.interfaces.abstractInterface;
+import com.inventor.dto.interfaces.abstractInterface;
 import com.inventor.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

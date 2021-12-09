@@ -1,4 +1,4 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.inventor.entities.SubjectsEntity;
 import com.jfoenix.controls.JFXButton;

@@ -1,9 +1,8 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.inventor.controllers.mainCtrl;
-import com.inventor.dao.impls.cashersDAOImpls;
+import com.inventor.dto.impls.cashersDAOImpls;
 import com.inventor.entities.CashersEntity;
-import com.inventor.utils.windowCtrl;
 import com.jfoenix.controls.JFXPasswordField;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -12,7 +11,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.util.ArrayList;

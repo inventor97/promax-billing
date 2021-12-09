@@ -1,6 +1,6 @@
-package com.inventor.dao.impls;
+package com.inventor.dto.impls;
 
-import com.inventor.dao.interfaces.checks;
+import com.inventor.dto.interfaces.checks;
 import com.inventor.entities.ChecksDataEntity;
 import com.inventor.utils.HibernateUtil;
 import com.inventor.utils.dateUtils;

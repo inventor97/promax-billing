@@ -1,8 +1,6 @@
 package com.inventor.utils;
 
-import com.inventor.dao.impls.cashersDAOImpls;
 import com.inventor.entities.expTableClass;
-import com.inventor.entities.tableClass;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;

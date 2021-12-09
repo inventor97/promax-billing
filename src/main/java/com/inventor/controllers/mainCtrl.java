@@ -1,13 +1,12 @@
 package com.inventor.controllers;
 
 import com.inventor.Main;
-import com.inventor.dao.impls.*;
+import com.inventor.dto.impls.*;
 import com.inventor.entities.*;
 import com.inventor.utils.FileUtils;
 import com.inventor.utils.dateUtils;
-import com.inventor.utils.generateXLS;
 import com.inventor.utils.windowCtrl;
-import com.inventor.viewUtils.*;
+import com.inventor.view.*;
 import com.jfoenix.controls.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -385,11 +384,11 @@ public class mainCtrl  implements Initializable {
     private NavButtons btnCtrl;
     private windowCtrl wCtrl;
 
-    public static com.inventor.viewUtils.subjectNode subNode;
+    public static com.inventor.view.subjectNode subNode;
     public static subjectEdit subEditOption;
     public static SubjectsEntity subObj = new SubjectsEntity();
 
-    public static com.inventor.viewUtils.teacherNode teachNode;
+    public static com.inventor.view.teacherNode teachNode;
     public static teacherEdit teachEditOption;
     public static TeachersEntity teachObj = new TeachersEntity();
 

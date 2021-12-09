@@ -1,4 +1,4 @@
-package com.inventor.viewUtils;
+package com.inventor.view;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;

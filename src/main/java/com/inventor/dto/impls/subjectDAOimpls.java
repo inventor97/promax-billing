@@ -1,7 +1,7 @@
-package com.inventor.dao.impls;
+package com.inventor.dto.impls;
 
-import com.inventor.dao.interfaces.cashers;
-import com.inventor.entities.CashersEntity;
+import com.inventor.dto.interfaces.subject;
+import com.inventor.entities.SubjectsEntity;
 import com.inventor.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,12 +11,12 @@ import org.hibernate.criterion.Restrictions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class cashersDAOImpls extends abstractUA<CashersEntity> implements cashers  {
+public class subjectDAOimpls extends abstractUA<SubjectsEntity> implements subject {
 
-    private static cashersDAOImpls cDAOImpls;
+    private static subjectDAOimpls sDAOImpl;
     private SessionFactory sessionFactory = null;
 
-    public cashersDAOImpls() {
+    public subjectDAOimpls() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
@@ -30,33 +30,25 @@ public class cashersDAOImpls extends abstractUA<CashersEntity> implements casher
         }
     }
 
-    public static cashersDAOImpls getInstance() {
-        if (cDAOImpls == null) {
-            cDAOImpls = new cashersDAOImpls();
+    public static subjectDAOimpls getInstance() {
+        if (sDAOImpl == null) {
+            sDAOImpl = new subjectDAOimpls();
         }
-        return cDAOImpls;
+        return sDAOImpl;
     }
 
-    public List<CashersEntity> getFullData() {
+    @Override
+    public List<SubjectsEntity> getAll() {
         isActiveSession();
-        List<CashersEntity> list = new ArrayList<>(getSession().createCriteria(CashersEntity.class).list());
+        List<SubjectsEntity> list = new ArrayList<>(getSession().createCriteria(SubjectsEntity.class).list());
         getSession().getTransaction().commit();
         return list;
     }
 
     @Override
-    public List<CashersEntity> getAll() {
+    public SubjectsEntity get(long id) {
         isActiveSession();
-        List<CashersEntity> list = new ArrayList<>(getSession().createCriteria(CashersEntity.class).list());
-        list.removeIf(e -> e.getId() == 9);
-        getSession().getTransaction().commit();
-        return list;
-    }
-
-    @Override
-    public CashersEntity get(long id) {
-        isActiveSession();
-        CashersEntity obj = getSession().get(CashersEntity.class, (int) id);
+        SubjectsEntity obj = getSession().get(SubjectsEntity.class,(int) id);
         getSession().getTransaction().commit();
         return obj;
     }
@@ -64,7 +56,7 @@ public class cashersDAOImpls extends abstractUA<CashersEntity> implements casher
     @Override
     public boolean remove(long obj) {
         isActiveSession();
-        CashersEntity var = getSession().load(CashersEntity.class, (int) obj);
+        SubjectsEntity var = getSession().load(SubjectsEntity.class, (int) obj);
         if (var != null) {
             getSession().delete(var);
             return true;
@@ -77,9 +69,9 @@ public class cashersDAOImpls extends abstractUA<CashersEntity> implements casher
     public List<String> getNames() {
         isActiveSession();
         List<String> list = new ArrayList<>(getSession()
-                .createCriteria(CashersEntity.class)
+                .createCriteria(SubjectsEntity.class)
                 .setProjection(Projections
-                        .property("name"))
+                        .property( "name"))
                 .list());
         getSession().getTransaction().commit();
         return list;
@@ -88,10 +80,11 @@ public class cashersDAOImpls extends abstractUA<CashersEntity> implements casher
     @Override
     public int getId(String name) {
         isActiveSession();
-        int id = (int) getSession().createCriteria(CashersEntity.class)
-                .add(Restrictions.eq("name", name)).uniqueResult();
+        int id = (int) getSession().createCriteria(SubjectsEntity.class)
+                .add(Restrictions.eq("name", name))
+                .setProjection(Projections
+                        .property("id")).uniqueResult();
         getSession().getTransaction().commit();
-
         return id;
     }
 }
