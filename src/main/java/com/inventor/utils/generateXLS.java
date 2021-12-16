@@ -75,7 +75,11 @@ public class generateXLS {
                 addCell(workbook, row, data.get(i).getObj().getCardHolder(), 7);
                 addCell(workbook, row, data.get(i).getObj().getComment(), 8);
                 addCell(workbook, row, String.valueOf(data.get(i).getObj().getDateCrated()), 9);
-                addCell(workbook, row, cashersDAOImpls.getInstance().get(data.get(i).getObj().getCasherId()).getName(), 10);
+                try {
+                    addCell(workbook, row, cashersDAOImpls.getInstance().get(data.get(i).getObj().getCasherId()).getName(), 10);
+                } catch (Exception e) {
+                    addCell(workbook, row, "user-deleted", 10);
+                }
                 summ += data.get(i).getAmount();
             }
 
