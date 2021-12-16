@@ -1,0 +1,43 @@
+<html><head>
+  <SCRIPT src="http://java.com/js/dtjava.js"></SCRIPT>
+<script>
+    function launchApplication(jnlpfile) {
+        dtjava.launch(            {
+                url : 'promax_billing.jnlp'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+        return false;
+    }
+</script>
+
+<script>
+    function javafxEmbedpromax_billing_id() {
+        dtjava.embed(
+            {
+                id : 'promax_billing_id',
+                url : 'promax_billing.jnlp',
+                placeholder : 'javafx-app-placeholder',
+                width : '900',
+                height : '600'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+    }
+    <!-- Embed FX application into web page once page is loaded -->
+    dtjava.addOnloadCallback(javafxEmbedpromax_billing_id);
+</script>
+
+</head><body>
+<h2>Test page for <b>promax-billing</b></h2>
+  <b>Webstart:</b> <a href='promax_billing.jnlp' onclick="return launchApplication('promax_billing.jnlp');">click to launch this app as webstart</a><br><hr><br>
+
+  <!-- Applet will be inserted here -->
+  <div id='javafx-app-placeholder'></div>
+</body></html>

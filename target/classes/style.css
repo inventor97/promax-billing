@@ -1,0 +1,256 @@
+
+#mainPage {
+    -fx-background-color: #e5e5e5;
+}
+
+#mainContent {
+     -fx-background-image: url("main-page-bkg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-color: rgba(255,255,255,1);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+}
+#leftToolBar {
+    -fx-background-color: linear-gradient(to bottom right, #2a4e8b 60%, #ea7a2f 100%);
+    -fx-border-radius: 0 10 10 0;
+    -fx-background-radius: 0 10 10 0;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+}
+.button {
+    -fx-text-fill: #e5e5e5;
+    -fx-font-family: "Poppins_regular";
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+#context_tile {
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #e5e5e5;
+}
+.radio-button,
+.label,
+.text-area,
+.text-field,
+.choice-box {
+    -fx-text-fill: #2a4e8b;
+    -fx-font-family: "Poppins_regular";
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+#checkContent {
+    -fx-background-color: rgba(255,255,255,0.55);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+#topBar {
+    -fx-background-image: url("top-bkg.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+#addTeacherBIlling,
+#addSubjectBilling,
+#confirmBtn,
+#selectMonthpayment {
+    -fx-text-fill: #e5e5e5;
+    -fx-background-color: #3e72ce;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#generateXLS {
+    -fx-text-fill: #2a4e8b;
+    -fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 15.0, 0, 0,0);
+}
+.combo-box .list-view {
+    -fx-background-color: rgba(255,255,255,0.7);
+    -fx-padding: 5 5 20 5;
+    -fx-border-width: 0;
+    -fx-background-radius: 0 0 5 5;
+    -fx-border-radius: 0 0 5 5;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+.combo-box .list-view .viewport {
+    -fx-background-color: rgba(255,255,255,0.7);;
+}
+.combo-box .list-cell:focused,
+.combo-box .list-cell:selected {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+.jfx-combo-box {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-font-family: "Poppins_regular";
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+#searchHis {
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-border-width: 0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 3.0, 0, 0.0, 0.0);
+}
+
+.list-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb,
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:horizontal,
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical,
+.list-view .scroll-bar:vertical {
+    -fx-font-size: 1px;
+    -fx-background-color: transparent;
+}
+.table-view, .column-header, .filler, #editingPanel {
+    -fx-background-color: #e5e5e5;
+
+}
+.table-view {
+    -fx-font-family: "Poppins_regular";
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-text-fill: #2a4e8b;
+    -fx-text-alignment: center;
+    -fx-selection-bar: #e5e5e5;
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 2px;
+    -fx-border-color: #b2b2b5;
+    -fx-table-cell-border-color: transparent;
+}
+.table-view .table-row-cell {
+    -fx-border-width: 1;
+}
+
+.table-view .table-cell,
+.table-view .column-header-background .label {
+    -fx-font-size: 12;
+    -fx-wrap-text: true;
+}
+#rightSideBar {
+    -fx-background-image: url("right-side-bkg.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 140% 105%;
+    -fx-background-color: #e5e5e5;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 25.0, 0.5 , 0.0, 0.0);
+}
+.table-row-cell {
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+.table-row-cell {
+    -fx-background-color: transparent;
+}
+.table-row-cell:selected {
+    -fx-background-color: rgba(62,114,206, 0.4);
+}
+.jfx-date-picker,
+.jfx-date-picker:focused,
+.jfx-date-picker:focused:editable {
+    -fx-background-color: rgba(229,229,229,0.8);
+}
+.jfx-date-picker .text-field {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+#filterPane {
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, #b2b2b5, 15.0, 0.0, 0.0, 0.0);
+}
+#popupBkg {
+     -fx-background-color: rgba(0,0,0,0.45);
+}
+#node{
+    -fx-background-color: rgba(229,229,229,0.8);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 1px;
+    -fx-border-color: #b2b2b5;
+}
+#paymentContent,
+#expensesForm,
+#expensesStatsPane {
+    -fx-background-color: rgba(255,255,255,0.5);
+    -fx-border-width: 1px;
+    -fx-border-color: #e5e5e5;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+#accountImg {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-background-color: #e5e5e5;
+    -fx-border-width: 1px;
+    -fx-border-color: #b2b2b5;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane .scroll-bar:horizontal,
+.scroll-pane .scroll-bar:vertical{
+    -fx-font-size: 1px;
+    -fx-background-color: transparent;
+}
+#teachersHb .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb{
+    -fx-background-color: transparent;
+}
+#subjectNode {
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);
+}
+.jfx-radio-button{
+    -jfx-selected-color: #2a4e8b;
+}
+.jfx-check-box {
+    -jfx-unchecked-color: #5A5A5A;
+    -jfx-checked-color: #2a4e8b;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: #e5e5e5;
+    -fx-padding: 5px;
+}
+.spinner .decrement-arrow-button .decrement-arrow,
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-background-color: #2a4e8b, #2a4e8b;
+}
+.spinner .text-field {
+    -fx-background-color: #e5e5e5;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent;
+    -fx-text-fill: #2a4e8b;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+.spinner.split-arrows-horizontal .increment-arrow-button .increment-arrow {
+    -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em; /* 4 2 4 2 */
+    -fx-shape: "M 0 0 v 7 l 3.5 -4 z";
+}
+.spinner.split-arrows-horizontal .decrement-arrow-button .decrement-arrow {
+    -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em; /* 4 2 4 2 */
+    -fx-shape: "M 4 0 v 7 l -4 -3.5 z";
+}

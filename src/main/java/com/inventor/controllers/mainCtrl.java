@@ -664,24 +664,38 @@ public class mainCtrl  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnCtrl = new NavButtons(teacherBtn, paymentBtn, historyBtn, expencesBtn, teacherIcon, paymentIcon, hisIcon, expensesIcon);
-        wCtrl = new windowCtrl(close, swipe);
-        subNode  = new subjectNode(subjectGridPane);
-        teachNode = new teacherNode(teachersHb);
-        subNode.initSubjectNode(subjectDAOimpls.getInstance().getAll());
-        teachNode.initTeacherNode(teacherDAOImpls.getInstance().getAll());
+        spinner.setVisible(true);
+        Task<Void> intTask =  new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                btnCtrl = new NavButtons(teacherBtn, paymentBtn, historyBtn, expencesBtn, teacherIcon, paymentIcon, hisIcon, expensesIcon);
+                wCtrl = new windowCtrl(close, swipe);
+                subNode  = new subjectNode(subjectGridPane);
+                teachNode = new teacherNode(teachersHb);
+                cashNode = new casherNode(casherVbox);
+                subEditOption = new subjectEdit(popupBkg, editSubjectNode, editedSubject, addSubject);
+                cashEdit = new casherEdit(popupBkg, editUserNode, editedUserName, userPassword, addUser, userImg);
+                teachEditOption = new teacherEdit(editTeacherNode, popupBkg, TeacherImg, editedTeacherName, addTeacher);
+                subChoiceNode = new subjectNode(subjectChoicePane, subChoiceHbox);
+                payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, cardHolderTxt, cardHolderPane, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb,spinner, subChoiceHbox);
+                auth = new authUserView(popupBkg, authPane, topBarAccountImg, topBarUserName, authPassfield);
+                return null;
+            }
+        };
+        intTask.setOnSucceeded(e -> {
+            subNode.initSubjectNode(subjectDAOimpls.getInstance().getAll());
+            teachNode.initTeacherNode(teacherDAOImpls.getInstance().getAll());
+            initTable();
+            initDateFilter();
+            initCmbx();
+            spinner.setVisible(false);
+        });
+        new Thread(intTask).start();
         teacherScrollPane.setOnScroll(event -> {
             if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
                 teacherScrollPane.setHvalue(teacherScrollPane.getHvalue() - event.getDeltaY() / 500);
             }
         });
-        cashNode = new casherNode(casherVbox);
-        subEditOption = new subjectEdit(popupBkg, editSubjectNode, editedSubject, addSubject);
-        cashEdit = new casherEdit(popupBkg, editUserNode, editedUserName, userPassword, addUser, userImg);
-        teachEditOption = new teacherEdit(editTeacherNode, popupBkg, TeacherImg, editedTeacherName, addTeacher);
-        subChoiceNode = new subjectNode(subjectChoicePane, subChoiceHbox);
-        payView = new paymentView(fio, monthlyBill, subjectBox, cashRBtn, cardRBtn, cardHolderTxt, cardHolderPane, omment, monthBox, teacherBox, popupBkg, subjectChoicePane,choiceLb,spinner, subChoiceHbox);
-        auth = new authUserView(popupBkg, authPane, topBarAccountImg, topBarUserName, authPassfield);
         expenseAmount.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -690,9 +704,6 @@ public class mainCtrl  implements Initializable {
                 }
             }
         });
-        initTable();
-        initDateFilter();
-        initCmbx();
     }
 
     @FXML

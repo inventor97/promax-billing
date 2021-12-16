@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventor.controllers.mainCtrl">
+   <children>
+      <AnchorPane fx:id="topBar" layoutX="215.0" layoutY="15.0" prefHeight="40.0" prefWidth="665.0">
+         <children>
+            <HBox fx:id="winTools" layoutX="542.0" layoutY="4.0" prefHeight="31.0" prefWidth="119.0">
+               <children>
+                  <JFXButton fx:id="logout" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#clickWindowHandler">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@login_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="swipe" contentDisplay="GRAPHIC_ONLY" onAction="#clickWindowHandler">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@expand_arrow_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="close" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#clickWindowHandler">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@multiply_96px_fill.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Circle fx:id="topBarAccountImg" centerX="30.0" centerY="20.0" fill="TRANSPARENT" radius="16.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Label fx:id="topBarUserName" layoutX="72.0" layoutY="7.0" prefHeight="25.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="mainContent" layoutX="215.0" layoutY="75.0" prefHeight="515.0" prefWidth="665.0">
+         <children>
+            <VBox fx:id="paymentContent" layoutX="19.0" layoutY="9.0" prefHeight="501.0" prefWidth="500.0" spacing="20.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" prefWidth="460.0" text="Hisob - To'lovnoma" textAlignment="CENTER" />
+                  <HBox layoutX="30.0" layoutY="131.0" spacing="20.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label prefWidth="108.0" text="O'quvchi F.I.O: " />
+                              <JFXTextField fx:id="fio" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label prefWidth="78.0" text="O'quv fani:" />
+                              <JFXButton fx:id="addSubjectBilling" contentDisplay="GRAPHIC_ONLY" onAction="#clickHandler" prefHeight="35.0" prefWidth="205.0" text="O'qituvchi qo'shish">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@add_list_96px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label prefWidth="113.0" text="To'lov miqdori:" />
+                              <JFXTextField fx:id="monthlyBill" alignment="CENTER" prefHeight="31.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label prefWidth="77.0" text="O'qituvchi:" />
+                              <JFXButton fx:id="addTeacherBIlling" contentDisplay="GRAPHIC_ONLY" onAction="#clickHandler" prefHeight="35.0" prefWidth="205.0" text="O'qituvchi qo'shish">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@add_user_male_104px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox layoutX="10.0" layoutY="10.0">
+                           <children>
+                              <Label text="To'lov turi:">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <ToggleButtonGroup selectionType="SINGLE">
+                                 <toggles>
+                                    <JFXRadioButton fx:id="cashRBtn" prefWidth="90.0" text="Naqd" />
+                                    <JFXRadioButton fx:id="cardRBtn" prefWidth="110.0" text="Karta" />
+                                 </toggles>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </ToggleButtonGroup>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="74.0" text="To'lov oyi:">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <JFXButton fx:id="selectMonthpayment" onAction="#clickHandler" prefHeight="40.0" prefWidth="200.0" text="Oyni talang" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="cardHolderPane" prefWidth="200.0" visible="false">
+                     <children>
+                        <Label prefHeight="33.0" prefWidth="217.0" text="Karta Egasi" />
+                        <JFXTextField fx:id="cardHolderTxt" alignment="CENTER" prefHeight="31.0" prefWidth="208.0" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <VBox prefHeight="76.0" prefWidth="425.0">
+                           <children>
+                              <Label text="Izoh:" />
+                              <JFXTextArea fx:id="omment" prefHeight="50.0" prefWidth="425.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="confirmBtn" onAction="#clickHandler" prefHeight="40.0" prefWidth="205.0" text="To'lov">
+                     <VBox.margin>
+                        <Insets left="220.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <AnchorPane fx:id="hisContent" prefHeight="515.0" prefWidth="665.0" visible="false">
+               <children>
+                  <JFXTextField fx:id="searchHis" alignment="CENTER_RIGHT" focusColor="#2a4e8b" layoutX="253.0" layoutY="9.0" prefHeight="31.0" prefWidth="345.0" promptText="qidiruv...">
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </JFXTextField>
+                  <TableView fx:id="statTableView" layoutX="6.0" layoutY="47.0" prefHeight="405.0" prefWidth="645.0" style="-fx-text-fill: #2a4e8b;">
+                    <columns>
+                      <TableColumn fx:id="no" prefWidth="40.0" text="№" />
+                      <TableColumn fx:id="name" prefWidth="212.0" text="F.I.O" />
+                        <TableColumn fx:id="subject" prefWidth="102.0" text="Fan" />
+                        <TableColumn fx:id="teacher" prefWidth="138.0" text="O'qituvchi" />
+                        <TableColumn fx:id="month" prefWidth="69.0" text="oy" />
+                        <TableColumn fx:id="amount" prefWidth="82.0" text=" to'lov" />
+                        <TableColumn fx:id="object" prefWidth="82.0" visible="false" />
+                    </columns>
+                  </TableView>
+                  <Label fx:id="sumUpLb" layoutX="14.0" layoutY="467.0" prefHeight="40.0" prefWidth="245.0" text="Umumiy to'lov: 654 000 000" />
+                  <JFXButton fx:id="generateXLS" layoutX="479.0" layoutY="466.0" onAction="#clickTeachersHandler" prefHeight="40.0" prefWidth="164.0" text="Excelga ko'chirish" />
+                  <JFXButton fx:id="openRightSideBar" contentDisplay="GRAPHIC_ONLY" layoutX="608.0" layoutY="5.0" onAction="#clickTeachersHandler">
+                     <graphic>
+                        <ImageView fx:id="rightSideIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@right_navigation_toolbar_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="expensesPane" prefHeight="515.0" prefWidth="665.0" visible="false">
+               <children>
+                  <HBox fx:id="expensesForm" layoutX="14.0" layoutY="7.0" prefHeight="60.0" prefWidth="635.0" spacing="20.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Xarajat miqdori" />
+                              <JFXTextField fx:id="expenseAmount" alignment="CENTER" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0">
+                           <children>
+                              <Label text="Izoh" />
+                              <JFXTextField fx:id="expensesComment" alignment="CENTER" prefHeight="31.0" prefWidth="250.0" />
+                           </children>
+                        </VBox>
+                        <JFXButton fx:id="saveExpenses" onAction="#expensesClickHandler" prefHeight="60.0" prefWidth="134.0" style="-fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);" text="Saqlash" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <AnchorPane fx:id="expensesStatsPane" layoutX="17.0" layoutY="81.0" prefHeight="421.0" prefWidth="635.0" visible="false">
+                     <children>
+                        <Spinner fx:id="expYearSpinner" layoutX="19.0" layoutY="12.0" prefHeight="32.0" prefWidth="141.0" styleClass="split-arrows-horizontal" />
+                        <JFXComboBox fx:id="expMonthCmbx" layoutX="175.0" layoutY="13.0" prefHeight="30.0" prefWidth="153.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" />
+                        <Spinner fx:id="expDaySpinner" editable="true" layoutX="343.0" layoutY="12.0" prefHeight="32.0" prefWidth="89.0" styleClass="split-arrows-horizontal" />
+                        <TableView fx:id="expensesTableView" layoutX="18.0" layoutY="58.0" prefHeight="300.0" prefWidth="594.0">
+                          <columns>
+                            <TableColumn fx:id="expNo" prefWidth="39.0" text="№" />
+                            <TableColumn fx:id="expAmount" prefWidth="150.0" text="Xarajat miqdori" />
+                              <TableColumn fx:id="expBy" prefWidth="150.0" text="Tomonidan" />
+                              <TableColumn fx:id="expDate" prefWidth="95.0" text="Sana" />
+                              <TableColumn fx:id="expComment" prefWidth="156.0" text="Izoh" />
+                              <TableColumn fx:id="expObj" minWidth="1.0" prefWidth="1.0" text="Izoh" visible="false" />
+                          </columns>
+                        </TableView>
+                        <JFXButton fx:id="generateExpXls" layoutX="422.0" layoutY="367.0" onAction="#expensesClickHandler" prefHeight="49.0" prefWidth="192.0" style="-fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);" text="Excelga ko'chirish" />
+                        <Label fx:id="expSummUp" layoutX="19.0" layoutY="367.0" prefHeight="42.0" prefWidth="360.0" style="-fx-font-size: 20;" text="Umumiy xarajat:" />
+                        <JFXRadioButton fx:id="expWholeMonth" layoutX="444.0" layoutY="12.0" prefHeight="35.0" prefWidth="141.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" text="Butun Oy">
+                           <padding>
+                              <Insets left="5.0" top="10.0" />
+                           </padding>
+                        </JFXRadioButton>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="teacherContent" prefHeight="515.0" prefWidth="665.0">
+               <children>
+                  <ScrollPane fx:id="teacherScrollPane" layoutX="15.0" layoutY="55.0" prefHeight="208.0" prefWidth="625.0">
+                     <content>
+                        <HBox fx:id="teachersHb" prefWidth="620.0" spacing="10.0">
+                           <padding>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+                  <JFXButton fx:id="addTeacherBtn" contentDisplay="RIGHT" layoutX="21.0" layoutY="11.0" onAction="#teacherClickHandler" style="-fx-text-fill: #2a4e8b;" text="O'qituvchilar">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@add_user_male_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="addSubjectBtn" contentDisplay="RIGHT" layoutX="22.0" layoutY="268.0" onAction="#teacherClickHandler" style="-fx-text-fill: #2a4e8b;" text="Fanlar">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@add_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <ScrollPane layoutX="15.0" layoutY="320.0" prefHeight="180.0">
+                     <content>
+                        <GridPane fx:id="subjectGridPane" hgap="5.0" prefHeight="175.0" prefWidth="380.0" vgap="5.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="155.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="501.0" minWidth="10.0" prefWidth="155.0" />
+                          </columnConstraints>
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+                  <JFXButton fx:id="addCasher" contentDisplay="RIGHT" layoutX="537.0" layoutY="266.0" onAction="#teacherClickHandler" text="Kassirlar">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@add_user_male_96px_white.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <ScrollPane fx:id="casherScrl" layoutX="450.0" layoutY="320.0" prefHeight="180.0">
+                     <content>
+                        <VBox fx:id="casherVbox" spacing="7.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="subjectBox" layoutX="475.0" layoutY="92.0" prefHeight="52.0" prefWidth="180.0" visible="false" />
+            <AnchorPane fx:id="monthBox" layoutX="475.0" layoutY="260.0" prefHeight="52.0" prefWidth="180.0" visible="false" />
+            <AnchorPane fx:id="teacherBox" layoutX="475.0" layoutY="155.0" prefHeight="100.0" prefWidth="185.0" visible="false" />
+         </children>
+      </AnchorPane>
+      <VBox fx:id="leftToolBar" prefHeight="600.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@variant.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <JFXButton fx:id="teacherBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="250.0" onAction="#leftClickHandler" prefHeight="59.0" prefWidth="180.0" style="-fx-background-radius: 7 0 0 7; -fx-border-radius: 7 0 0 7; -fx-background-color: #e5e5e5; -fx-text-fill: #2a4e8b;" text="O'qituvchilar va fanlar" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="teacherIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@data_recovery_96px_fill.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="20.0" top="100.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="paymentBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="To'lov">
+               <graphic>
+                  <ImageView fx:id="paymentIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@check.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="historyBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="210.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="Hisoblar" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="hisIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@order_history_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="expencesBtn" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="30.0" layoutY="329.0" onAction="#leftClickHandler" prefHeight="60.0" prefWidth="180.0" text="Xarajatlar" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="expensesIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ledger_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </JFXButton>
+            <Separator prefWidth="200.0">
+               <padding>
+                  <Insets left="25.0" right="25.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="135.0" />
+               </VBox.margin>
+            </Separator>
+            <Label fx:id="context_tile" alignment="CENTER" prefWidth="200.0" text="promax education 2021" />
+         </children>
+         <padding>
+            <Insets top="50.0" />
+         </padding></VBox>
+      <AnchorPane fx:id="rightSideBar" layoutX="898.0" layoutY="75.0" prefHeight="515.0" prefWidth="270.0" visible="false">
+         <children>
+            <VBox fx:id="filterPane" layoutX="16.0" layoutY="179.0" prefHeight="323.0" prefWidth="240.0" spacing="5.0">
+               <children>
+                  <Label text="Fan bo'yicha">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <JFXComboBox fx:id="subjectFilter" prefHeight="38.0" prefWidth="210.0" />
+                  <Label layoutX="25.0" layoutY="55.0" text="To'lov oyi" />
+                  <JFXComboBox fx:id="monthFilter" layoutX="25.0" layoutY="81.0" prefHeight="38.0" prefWidth="210.0" />
+                  <Label layoutX="25.0" layoutY="25.0" text="O'qituvchi bo'yicha">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXComboBox fx:id="teacherFilter" layoutX="25.0" layoutY="51.0" prefHeight="38.0" prefWidth="210.0" />
+                  <Label layoutX="25.0" layoutY="184.0" text="To'lov turi:">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ToggleButtonGroup selectionType="SINGLE">
+                     <toggles>
+                        <JFXRadioButton fx:id="cashFilter" text="Naqd" />
+                        <JFXRadioButton fx:id="cardFilter" layoutX="10.0" layoutY="10.0" text="To'lov karta">
+                           <padding>
+                              <Insets left="5.0" top="10.0" />
+                           </padding></JFXRadioButton>
+                     </toggles>
+                  </ToggleButtonGroup>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </VBox>
+            <Spinner fx:id="yearSpinner" layoutX="17.0" layoutY="30.0" prefHeight="40.0" prefWidth="240.0" styleClass="split-arrows-horizontal" />
+            <Spinner fx:id="dateSpinner" editable="true" layoutX="147.0" layoutY="127.0" prefHeight="40.0" prefWidth="109.0" style="-fx-text-fill: #2a4e8b;" styleClass="split-arrows-horizontal" />
+            <JFXComboBox fx:id="monthCmbx" layoutX="16.0" layoutY="78.0" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #e5e5e5;" />
+            <JFXRadioButton fx:id="wholeMonthRBtn" layoutX="15.0" layoutY="126.0" prefHeight="42.0" prefWidth="125.0" style="-fx-background-color: #e5e5e5; -fx-border-radius: 5; -fx-background-radius: 5;" text="Butun Oy">
+               <padding>
+                  <Insets left="5.0" top="10.0" />
+               </padding>
+            </JFXRadioButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="popupBkg" prefHeight="600.0" prefWidth="1200.0">
+         <children>
+            <AnchorPane fx:id="editSubjectNode" layoutX="357.5" layoutY="232.5" onKeyPressed="#exitOnESC" prefHeight="135.0" prefWidth="185.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
+               <children>
+                  <JFXButton fx:id="cancelSubject" layoutX="7.0" layoutY="88.0" onAction="#clickEditSubject" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+                  <JFXButton fx:id="addSubject" layoutX="94.0" layoutY="88.0" onAction="#clickEditSubject" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+                  <Label layoutX="14.0" layoutY="14.0" text="Fan nomi" />
+                  <JFXTextField fx:id="editedSubject" layoutX="11.0" layoutY="44.0" prefHeight="31.0" prefWidth="164.0" />
+               </children>
+               <effect>
+                  <DropShadow color="#b2b2b4" />
+               </effect>
+            </AnchorPane>
+            <AnchorPane fx:id="editUserNode" layoutX="350.0" layoutY="190.0" onKeyPressed="#exitOnESC" prefHeight="220.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+               <children>
+                  <Circle fx:id="userImg" fill="#e5e5e5" layoutX="10.0" layoutY="10.0" radius="45.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <Label layoutX="147.0" layoutY="28.0" text="F.I.O" />
+                  <JFXTextField fx:id="editedUserName" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="54.0" prefHeight="31.0" prefWidth="173.0" />
+                  <Label layoutX="98.0" layoutY="102.0" text="Kirish paroli" />
+                  <JFXPasswordField fx:id="userPassword" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="131.0" prefHeight="31.0" prefWidth="173.0" />
+                  <JFXButton fx:id="editUserImg" contentDisplay="GRAPHIC_ONLY" layoutX="34.0" layoutY="21.0" onAction="#editUserActions" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #e5e5e5; -fx-effect: drop-shadow(gaussian, #b2b2b4, 10.0, 0.5, 0.0, 0.0);">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@registration_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="cancelUser" layoutX="14.0" layoutY="182.0" onAction="#editUserActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+                  <JFXButton fx:id="addUser" layoutX="101.0" layoutY="182.0" onAction="#editUserActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+               </children>
+               <effect>
+                  <DropShadow color="#b2b2b4" />
+               </effect>
+            </AnchorPane>
+            <AnchorPane fx:id="editTeacherNode" layoutX="340.0" layoutY="180.0" onKeyPressed="#exitOnESC" prefHeight="240.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+               <children>
+                  <Circle fx:id="TeacherImg" fill="#e5e5e5" layoutX="10.0" layoutY="10.0" radius="45.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <Label layoutX="157.0" layoutY="38.0" text="F.I.O" />
+                  <JFXTextField fx:id="editedTeacherName" alignment="CENTER_RIGHT" layoutX="23.0" layoutY="64.0" prefHeight="31.0" prefWidth="173.0" />
+                  <Label layoutX="88.0" layoutY="112.0" text="Mutaxasis fani:" />
+                  <JFXButton fx:id="editTeacherImg" contentDisplay="GRAPHIC_ONLY" layoutX="35.0" layoutY="20.0" onAction="#editTeacherActions" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 35; -fx-border-radius: 35; -fx-background-color: #e5e5e5; -fx-effect: drop-shadow(gaussian, #b2b2b4, 10.0, 0.5, 0.0, 0.0);">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@registration_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="cancelTeacher" layoutX="24.0" layoutY="199.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+                  <JFXButton fx:id="addTeacher" layoutX="111.0" layoutY="199.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Qo'shish" />
+                  <JFXButton fx:id="addSubjectinTEacher" layoutX="39.0" layoutY="152.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: #2a4e8b;" text="Fanni tanlash" />
+               </children>
+               <effect>
+                  <DropShadow color="#b2b2b4" />
+               </effect>
+            </AnchorPane>
+            <AnchorPane fx:id="subjectChoicePane" layoutX="340.0" layoutY="180.0" onKeyPressed="#exitOnESC" prefHeight="289.0" prefWidth="220.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #e5e5e5;" visible="false">
+               <children>
+                  <Label fx:id="choiceLb" alignment="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="21.0" prefWidth="205.0" text="Fanlar" />
+                  <ScrollPane fx:id="subjectChoiceBox" layoutX="10.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox fx:id="subChoiceHbox" prefWidth="200.0" spacing="3.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <JFXButton fx:id="cancelSubjectChoice" layoutX="67.0" layoutY="236.0" onAction="#editTeacherActions" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: #2a4e8b;" text="Orqaga" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="authPane" layoutX="350.0" layoutY="235.0" prefHeight="130.0" prefWidth="200.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 5; -fx-border-radius: 5;">
+               <children>
+                  <Label layoutX="18.0" layoutY="14.0" prefHeight="49.0" prefWidth="164.0" text="Foydalanuvchi tasdiqlash kodi" textAlignment="CENTER" wrapText="true" />
+                  <JFXPasswordField fx:id="authPassfield" alignment="CENTER" layoutX="11.0" layoutY="74.0" promptText="parolni kiriting" style="-fx-background-color: #fff; -fx-border-width: 0; -fx-border-color: transparent;" />
+               </children>
+            </AnchorPane>
+            <JFXSpinner fx:id="spinner" layoutX="450.0" layoutY="276.0" visible="false" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
